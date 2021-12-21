@@ -1,6 +1,6 @@
 ---
 title: 'Aceptar la diversidad en el vecindario'
-subtitle: "Procesos de socialización política de actitudes de aceptación social de jóvenes estudiantes chilenos"
+subtitle: "Procesos de socialización política de actitudes hacia la diversidad social en jóvenes estudiantes chilenos"
 author: "Kevin Carrasco Quintanilla"
 date: "`r Sys.Date()`"
 institution: "Universidad de Chile"
