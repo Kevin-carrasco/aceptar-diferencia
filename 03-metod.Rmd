@@ -1,0 +1,40 @@
+# Metodología
+
+## Datos
+
+La base de datos a utilizar corresponde al Primer Estudio de Educación Ciudadana en Chile, realizado por la Agencia de Calidad de la Educación del Ministerio de Educación. En este estudio se evaluaron 8.701 estudiantes de octavo básico provenientes de 242 escuelas. La fecha de aplicación fue el 9 de noviembre de 2017.
+
+En la base de datos disponible, se cuenta con 10.213 estudiantes que poseen puntajes en la prueba de conocimiento cívico (9 variables). De este total, el cuestionario completo de estudiantes posee 8.589 respuestas (222 variables) y, de estos estudiantes, se poseen las respuestas de 6.770 apoderados (141 variables).
+
+## Variables
+
+Con el fin de medir las actitudes de los y las estudiantes hacia la diversidad en sus vecindarios se utiliza la variable de “Tolerancia y Distancia Social” del cuestionario de estudiantes. Esta variable está medida a partir de las preguntas que se presentan en la Tabla \@ref(tab:aceptacion-est).
+
+```{r aceptacion-est, echo=F, warning=F, error=F, fig.cap="Variable dependiente: ¿Te molesta tener vecinos que pertenecen a los siguientes grupos?"}
+pacman::p_load(dplyr, summarytools)
+load("IPO/input/data/proc/data_est.RData")
+
+print(dfSummary(dplyr::select(data_est, piel,
+                                 clase,
+                                 religion,
+                                 orien_sexual,
+                                 region,
+                                 dis_fisica,
+                                 dis_mental,
+                                 pais,
+                                 indigena),
+                varnumbers = F, 
+                graph.col = F, 
+                style = "grid",
+                headings = F),
+      method = "render")
+```
+
+
+En relación con las variables independientes, para medir los recursos socioeconómicos de la familia se utilizará la cantidad de libros presentes en el hogar reportada por los estudiantes y el nivel educacional reportado por los apoderados. Además, se incluye la misma variable de “Tolerancia y Distancia Social” presente en el cuestionario de apoderados para analizar el efecto de la transmisión intergeneracional de actitudes. Asimismo, se utiliza la variable de puntaje de conocimiento cívico de los estudiantes y su percepción sobre la apertura a la discusión en el aula de clases.
+
+## Métodos
+
+La metodología planteada para realizar esta investigación es de carácter cuantitativa. En primer lugar, debido a que las variables sobre la apertura a la discusión en el aula de clases son seis, se evaluará su dimensionalidad a partir de un Análisis Factorial Exploratorio (AFE), con el fin de determinar si se trata (o no) de una sola dimensión latente. Este análisis factorial exploratorio permite generar una sola escala que será utilizada como variable independiente.
+
+En segundo lugar, se realizarán análisis descriptivos de todas las variables utilizadas en el estudio y análisis correlacionales para evaluar las asociaciones correspondientes a las hipótesis 1, 2, 3, 4 y 5. En tercer lugar, debido a que la muestra posee una estructura jerárquica de estudiantes anidados en escuelas, se estimarán regresiones multinivel para evaluar todas las hipótesis. Realizar una regresión multinivel permite aislar los efectos individuales (estudiantes) de los agregados (escuelas) y, a partir de esto, analizar la varianza de los resultados en cada nivel, así como la proporción de la varianza explicada por las variables independientes de cada nivel. Debido a que las características estructurales de las escuelas son una dimensión clave para explicar los diferentes resultados que poseen los estudiantes [@trevino_Influence_2018] y porque tanto las escuelas como las salas de clases pueden diferir entre sí en cuanto a sus valores y normas comunes [@bayramozdemir_How_2020], se hace necesario estimar regresiones multinivel que permitan determinar si los resultados en las actitudes de los estudiantes dependen de sus respuestas a nivel individual o por características agregadas a nivel de escuela.
