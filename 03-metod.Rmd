@@ -13,8 +13,7 @@ Con el fin de medir las actitudes de los y las estudiantes hacia la diversidad e
 ```{r aceptacion-est, echo=F, warning=F, error=F, fig.cap="Variable dependiente: ¿Te molesta tener vecinos que pertenecen a los siguientes grupos?"}
 pacman::p_load(dplyr, summarytools)
 load("IPO/input/data/proc/data_est.RData")
-
-print(dfSummary(dplyr::select(data_est, piel,
+data_est1 <- dplyr::select(data_est, piel,
                                  clase,
                                  religion,
                                  orien_sexual,
@@ -22,7 +21,10 @@ print(dfSummary(dplyr::select(data_est, piel,
                                  dis_fisica,
                                  dis_mental,
                                  pais,
-                                 indigena),
+                                 indigena)
+
+print(dfSummary(data_est1,
+                plain.ascii = F,
                 varnumbers = F, 
                 graph.col = F, 
                 style = "grid",
