@@ -9,7 +9,7 @@ pacman::p_load(dplyr, summarytools)
 load("IPO/input/data/proc/data_est.RData")
 load("IPO/input/data/proc/data_apod.RData")
 
-print(dfSummary(dplyr::select(data_est, libros,
+data_est2 <- data_est %>% dplyr::select(libros,
                                  ap_dis1,
                                  ap_dis2,
                                  ap_dis3,
@@ -22,7 +22,9 @@ print(dfSummary(dplyr::select(data_est, libros,
                                  c_civic4,
                                  c_civic5,
                                  c_civic6,
-                                 c_civic7),
+                                 c_civic7)
+
+print(dfSummary(data_est2,
                 varnumbers = F, 
                 graph.col = F, 
                 style = "grid",
@@ -33,7 +35,8 @@ print(dfSummary(dplyr::select(data_est, libros,
 **Apoderados**
 
 ```{r echo=F, warning=F, error=F}
-print(dfSummary(select(data_apod, piel, clase, religion, orien_sexual, region, dis_fisica, dis_mental, pais, indigena),
+data_apod1 <- data_apod %>% dplyr::select(piel, clase, religion, orien_sexual, region, dis_fisica, dis_mental, pais, indigena)
+print(dfSummary(data_apod1,
                 varnumbers = F, 
                 graph.col = F, 
                 style = "grid",

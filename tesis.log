@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.3.7)  30 MAR 2022 14:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.3.7)  12 APR 2022 23:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -844,56 +844,74 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 LaTeX Info: Redefining \. on input line 223.
 LaTeX Info: Redefining \% on input line 223.
 [4] [5 <./images/aceptacion_wvs.png>]
-Underfull \vbox (badness 1603) has occurred while \output is active []
 
-LaTeX Info: Redefining \. on input line 229.
-LaTeX Info: Redefining \% on input line 229.
+Package natbib Warning: Citation `cox_objetivos_2015' on page 6 undefined on in
+put line 230.
+
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
+30.
+(c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
+File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+
+Package natbib Warning: Citation `bellei_estudio_2013' on page 6 undefined on i
+nput line 234.
+
+
+Package natbib Warning: Citation `bellei_estudio_2013' on page 6 undefined on i
+nput line 234.
+
+LaTeX Info: Redefining \. on input line 235.
+LaTeX Info: Redefining \% on input line 235.
 [6]
-LaTeX Info: Redefining \. on input line 251.
-LaTeX Info: Redefining \% on input line 251.
-[7] [8
+LaTeX Info: Redefining \. on input line 254.
+LaTeX Info: Redefining \% on input line 254.
+[7]
+LaTeX Info: Redefining \. on input line 257.
+LaTeX Info: Redefining \% on input line 257.
+[8]
+Cap\'{\i }tulo 3.
+[9
 
 ]
-Cap\'{\i }tulo 3.
-[9]
-LaTeX Info: Redefining \. on input line 266.
-LaTeX Info: Redefining \% on input line 266.
+LaTeX Info: Redefining \. on input line 272.
+LaTeX Info: Redefining \% on input line 272.
 [10]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 274.
+(Font)              <10> on input line 280.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 274.
+(Font)              <7> on input line 280.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 274.
-LaTeX Info: Redefining \. on input line 275.
-LaTeX Info: Redefining \% on input line 275.
+(Font)              <5> on input line 280.
+LaTeX Info: Redefining \. on input line 281.
+LaTeX Info: Redefining \% on input line 281.
 [11]
-LaTeX Info: Redefining \. on input line 287.
-LaTeX Info: Redefining \% on input line 287.
+LaTeX Info: Redefining \. on input line 294.
+LaTeX Info: Redefining \% on input line 294.
 [12]
-LaTeX Info: Redefining \. on input line 298.
-LaTeX Info: Redefining \% on input line 298.
+
+Package natbib Warning: Citation `bellei_estudio_2013' on page 13 undefined on 
+input line 294.
+
+LaTeX Info: Redefining \. on input line 304.
+LaTeX Info: Redefining \% on input line 304.
 [13]
-LaTeX Info: Redefining \. on input line 308.
-LaTeX Info: Redefining \% on input line 308.
+LaTeX Info: Redefining \. on input line 314.
+LaTeX Info: Redefining \% on input line 314.
 [14]
 Cap\'{\i }tulo 4.
 
 LaTeX Warning: Reference `tab:aceptacion-est' on page 15 undefined on input lin
-e 320.
+e 326.
 
 [15
 
 ]
-LaTeX Info: Redefining \. on input line 332.
-LaTeX Info: Redefining \% on input line 332.
+LaTeX Info: Redefining \. on input line 338.
+LaTeX Info: Redefining \% on input line 338.
 [16]
 Cap\'{\i }tulo 5.
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
-39.
-(c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [17
+[17
 
 ] [18
 
@@ -904,17 +922,20 @@ Cap\'{\i }tulo 6.
 ] (./tesis.bbl [21] [22
 
 ] [23]
-LaTeX Info: Redefining \. on input line 168.
-LaTeX Info: Redefining \% on input line 168.
+LaTeX Info: Redefining \. on input line 162.
+LaTeX Info: Redefining \% on input line 162.
 [24]
-LaTeX Info: Redefining \. on input line 248.
-LaTeX Info: Redefining \% on input line 248.
+LaTeX Info: Redefining \. on input line 242.
+LaTeX Info: Redefining \% on input line 242.
 [25]
-LaTeX Info: Redefining \. on input line 324.
-LaTeX Info: Redefining \% on input line 324.
+LaTeX Info: Redefining \. on input line 318.
+LaTeX Info: Redefining \% on input line 318.
 [26])
-LaTeX Info: Redefining \. on input line 373.
-LaTeX Info: Redefining \% on input line 373.
+
+Package natbib Warning: There were undefined citations.
+
+LaTeX Info: Redefining \. on input line 371.
+LaTeX Info: Redefining \% on input line 371.
 [27] (./tesis.aux
 LaTeX Info: Redefining \. on input line 26.
 LaTeX Info: Redefining \% on input line 26.
@@ -926,28 +947,28 @@ Package rerunfilecheck Info: File `tesis.out' has not changed.
 (rerunfilecheck)             Checksum: 15D944FAF9396FA58738509813C49B42;2138.
  ) 
 Here is how much of TeX's memory you used:
- 16105 strings out of 480171
- 266343 string characters out of 5890612
- 557808 words of memory out of 5000000
- 33626 multiletter control sequences out of 15000+600000
- 540115 words of font info for 82 fonts, out of 8000000 for 9000
+ 16091 strings out of 480171
+ 266412 string characters out of 5890612
+ 558780 words of memory out of 5000000
+ 33613 multiletter control sequences out of 15000+600000
+ 540172 words of font info for 82 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 60i,11n,69p,2259b,690s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,12n,69p,2259b,688s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.e
-nc}<c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmb
-x12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/l
-m/lmr10.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/publ
-ic/lm/lmr12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/
-public/lm/lmr7.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/typ
-e1/public/lm/lmr8.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/
-type1/public/lm/lmri10.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/f
-onts/type1/public/lm/lmri12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-d
-ist/fonts/type1/public/lm/lmro12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/te
-xmf-dist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on tesis.pdf (35 pages, 352643 bytes).
+nc}{c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1
+.enc}<c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/l
+mbx12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public
+/lm/lmr10.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/pu
+blic/lm/lmr12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type
+1/public/lm/lmr7.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/t
+ype1/public/lm/lmr8.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/font
+s/type1/public/lm/lmri10.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist
+/fonts/type1/public/lm/lmri12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf
+-dist/fonts/type1/public/lm/lmro12.pfb>
+Output written on tesis.pdf (35 pages, 331020 bytes).
 PDF statistics:
- 586 PDF objects out of 1000 (max. 8388607)
- 521 compressed objects within 6 object streams
- 130 named destinations out of 1000 (max. 500000)
+ 577 PDF objects out of 1000 (max. 8388607)
+ 513 compressed objects within 6 object streams
+ 129 named destinations out of 1000 (max. 500000)
  131 words of extra memory for PDF output out of 10000 (max. 10000000)
 

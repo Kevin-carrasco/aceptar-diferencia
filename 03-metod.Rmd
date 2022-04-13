@@ -32,7 +32,6 @@ print(dfSummary(data_est1,
       method = "render")
 ```
 
-
 En relación con las variables independientes, para medir los recursos socioeconómicos de la familia se utilizará la cantidad de libros presentes en el hogar reportada por los estudiantes y el nivel educacional reportado por los apoderados. Además, se incluye la misma variable de “Tolerancia y Distancia Social” presente en el cuestionario de apoderados para analizar el efecto de la transmisión intergeneracional de actitudes. Asimismo, se utiliza la variable de puntaje de conocimiento cívico de los estudiantes y su percepción sobre la apertura a la discusión en el aula de clases.
 
 ## Métodos
