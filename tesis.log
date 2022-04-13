@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.3.7)  12 APR 2022 23:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.3.7)  12 APR 2022 23:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -949,7 +949,7 @@ Package rerunfilecheck Info: File `tesis.out' has not changed.
 Here is how much of TeX's memory you used:
  16091 strings out of 480171
  266412 string characters out of 5890612
- 558780 words of memory out of 5000000
+ 559780 words of memory out of 5000000
  33613 multiletter control sequences out of 15000+600000
  540172 words of font info for 82 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -965,7 +965,7 @@ ype1/public/lm/lmr8.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/font
 s/type1/public/lm/lmri10.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist
 /fonts/type1/public/lm/lmri12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf
 -dist/fonts/type1/public/lm/lmro12.pfb>
-Output written on tesis.pdf (35 pages, 331020 bytes).
+Output written on tesis.pdf (35 pages, 331035 bytes).
 PDF statistics:
  577 PDF objects out of 1000 (max. 8388607)
  513 compressed objects within 6 object streams
