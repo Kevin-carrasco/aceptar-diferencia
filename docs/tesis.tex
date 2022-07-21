@@ -95,7 +95,7 @@
 \title{Aceptar la diversidad en el vecindario}
 \author{Kevin Carrasco Quintanilla}
 % The month and year that you submit your FINAL draft TO THE LIBRARY (May or December)
-\date{2022-05-29}
+\date{2022-07-20}
 \division{}
 \advisor{Profesor guía: Juan Carlos Castillo}
 \institution{Universidad de Chile}
@@ -346,23 +346,112 @@ De esta forma, las características específicas de cada vecindario podrían afe
 \hypertarget{datos}{%
 \section{Datos}\label{datos}}
 
-La base de datos a utilizar corresponde al Primer Estudio de Educación Ciudadana en Chile, realizado por la Agencia de Calidad de la Educación del Ministerio de Educación. En este estudio se evaluaron 8.701 estudiantes de octavo básico provenientes de 242 escuelas. La fecha de aplicación fue el 9 de noviembre de 2017.
+La base de datos a utilizar corresponde al Primer Estudio de Educación Ciudadana en Chile, realizado por la Agencia de Calidad de la Educación del Ministerio de Educación. En este estudio se evaluaron estudiantes de octavo básico provenientes de 242 escuelas. La fecha de aplicación fue el 9 de noviembre de 2017.
 
-En la base de datos disponible, se cuenta con 10.213 estudiantes que poseen puntajes en la prueba de conocimiento cívico (9 variables). De este total, el cuestionario completo de estudiantes posee 8.589 respuestas (222 variables) y, de estos estudiantes, se poseen las respuestas de 6.770 apoderados (141 variables).
+Se utilizan tres bases de datos disponibles para este estudio. Primero, se cuenta con una base de datos de 10.213 estudiantes que poseen variables de identificación (8 variables) y el puntaje de la prueba de conocimiento cívico (1 variable). Además, se encuentra disponible una segunda base de datos que contiene las preguntas del cuestionario de Formación Ciudadana, que posee las respuestas de 8.589 estudiantes (222 variables). Al juntar ambas bases de datos el N final es de 8.589 estudiantes. Finalmente, se encuentra disponible una tercera base de datos que contiene las preguntas del cuestionario de Formación Ciudadana, con las respuestas de 6.770 apoderados (141 variables). Al juntar todas las bases de datos, el N total de respuestas completas es de 6.511 estudiantes y apoderados.
+
+Sumado a lo anterior, para las variables del territorio se utilizará la base de datos construida por ELSOC (COES) 2018, a partir de datos del CENSO 2017, Ministerio de Vivienda y Urbanismo e Instituto Nacional de Estadísticas. Esta base de datos contiene información respecto de datos territoriales asociados al año 2017 y se encuentra disponible para su libre uso en el \href{https://dataverse.harvard.edu/dataverse/coes_data_repository}{repositorio} de datos del COES.
 
 \hypertarget{variables}{%
 \section{Variables}\label{variables}}
 
-Con el fin de medir las actitudes de los y las estudiantes hacia la diversidad en sus vecindarios se utiliza la variable de ``Tolerancia y Distancia Social'' del cuestionario de estudiantes. Esta variable está medida a partir de las preguntas que se presentan en la Tabla \ref{tab:aceptacion-est}.
+Con el fin de medir las actitudes de los y las estudiantes hacia la diversidad en sus vecindarios se utiliza la batería de preguntas del módulo ``Tolerancia y Distancia Social'' del cuestionario de estudiantes. Estas variables están medidas a partir de las preguntas que se presentan en la Tabla a continuación.
 
-En relación con las variables independientes, para medir los recursos socioeconómicos de la familia se utilizará la cantidad de libros presentes en el hogar reportada por los estudiantes y el nivel educacional reportado por los apoderados. Además, se incluye la misma variable de ``Tolerancia y Distancia Social'' presente en el cuestionario de apoderados para analizar el efecto de la transmisión intergeneracional de actitudes. Asimismo, se utiliza la variable de puntaje de conocimiento cívico de los estudiantes y su percepción sobre la apertura a la discusión en el aula de clases.
+Para operacionalizar esta batería de preguntas, en primer lugar, se recodificarán los ítems de modo que 0 indique que no le gustaría que cada uno de los grupos viva en su vecindario y 1 indique que sí le gustaría. Luego, se construirá un índice sumativo a partir de la suma de los ítems para representar el grado de aceptación de todos los grupos. La distribución de este índice se puede observar en el Gráfico \ref{fig:ind-est}. El valor de Alpha de Cronbach de este índice es de 0.887
+
+\begin{figure}[!ht]
+
+{\centering \includegraphics[width=0.8\linewidth,]{tesis_files/figure-latex/ind-est-1} 
+
+}
+
+\caption{Indice aceptacion de la diversidad (estudiantes)}\label{fig:ind-est}
+\end{figure}
+
+En relación con las variables independientes, estas se dividen en tres grupos: 1) variables de la familia, 2) variables de la escuela y 3) variables del territorio.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  Variables de la familia:
+\end{enumerate}
+
+Los recursos socioeconómicos son representados a partir de dos variables:
+
+\begin{itemize}
+\item
+  Nivel educacional (Nivel más alto entre respondente y Cónyuge/pareja): Esta variable es reportada por apoderados. Es categórica y se representa en una escala de 1 a 10, siendo 10 el nivel educacional más alto posible.
+\item
+  Cantidad de libros en el hogar: Variable categórica que identifica la cantidad de libros en el hogar según el estudiante. Las categorías de respuesta son: 1) 0 a 10 libros; 2) 11 a 25 libros; 3) 26 a 100 libros; 4) 101 a 200 libros; y 5) 200 o más libros.
+\end{itemize}
+
+Actitudes de la familia:
+
+\begin{itemize}
+\tightlist
+\item
+  Aceptación de la diversidad de apoderados: se construye de la misma forma en que se operacionalizará la variable dependiente.
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Variables de la escuela
+\end{enumerate}
+
+\begin{itemize}
+\item
+  Conocimiento cívico: variable ``puntaje'' obtenida a partir de la prueba de conocimiento cívico aplicada a los y las estudiantes.
+\item
+  Apertura a la discusión en el aula: Esta variable refiere a la percepción de los y las estudiantes sobre los espacios e instancias disponibles para discutir y opinar sobre diversos temas. Se construirá un índice promedio a partir de las variables disponibles
+\end{itemize}
+
+Un resumen de estas variables se presenta en la Tabla a continuación.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Variables del territorio
+\end{enumerate}
+
+\begin{itemize}
+\item
+  Índice de diversidad étnica: Número de personas de la zona censal que se identifica con pueblos originarios según el Censo 2017. Esta variable posee un rango de 0 a 2229.
+\item
+  Índice de población migrante: Cantidad de inmigrantes en la zona censal, a partir de datos del Censo 2017. Esta variable posee un rango de 0 a 3437.
+\item
+  Promedio de escolaridad: Escolaridad promedio de la zona censal, según datos del Censo 2017. Esta variable posee un rango de 6.2 a 14.8.
+\end{itemize}
+
+Un resumen de estas variables se muestran en la siguiente tabla:
+
+Finalmente, como variables de control se utilizarán datos administrativos de las escuelas como su clasificación socioeconómica (1) Bajo; 2) Medio Bajo; 3) Medio; 4) Medio Alto; y 5) Alto) y el tipo de administración (1) Municipal; 2) Particular subvencionado; y 3) Particular privado)
 
 \hypertarget{muxe9todos}{%
 \section{Métodos}\label{muxe9todos}}
 
-La metodología planteada para realizar esta investigación es de carácter cuantitativa. En primer lugar, debido a que las variables sobre la apertura a la discusión en el aula de clases son seis, se evaluará su dimensionalidad a partir de un Análisis Factorial Exploratorio (AFE), con el fin de determinar si se trata (o no) de una sola dimensión latente. Este análisis factorial exploratorio permite generar una sola escala que será utilizada como variable independiente.
+La metodología planteada para realizar esta investigación es de carácter cuantitativa. Las hipótesis de esta investigación fueron pre registradas en la plataforma Open Science Framework del Centro de Ciencia Abierta (OSF, Center for Open Science), puede acceder al documento en el siguiente enlace. El análisis
+estadístico de esta investigación fue realizado mediante el software libre R versión 4.0.0.
 
-En segundo lugar, se realizarán análisis descriptivos de todas las variables utilizadas en el estudio y análisis correlacionales para evaluar las asociaciones correspondientes a las hipótesis 1, 2, 3, 4 y 5. En tercer lugar, debido a que la muestra posee una estructura jerárquica de estudiantes anidados en escuelas, se estimarán regresiones multinivel para evaluar todas las hipótesis. Realizar una regresión multinivel permite aislar los efectos individuales (estudiantes) de los agregados (escuelas) y, a partir de esto, analizar la varianza de los resultados en cada nivel, así como la proporción de la varianza explicada por las variables independientes de cada nivel. Debido a que las características estructurales de las escuelas son una dimensión clave para explicar los diferentes resultados que poseen los estudiantes \citep{trevino_Influence_2018} y porque tanto las escuelas como las salas de clases pueden diferir entre sí en cuanto a sus valores y normas comunes \citep{bayramozdemir_How_2020}, se hace necesario estimar regresiones multinivel que permitan determinar si los resultados en las actitudes de los estudiantes dependen de sus respuestas a nivel individual o por características agregadas a nivel de escuela.
+Debido a que la muestra posee una estructura jerárquica de estudiantes anidados en comunas, se estimarán regresiones multinivel para evaluar todas las hipótesis. Reconocer que se trata de estudiantes anidados en comunas permite incluir variables medidas en diferentes niveles de análisis \citep{aguinis_BestPractice_2013}. Asimismo, realizar una regresión multinivel permite aislar los efectos individuales (estudiantes) de los agregados (comunas) y, a partir de esto, analizar la varianza de los resultados en cada nivel, así como la proporción de la varianza explicada por las variables independientes de cada nivel. Debido a que las características estructurales de los grupos son una dimensión clave para explicar los diferentes resultados que poseen los estudiantes \citep{trevino_Influence_2018} y porque tanto las comunas como las escuelas pueden diferir entre sí en cuanto a sus valores y normas comunes \citep{bayramozdemir_How_2020}, se hace necesario estimar regresiones multinivel que permitan determinar si los resultados en las actitudes de los estudiantes dependen de sus respuestas a nivel individual o por características agregadas a nivel de comuna.
+
+Conceptualmente, existen razones teóricas para esperar encontrar efectos de interacción entre niveles, por lo que también se evaluaran modelos de análisis de moderación, para así determinar si el tamaño o dirección del efecto de las variables independientes sobre la dependiente dependen de algún modo de una tercera variable \citep{hayes_introduction_2022}
+
+De esta forma, luego de estimar la correlación intra-clase de los modelos, y siguiendo los pasos recomendados por \citet{aguinis_BestPractice_2013}, se establecen 3 tipos generales de hipótesis a evaluar:
+
+\begin{itemize}
+\item
+  Hipótesis de efectos directos a nivel individual (1, 2, 3 y 4)
+\item
+  Hipótesis de moderación (5)
+\item
+  Hipótesis de efectos directos a nivel agregado (6, 7 y 8)
+\end{itemize}
 
 \hypertarget{anuxe1lisis}{%
 \chapter{Análisis}\label{anuxe1lisis}}

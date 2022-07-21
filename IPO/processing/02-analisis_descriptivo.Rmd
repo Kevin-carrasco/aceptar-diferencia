@@ -1,0 +1,204 @@
+---
+title: "Analisis descriptivo"
+author: "Kevin Carrasco"
+date: '2022-06-08'
+output: html_document
+---
+
+```{r}
+pacman::p_load(dplyr, ggplot2, sjPlot, summarytools, corrplot, ltm)
+load("IPO/input/data/proc/data.RData")
+```
+
+
+# Estudiantes
+```{r}
+print(dfSummary(dplyr::select(data, est_piel,
+                                 est_clase,
+                                 est_religion,
+                                 est_orien_sexual,
+                                 est_region,
+                                 est_pais,
+                                 est_indigena),
+                varnumbers = F, 
+                graph.col = F, 
+                style = "grid",
+                headings = F),
+      method = "render")
+```
+
+```{r}
+print(dfSummary(dplyr::select(data, libros,
+                                 ap_dis1,
+                                 ap_dis2,
+                                 ap_dis3,
+                                 ap_dis4,
+                                 ap_dis5,
+                                 ap_dis6,
+                                 c_civic),
+                varnumbers = F, 
+                graph.col = F, 
+                style = "grid",
+                headings = F),
+      method = "render")
+```
+
+# Apoderados
+```{r}
+print(dfSummary(dplyr::select(data, apod_piel,
+                                 apod_clase,
+                                 apod_religion,
+                                 apod_orien_sexual,
+                                 apod_region,
+                                 apod_pais,
+                                 apod_indigena,
+                              apod_educ),
+                varnumbers = F, 
+                graph.col = F, 
+                style = "grid",
+                headings = F),
+      method = "render")
+```
+
+
+```{r}
+print(dfSummary(data,
+                varnumbers = F, 
+                graph.col = F, 
+                style = "grid",
+                headings = F),
+      method = "render")
+```
+
+
+
+# Visualización descriptivos
+
+```{r}
+div_est <- sjPlot::plot_stackfrq(dplyr::select(data, est_piel,
+                                 est_clase,
+                                 est_religion,
+                                 est_orien_sexual,
+                                 est_region,
+                                 est_pais,
+                                 est_indigena),
+                                 geom.colors = c("coral", "cadetblue"),
+                                 title = "¿Te molestaría tener vecinos que pertenecieran a los siguientes grupos?") +
+  theme(legend.position="bottom")
+
+ggsave(div_est, file = "IPO/output/graphs/div_est.png",device = "png",width = 25,height = 13,dpi = "retina",units = "cm")
+```
+
+```{r}
+div_apod <- sjPlot::plot_stackfrq(dplyr::select(data, apod_piel,
+                                 apod_clase,
+                                 apod_religion,
+                                 apod_orien_sexual,
+                                 apod_region,
+                                 apod_pais,
+                                 apod_indigena),
+                                 geom.colors = c("coral", "cadetblue"),
+                                 title = "¿Te molestaría tener vecinos que pertenecieran a los siguientes grupos?") +
+  theme(legend.position="bottom")
+
+ggsave(div_apod, file = "IPO/output/graphs/div_apod.png",device = "png",width = 25,height = 13,dpi = "retina",units = "cm")
+```
+## estudiantes
+```{r}
+data$est_piel_rec <- as.numeric(data$est_piel)
+data$est_clase_rec <- as.numeric(data$est_clase)
+data$est_religion_rec <- as.numeric(data$est_religion)
+data$est_orien_sexual_rec <- as.numeric(data$est_orien_sexual)
+data$est_region_rec <- as.numeric(data$est_region)
+data$est_pais_rec <- as.numeric(data$est_pais)
+data$est_indigena_rec <- as.numeric(data$est_indigena)
+
+corrplot.mixed(cor(dplyr::select(data, est_piel_rec,
+                                 est_clase_rec,
+                                 est_religion_rec,
+                                 est_orien_sexual_rec,
+                                 est_region_rec,
+                                 est_pais_rec,
+                                 est_indigena_rec),
+                   method = "spearman",
+                   use = "complete.obs"))
+```
+
+```{r}
+ltm::cronbach.alpha(data %>%
+  dplyr::select(est_piel_rec, est_clase_rec, est_religion_rec, est_orien_sexual_rec, est_region_rec, est_pais_rec, est_indigena_rec), na.rm=TRUE)
+```
+
+```{r}
+data$est_piel_rec <- car::recode(data$est_piel_rec, "1=0; 2=1")
+data$est_clase_rec <- car::recode(data$est_clase_rec, "1=0; 2=1")
+data$est_religion_rec <- car::recode(data$est_religion_rec, "1=0; 2=1")
+data$est_orien_sexual_rec <- car::recode(data$est_orien_sexual_rec, "1=0; 2=1")
+data$est_region_rec <- car::recode(data$est_region_rec, "1=0; 2=1")
+data$est_pais_rec <- car::recode(data$est_pais_rec, "1=0; 2=1")
+data$est_indigena_rec <- car::recode(data$est_indigena_rec, "1=0; 2=1")
+
+data <- data %>% rowwise() %>% mutate(est_acc_div = sum(est_piel_rec, est_clase_rec, est_religion_rec, est_orien_sexual_rec, est_region_rec, est_pais_rec, est_indigena_rec, na.rm = T))
+
+summary(data$est_acc_div)
+```
+
+```{r}
+ind_est <- sjPlot::plot_frq(data$est_acc_div,
+                 title = "Índice aceptación de la diversidad (estudiantes)",
+                 type = "bar",
+                 axis.title = "Cantidad de grupos que no le molestan",
+                 geom.colors = "coral")
+
+ggsave(ind_est, file = "IPO/output/graphs/ind_est.png",device = "png",width = 25,height = 13,dpi = "retina",units = "cm")
+```
+
+## apoderados
+
+```{r}
+data$apod_piel_rec <- as.numeric(data$apod_piel)
+data$apod_clase_rec <- as.numeric(data$apod_clase)
+data$apod_religion_rec <- as.numeric(data$apod_religion)
+data$apod_orien_sexual_rec <- as.numeric(data$apod_orien_sexual)
+data$apod_region_rec <- as.numeric(data$apod_region)
+data$apod_pais_rec <- as.numeric(data$apod_pais)
+data$apod_indigena_rec <- as.numeric(data$apod_indigena)
+
+corrplot.mixed(cor(dplyr::select(data, apod_piel_rec,
+                                 apod_clase_rec,
+                                 apod_religion_rec,
+                                 apod_orien_sexual_rec,
+                                 apod_region_rec,
+                                 apod_pais_rec,
+                                 apod_indigena_rec),
+                   method = "spearman",
+                   use = "complete.obs"))
+```
+
+```{r}
+ltm::cronbach.alpha(data %>%
+  dplyr::select(apod_piel_rec, apod_clase_rec, apod_religion_rec, apod_orien_sexual_rec, apod_region_rec, apod_pais_rec, apod_indigena_rec), na.rm=TRUE)
+```
+
+```{r}
+data$apod_piel_rec <- car::recode(data$apod_piel_rec, "1=0; 2=1")
+data$apod_clase_rec <- car::recode(data$apod_clase_rec, "1=0; 2=1")
+data$apod_religion_rec <- car::recode(data$apod_religion_rec, "1=0; 2=1")
+data$apod_orien_sexual_rec <- car::recode(data$apod_orien_sexual_rec, "1=0; 2=1")
+data$apod_region_rec <- car::recode(data$apod_region_rec, "1=0; 2=1")
+data$apod_pais_rec <- car::recode(data$apod_pais_rec, "1=0; 2=1")
+data$apod_indigena_rec <- car::recode(data$apod_indigena_rec, "1=0; 2=1")
+
+data <- data %>% rowwise() %>% mutate(apod_acc_div = sum(apod_piel_rec, apod_clase_rec, apod_religion_rec, apod_orien_sexual_rec, apod_region_rec, apod_pais_rec, apod_indigena_rec, na.rm = T))
+
+summary(data$apod_acc_div)
+```
+
+```{r}
+ind_apod <- sjPlot::plot_frq(data$apod_acc_div,
+                 title = "Índice aceptación de la diversidad (apoderados)",
+                 type = "bar",
+                 axis.title = "Cantidad de grupos que no le molestan",
+                 geom.colors = "coral")
+ggsave(ind_apod, file = "IPO/output/graphs/ind_apod.png",device = "png",width = 25,height = 13,dpi = "retina",units = "cm")
+```

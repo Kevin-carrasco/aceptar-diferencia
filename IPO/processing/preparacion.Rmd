@@ -1,199 +1,232 @@
 ---
-title: "descriptivos-meritocracia"
+title: "variables-tesis"
 author: "Kevin Carrasco"
 date: "29-11-2021"
 output: html_document
 ---
 
 ```{r}
-pacman::p_load(haven, dplyr, summarytools, sjmisc, car)
-alumnos <- read_dta("IPO/input/data/original/cuestAlumnos.dta")
-apoderados <- read_dta("IPO/input/data/original/cuestPadres.dta")
+pacman::p_load(haven, dplyr, sjmisc, car, summarytools, webshot, readxl)
+load("IPO/input/data/original/base_est_apod.Rdata")
 ```
 
 ```{r}
-data_est <- alumnos %>% dplyr::select(idalumno,
+data <- base_est_apod %>% dplyr::select(idalumno,
+                                        cod_com_alu,
                                       codigoCurso,
-                                      piel=alp31_1,
-                                      clase=alp31_2,
-                                      religion=alp31_3,
-                                      orien_sexual=alp31_4,
-                                      region=alp31_5,
-                                      dis_fisica=alp31_6,
-                                      dis_mental=alp31_7,
-                                      pais=alp31_8,
-                                      indigena=alp31_9,
-                                      libros=alp3,
-                                      ap_dis1=alp15_1,
-                                      ap_dis2=alp15_2,
-                                      ap_dis3=alp15_3,
-                                      ap_dis4=alp15_4,
-                                      ap_dis5=alp15_5,
-                                      ap_dis6=alp15_6,
-                                      c_civic1=alp14_1,
-                                      c_civic2=alp14_2,
-                                      c_civic3=alp14_3,
-                                      c_civic4=alp14_4,
-                                      c_civic5=alp14_5,
-                                      c_civic6=alp14_6,
-                                      c_civic7=alp14_7
-                                       ) %>% as.data.frame(.)
-
-data_apod <- apoderados %>% dplyr::select(idalumno,
-                                      codigoCurso,
-                                      piel=pap27_1,
-                                      clase=pap27_2,
-                                      religion=pap27_3,
-                                      orien_sexual=pap27_4,
-                                      region=pap27_5,
-                                      dis_fisica=pap27_6,
-                                      dis_mental=pap27_7,
-                                      pais=pap27_8,
-                                      indigena=pap27_9
+                                      est_piel=est_p31_1,
+                                      est_clase=est_p31_2,
+                                      est_religion=est_p31_3,
+                                      est_orien_sexual=est_p31_4,
+                                      est_region=est_p31_5,
+                                      est_pais=est_p31_8,
+                                      est_indigena=est_p31_9,
+                                      libros=est_p3,
+                                      ap_dis1=est_p15_1,
+                                      ap_dis2=est_p15_2,
+                                      ap_dis3=est_p15_3,
+                                      ap_dis4=est_p15_4,
+                                      ap_dis5=est_p15_5,
+                                      ap_dis6=est_p15_6,
+                                      c_civic=puntaje,
+                                      apod_piel=apod_p27_1,
+                                      apod_clase=apod_p27_2,
+                                      apod_religion=apod_p27_3,
+                                      apod_orien_sexual=apod_p27_4,
+                                      apod_region=apod_p27_5,
+                                      apod_pais=apod_p27_8,
+                                      apod_indigena=apod_p27_9,
+                                      apod_educ=educ_max
                                        ) %>% as.data.frame(.)
 ```
 
 ```{r}
-frq(data_est$piel) #1. si 3. no. ¿y 0?
-frq(data_est$libros) # de 1 a 5. 0 y 99 na
-frq(data_est$ap_dis1) # de 1 a 4. 0 y 99 na
-frq(data_est$c_civic1) # de 1 a 4. 0 y 99 na
+frq(data$est_piel) #1. si 2. no. 0 y 99 na
+frq(data$libros) # de 1 a 5. 0 y 99 na
+frq(data$ap_dis1) # de 1 a 4. 0 y 99 na
+summary(data$c_civic) # de 1 a 4. 0 y 99 na
+frq(data$apod_piel)
+```
 
-data_est <- data_est %>%  set_na(piel,
-                                 clase,
-                                 religion,
-                                 orien_sexual,
-                                 region,
-                                 dis_fisica,
-                                 dis_mental,
-                                 pais,
-                                 indigena,
-                                 libros,
-                                 ap_dis1,
-                                 ap_dis2,
-                                 ap_dis3,
-                                 ap_dis4,
-                                 ap_dis5,
-                                 ap_dis6,
-                                 c_civic1,
-                                 c_civic2,
-                                 c_civic3,
-                                 c_civic4,
-                                 c_civic5,
-                                 c_civic6,
-                                 c_civic7,
-                                 na = c(0,99), 
-                                 drop.levels = TRUE, 
-                                 as.tag = FALSE) # recode missings de doble marca (99) y vacío (0) a NA
 
-data_apod <- data_apod %>%  set_na(piel,
-                                 clase,
-                                 religion,
-                                 orien_sexual,
-                                 region,
-                                 dis_fisica,
-                                 dis_mental,
-                                 pais,
-                                 indigena, 
-                                 na = c(0,99), 
-                                 drop.levels = TRUE, 
-                                 as.tag = FALSE) # recode missings de doble marca (99) y vacío (0) a NA
+```{r}
+data <- data %>%  set_na(.,
+                         na = c(0,99), 
+                         drop.levels = TRUE, 
+                         as.tag = FALSE) # recode missings de doble marca (99) y vacío (0) a NA
+
+frq(data$est_piel) #1. si 2. no. 0 y 99 na
+frq(data$libros) # de 1 a 5. 0 y 99 na
+frq(data$ap_dis1) # de 1 a 4. 0 y 99 na
+summary(data$c_civic) # de 1 a 4. 0 y 99 na
+frq(data$apod_piel)
 ```
 
 # labels
 ```{r}
-label(data_est$piel) <- "Personas de un color de piel distinta a la tuya"
-label(data_est$clase) <- "Personas de una clase social distinta a la tuya"
-label(data_est$religion) <- "Personas de una religión distinta a la tuya"
-label(data_est$orien_sexual) <- "Personas de una orientación sexual distinta a la tuya"
-label(data_est$region) <- "Personas que vienen de otra región del país"
-label(data_est$dis_fisica) <- "Personas en situación de discapacidad física"
-label(data_est$dis_mental) <- "Personas en situación de discapacidad mental"
-label(data_est$pais) <- "Personas que vienen de otro país"
-label(data_est$indigena) <- "Personas de origen indígena"
+data$est_piel <-factor(data$est_piel, levels = c(1,2), labels = c("Si", "No"))
+data$est_clase <-factor(data$est_clase, levels = c(1,2), labels = c("Si", "No"))
+data$est_religion <-factor(data$est_religion, levels = c(1,2), labels = c("Si", "No"))
+data$est_orien_sexual <-factor(data$est_orien_sexual, levels = c(1,2), labels = c("Si", "No"))
+data$est_region <-factor(data$est_region, levels = c(1,2), labels = c("Si", "No"))
+data$est_pais <-factor(data$est_pais, levels = c(1,2), labels = c("Si", "No"))
+data$est_indigena <-factor(data$est_indigena, levels = c(1,2), labels = c("Si", "No"))
 
-label(data_est$libros) <- "Cantidad de libros en el hogar"
 
-label(data_est$ap_dis1) <- "Los profesores estimulan a los estudiantes a formar sus propias opiniones"
-label(data_est$ap_dis2) <- "Los profesores estimulan a los estudiantes a expresar sus opiniones"
-label(data_est$ap_dis3) <- "Los estudiantes plantean hechos políticos de actualidad para ser discutidos en clases"
-label(data_est$ap_dis4) <- "Los estudiantes expresan sus opiniones en clases, aun cuando sean distintas a las de los demás"
-label(data_est$ap_dis5) <- "Los profesores estimulan a los estudiantes a conversar los temas con gente que opina distinto"
-label(data_est$ap_dis6) <- "Los profesores exponen los temas desde los distintos enfoques al explicarlos en clases"
+data$apod_piel <-factor(data$apod_piel, levels = c(1,2), labels = c("Si", "No"))
+data$apod_clase <-factor(data$apod_clase, levels = c(1,2), labels = c("Si", "No"))
+data$apod_religion <-factor(data$apod_religion, levels = c(1,2), labels = c("Si", "No"))
+data$apod_orien_sexual <-factor(data$apod_orien_sexual, levels = c(1,2), labels = c("Si", "No"))
+data$apod_region <-factor(data$apod_region, levels = c(1,2), labels = c("Si", "No"))
+data$apod_pais <-factor(data$apod_pais, levels = c(1,2), labels = c("Si", "No"))
+data$apod_indigena <-factor(data$apod_indigena, levels = c(1,2), labels = c("Si", "No"))
 
-label(data_apod$piel) <- "Personas de un color de piel distinta a la tuya"
-label(data_apod$clase) <- "Personas de una clase social distinta a la tuya"
-label(data_apod$religion) <- "Personas de una religión distinta a la tuya"
-label(data_apod$orien_sexual) <- "Personas de una orientación sexual distinta a la tuya"
-label(data_apod$region) <- "Personas que vienen de otra región del país"
-label(data_apod$dis_fisica) <- "Personas en situación de discapacidad física"
-label(data_apod$dis_mental) <- "Personas en situación de discapacidad mental"
-label(data_apod$pais) <- "Personas que vienen de otro país"
-label(data_apod$indigena) <- "Personas de origen indígena"
+
+label(data$est_piel) <- "Personas de un color de piel distinta a la tuya"
+label(data$est_clase) <- "Personas de una clase social distinta a la tuya"
+label(data$est_religion) <- "Personas de una religión distinta a la tuya"
+label(data$est_orien_sexual) <- "Personas de una orientación sexual distinta a la tuya"
+label(data$est_region) <- "Personas que vienen de otra región del país"
+label(data$est_pais) <- "Personas que vienen de otro país"
+label(data$est_indigena) <- "Personas de origen indígena"
+
+label(data$libros) <- "Cantidad de libros en el hogar"
+
+label(data$ap_dis1) <- "Los profesores estimulan a los estudiantes a formar sus propias opiniones"
+label(data$ap_dis2) <- "Los profesores estimulan a los estudiantes a expresar sus opiniones"
+label(data$ap_dis3) <- "Los estudiantes plantean hechos políticos de actualidad para ser discutidos en clases"
+label(data$ap_dis4) <- "Los estudiantes expresan sus opiniones en clases, aun cuando sean distintas a las de los demás"
+label(data$ap_dis5) <- "Los profesores estimulan a los estudiantes a conversar los temas con gente que opina distinto"
+label(data$ap_dis6) <- "Los profesores exponen los temas desde los distintos enfoques al explicarlos en clases"
+
+label(data$apod_piel) <- "Personas de un color de piel distinta a la tuya"
+label(data$apod_clase) <- "Personas de una clase social distinta a la tuya"
+label(data$apod_religion) <- "Personas de una religión distinta a la tuya"
+label(data$apod_orien_sexual) <- "Personas de una orientación sexual distinta a la tuya"
+label(data$apod_region) <- "Personas que vienen de otra región del país"
+label(data$apod_pais) <- "Personas que vienen de otro país"
+label(data$apod_indigena) <- "Personas de origen indígena"
+label(data$apod_educ) <- "Nivel educacional más alto"
+
+
+
+```
+
+```{r}
+data_est <- dplyr::select(data, est_piel,
+                                 est_clase,
+                                 est_religion,
+                                 est_orien_sexual,
+                                 est_region,
+                                 est_pais,
+                                 est_indigena)
+
+df <- dfSummary(data_est,
+                plain.ascii = F,
+                varnumbers = F, 
+                graph.col = F, 
+                style = "grid",
+                headings = F)
+df$Variable <- NULL # delete variable column
+view(df,file = "desc01.html")
+webshot(url ="desc01.html" ,file ="output/desc01.png")
+```
+
+```{r include=FALSE}
+# Actitudes apoderados
+data$apod_piel_rec <- as.numeric(data$apod_piel)
+data$apod_clase_rec <- as.numeric(data$apod_clase)
+data$apod_religion_rec <- as.numeric(data$apod_religion)
+data$apod_orien_sexual_rec <- as.numeric(data$apod_orien_sexual)
+data$apod_region_rec <- as.numeric(data$apod_region)
+data$apod_pais_rec <- as.numeric(data$apod_pais)
+data$apod_indigena_rec <- as.numeric(data$apod_indigena)
+
+data$apod_piel_rec <- car::recode(data$apod_piel_rec, "1=0; 2=1")
+data$apod_clase_rec <- car::recode(data$apod_clase_rec, "1=0; 2=1")
+data$apod_religion_rec <- car::recode(data$apod_religion_rec, "1=0; 2=1")
+data$apod_orien_sexual_rec <- car::recode(data$apod_orien_sexual_rec, "1=0; 2=1")
+data$apod_region_rec <- car::recode(data$apod_region_rec, "1=0; 2=1")
+data$apod_pais_rec <- car::recode(data$apod_pais_rec, "1=0; 2=1")
+data$apod_indigena_rec <- car::recode(data$apod_indigena_rec, "1=0; 2=1")
+
+data <- data %>% rowwise() %>% mutate(apod_acc_div = sum(apod_piel_rec, apod_clase_rec, apod_religion_rec, apod_orien_sexual_rec, apod_region_rec, apod_pais_rec, apod_indigena_rec, na.rm = T))
+
+data$apod_acc_div <- sjlabelled::set_label(data$apod_acc_div, 'Aceptación de la diversidad (apoderados)')
+
+# Apertura discusion
+data$ap_dis1 <- as.numeric(data$ap_dis1)
+data$ap_dis2 <- as.numeric(data$ap_dis2)
+data$ap_dis3 <- as.numeric(data$ap_dis3)
+data$ap_dis4 <- as.numeric(data$ap_dis4)
+data$ap_dis5 <- as.numeric(data$ap_dis5)
+data$ap_dis6 <- as.numeric(data$ap_dis6)
+
+data <- data %>% rowwise() %>% mutate(ap_dis = mean(c(ap_dis1, ap_dis2, ap_dis3, ap_dis4, ap_dis5, ap_dis6), na.rm = T))
+
+data$c_civic <- sjlabelled::set_label(data$c_civic, 'Conocimiento cívico')
+data$ap_dis <- sjlabelled::set_label(data$ap_dis, 'Índice apertura a la discusión en el aula')
+
+data_indep <- dplyr::select(data,
+                            apod_educ,
+                              libros,
+                              apod_acc_div,
+                              c_civic,
+                              ap_dis)
+
+df2 <- dfSummary(data_indep,
+                varnumbers = F, 
+                graph.col = F, 
+                style = "grid",
+                headings = F)
+
+df2$Variable <- NULL # delete variable column
+view(df2,file = "desc02.html")
+webshot(url ="desc02.html" ,file ="output/desc02.png")
+file.remove(c("desc01.html","desc02.html"))
 ```
 
 # Guardar bases
 
 ```{r}
-save(data_est, file="IPO/input/data/proc/data_est.RData")
-save(data_apod, file= "IPO/input/data/proc/data_apod.RData")
+save(data, file="IPO/input/data/proc/data.RData")
 ```
 
-# Estudiantes
+# Variables territorio
 ```{r}
-print(dfSummary(dplyr::select(data_est, piel,
-                                 clase,
-                                 religion,
-                                 orien_sexual,
-                                 region,
-                                 dis_fisica,
-                                 dis_mental,
-                                 pais,
-                                 indigena),
-                varnumbers = F, 
-                graph.col = F, 
-                style = "grid",
-                headings = F),
-      method = "render")
+data_territorio <- read_excel("IPO/input/data/original/BASE_2018_COD.xlsx")
+load("IPO/input/data/original/ELSOC_W03_v2.00_R.RData")
+load("IPO/input/data/proc/data.RData")
+
+union <- merge(elsoc_2018, data_territorio,
+by="idencuesta", all.x = TRUE, all.y = TRUE)
+
+data_terr <- union %>% dplyr::select(cant_etnia=p_orig,
+                                               cant_inm=inmigrante,
+                                               prom_esc=jh_esc_m,
+                                               cod_com_alu=comuna_cod)
+data_terr <- data_terr %>%  set_na(.,
+                         na = c(-995), 
+                         drop.levels = TRUE, 
+                         as.tag = FALSE) # recode missings de doble marca (99) y vacío (0) a NA
 ```
 
 ```{r}
-print(dfSummary(dplyr::select(data_est, libros,
-                                 ap_dis1,
-                                 ap_dis2,
-                                 ap_dis3,
-                                 ap_dis4,
-                                 ap_dis5,
-                                 ap_dis6,
-                                 c_civic1,
-                                 c_civic2,
-                                 c_civic3,
-                                 c_civic4,
-                                 c_civic5,
-                                 c_civic6,
-                                 c_civic7),
-                varnumbers = F, 
-                graph.col = F, 
-                style = "grid",
-                headings = F),
-      method = "render")
+save(data_terr, file="IPO/input/data/proc/data_terr.RData")
 ```
 
-# Apoderados
 ```{r}
-print(dfSummary(dplyr::select(data_apod, piel,
-                                 clase,
-                                 religion,
-                                 orien_sexual,
-                                 region,
-                                 dis_fisica,
-                                 dis_mental,
-                                 pais,
-                                 indigena),
-                varnumbers = F, 
-                graph.col = F, 
-                style = "grid",
-                headings = F),
-      method = "render")
+# data_terr$cod_com_alu <- as_factor(data_terr$cod_com_alu)
+# data$cod_com_alu <- as_factor(data$cod_com_alu)
+# union2 <- dplyr::left_join(data, data_terr, by="cod_com_alu")
+
+
 ```
+
+
+
+
+
+
+
 

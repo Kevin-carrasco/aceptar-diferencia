@@ -23,7 +23,7 @@
 <meta name="author" content="Kevin Carrasco Quintanilla" />
 
 
-<meta name="date" content="2022-05-29" />
+<meta name="date" content="2022-07-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -144,15 +144,29 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="métodos" class="section level2 hasAnchor" number="4.3">
 <h2><span class="header-section-number">4.3</span> Métodos<a href="métodos.html#métodos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>La metodología planteada para realizar esta investigación es de carácter cuantitativa. En primer lugar, debido a que las variables sobre la apertura a la discusión en el aula de clases son seis, se evaluará su dimensionalidad a partir de un Análisis Factorial Exploratorio (AFE), con el fin de determinar si se trata (o no) de una sola dimensión latente. Este análisis factorial exploratorio permite generar una sola escala que será utilizada como variable independiente.</p>
-<p>En segundo lugar, se realizarán análisis descriptivos de todas las variables utilizadas en el estudio y análisis correlacionales para evaluar las asociaciones correspondientes a las hipótesis 1, 2, 3, 4 y 5. En tercer lugar, debido a que la muestra posee una estructura jerárquica de estudiantes anidados en escuelas, se estimarán regresiones multinivel para evaluar todas las hipótesis. Realizar una regresión multinivel permite aislar los efectos individuales (estudiantes) de los agregados (escuelas) y, a partir de esto, analizar la varianza de los resultados en cada nivel, así como la proporción de la varianza explicada por las variables independientes de cada nivel. Debido a que las características estructurales de las escuelas son una dimensión clave para explicar los diferentes resultados que poseen los estudiantes <span class="citation">(<a href="#ref-trevino_Influence_2018" role="doc-biblioref">Treviño et al. 2018</a>)</span> y porque tanto las escuelas como las salas de clases pueden diferir entre sí en cuanto a sus valores y normas comunes <span class="citation">(<a href="#ref-bayramozdemir_How_2020" role="doc-biblioref">Bayram Özdemir, Özdemir, and Boersma 2020</a>)</span>, se hace necesario estimar regresiones multinivel que permitan determinar si los resultados en las actitudes de los estudiantes dependen de sus respuestas a nivel individual o por características agregadas a nivel de escuela.</p>
+<p>La metodología planteada para realizar esta investigación es de carácter cuantitativa. Las hipótesis de esta investigación fueron pre registradas en la plataforma Open Science Framework del Centro de Ciencia Abierta (OSF, Center for Open Science), puede acceder al documento en el siguiente enlace. El análisis
+estadístico de esta investigación fue realizado mediante el software libre R versión 4.0.0.</p>
+<p>Debido a que la muestra posee una estructura jerárquica de estudiantes anidados en comunas, se estimarán regresiones multinivel para evaluar todas las hipótesis. Reconocer que se trata de estudiantes anidados en comunas permite incluir variables medidas en diferentes niveles de análisis <span class="citation">(<a href="#ref-aguinis_BestPractice_2013" role="doc-biblioref">Aguinis, Gottfredson, and Culpepper 2013</a>)</span>. Asimismo, realizar una regresión multinivel permite aislar los efectos individuales (estudiantes) de los agregados (comunas) y, a partir de esto, analizar la varianza de los resultados en cada nivel, así como la proporción de la varianza explicada por las variables independientes de cada nivel. Debido a que las características estructurales de los grupos son una dimensión clave para explicar los diferentes resultados que poseen los estudiantes <span class="citation">(<a href="#ref-trevino_Influence_2018" role="doc-biblioref">Treviño et al. 2018</a>)</span> y porque tanto las comunas como las escuelas pueden diferir entre sí en cuanto a sus valores y normas comunes <span class="citation">(<a href="#ref-bayramozdemir_How_2020" role="doc-biblioref">Bayram Özdemir, Özdemir, and Boersma 2020</a>)</span>, se hace necesario estimar regresiones multinivel que permitan determinar si los resultados en las actitudes de los estudiantes dependen de sus respuestas a nivel individual o por características agregadas a nivel de comuna.</p>
+<p>Conceptualmente, existen razones teóricas para esperar encontrar efectos de interacción entre niveles, por lo que también se evaluaran modelos de análisis de moderación, para así determinar si el tamaño o dirección del efecto de las variables independientes sobre la dependiente dependen de algún modo de una tercera variable <span class="citation">(<a href="#ref-hayes_introduction_2022" role="doc-biblioref">Hayes 2022</a>)</span></p>
+<p>De esta forma, luego de estimar la correlación intra-clase de los modelos, y siguiendo los pasos recomendados por <span class="citation">Aguinis, Gottfredson, and Culpepper (<a href="#ref-aguinis_BestPractice_2013" role="doc-biblioref">2013</a>)</span>, se establecen 3 tipos generales de hipótesis a evaluar:</p>
+<ul>
+<li><p>Hipótesis de efectos directos a nivel individual (1, 2, 3 y 4)</p></li>
+<li><p>Hipótesis de moderación (5)</p></li>
+<li><p>Hipótesis de efectos directos a nivel agregado (6, 7 y 8)</p></li>
+</ul>
 
 </div>
 <!-- </div> -->
 <h3>Bibliografía<a href="bibliografía.html#bibliografía" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-aguinis_BestPractice_2013" class="csl-entry">
+Aguinis, Herman, Ryan K. Gottfredson, and Steven Andrew Culpepper. 2013. <span>“Best-Practice Recommendations for Estimating Cross-Level Interaction Effects Using Multilevel Modeling.”</span> <em>Journal of Management</em> 39 (6): 1490–1528. <a href="https://doi.org/10.1177/0149206313478188">https://doi.org/10.1177/0149206313478188</a>.
+</div>
 <div id="ref-bayramozdemir_How_2020" class="csl-entry">
 Bayram Özdemir, Sevgi, Metin Özdemir, and Katja Boersma. 2020. <span>“How Does Adolescents’ Openness to Diversity Change over Time? The Role of Majority-Minority Friendship, Friends’ Views, and Classroom Social Context.”</span> <em>Journal of Youth and Adolescence</em>, October. <a href="https://doi.org/10.1007/s10964-020-01329-4">https://doi.org/10.1007/s10964-020-01329-4</a>.
+</div>
+<div id="ref-hayes_introduction_2022" class="csl-entry">
+Hayes, Andrew F. 2022. <em>Introduction to Mediation, Moderation, and Conditional Process Analysis: A Regression-Based Approach</em>. Third edition. Methodology in the Social Sciences. New York, NY: The Guilford Press.
 </div>
 <div id="ref-trevino_Influence_2018" class="csl-entry">
 Treviño, Ernesto, Consuelo Béjares, Ignacio Wyman, and Cristóbal Villalobos. 2018. <span>“Influence of Teacher, Student and School Characteristics on Students’ Attitudes Toward Diversity.”</span> In <em>Teaching Tolerance in a Globalized World</em>, edited by Andrés Sandoval-Hernández, Maria Magdalena Isac, and Daniel Miranda, 4:33–65. Cham: Springer International Publishing. <a href="https://doi.org/10.1007/978-3-319-78692-6_4">https://doi.org/10.1007/978-3-319-78692-6_4</a>.
