@@ -151,36 +151,37 @@ reg7 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div + civic + a
 screenreg(list(reg0, reg1, reg2, reg3, reg4, reg5, reg6, reg7))
 ```
 
-# segunda estimacion (cod_com_alu)
+# segunda estimacion (mrb)
 
 ```{r}
 load("IPO/input/data/proc/data_comuna.RData")
-data_comunas <- data_comuna %>% dplyr::select(cod_com_alu=p10comuna, escolaridad, etnia, inmigrante)
+data_comunas <- data_comuna %>% dplyr::select(cod_com_alu=p10comuna, escolaridad, etnia, inmigrante, prop_etnia, prop_inm)
 base <- merge(data, data_comunas, by="cod_com_alu")
 
 # etnia reescalar
-base$etnia2 <- rescale(base$etnia,to=c(1,100))
+base$etnia2 <- ntile(base$prop_etnia,3) # categorizar el puntaje en bajo, medio y alto
+table(base$etnia2)
+base$etnia2 <- factor(base$etnia2, labels = c("Bajo", "Medio", "Alto"))
+
 
 # inmigrante reescalar
-base$inmigrante2 <- rescale(base$inmigrante,to=c(1,100))
+base$inmigrante2 <- ntile(base$prop_inm,3) # categorizar el puntaje en bajo, medio y alto
+table(base$etnia2)
+base$inmigrante2 <- factor(base$inmigrante2, labels = c("Bajo", "Medio", "Alto"))
+
 ```
 
 ```{r}
 reg0.1 <- lmer(est_acc_div ~ 1 + (1 | mrbd), data=base)
-reg1.1 <- lmer(est_acc_div ~ educacion_rec + (1 | mrbd), data=base)
-reg2.1 <- lmer(est_acc_div ~ libros_rec + (1 | mrbd), data=base)
-reg3.1 <- lmer(est_acc_div ~ apod_acc_div + (1 | mrbd), data=base)
-reg4.1 <- lmer(est_acc_div ~ civic + (1 | mrbd), data=base)
-reg5.1 <- lmer(est_acc_div ~ ap_dis + (1 | mrbd), data=base)
-reg6.1 <- lmer(est_acc_div ~ mean_apdis + (1 | mrbd), data=base)
-reg7.1 <- lmer(est_acc_div ~ etnia2 + (1 | mrbd), data=base)
-reg8.1 <- lmer(est_acc_div ~ inmigrante2 + (1 | mrbd), data=base)
-reg9.1 <- lmer(est_acc_div ~ escolaridad + (1 | mrbd), data=base)
-reg10.1 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div + civic + ap_dis + mean_apdis + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
+reg1.1 <- lmer(est_acc_div ~ educacion_rec + libros_rec + (1 | mrbd), data=base)
+reg2.1 <- lmer(est_acc_div ~ apod_acc_div + (1 | mrbd), data=base)
+reg3.1 <- lmer(est_acc_div ~ civic + ap_dis + mean_apdis + (1 | mrbd), data=base)
+reg4.1 <- lmer(est_acc_div ~ etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
+reg5.1 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div + civic + ap_dis + mean_apdis + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
 ```
 
 ```{r}
-screenreg(list(reg1.1, reg2.1, reg3.1, reg4.1, reg5.1, reg6.1, reg7.1, reg8.1, reg9.1, reg10.1))
+screenreg(list(reg1.1, reg2.1, reg3.1, reg4.1, reg5.1))
 ```
 
 ```{r}
@@ -189,15 +190,43 @@ plot1 <- plot_model(reg10.1, title = "", show.values = TRUE, value.offset = .35,
 ggsave(plot1, file="IPO/output/graphs/plot1.png")
 ```
 
-# Interacciones
+## Prueba con cod_com_alu
 
 ```{r}
-reg11 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*civic + civic + ap_dis + mean_apdis + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
-reg12 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*ap_dis + civic + ap_dis + mean_apdis + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
+reg0.11 <- lmer(est_acc_div ~ 1 + (1 | cod_com_alu), data=base)
+reg1.11 <- lmer(est_acc_div ~ educacion_rec + (1 | cod_com_alu), data=base)
+reg2.11 <- lmer(est_acc_div ~ libros_rec + (1 | cod_com_alu), data=base)
+reg3.11 <- lmer(est_acc_div ~ apod_acc_div + (1 | cod_com_alu), data=base)
+reg4.11 <- lmer(est_acc_div ~ civic + (1 | cod_com_alu), data=base)
+reg5.11 <- lmer(est_acc_div ~ ap_dis + (1 | cod_com_alu), data=base)
+reg6.11 <- lmer(est_acc_div ~ mean_apdis + (1 | cod_com_alu), data=base)
+reg7.11 <- lmer(est_acc_div ~ etnia2 + (1 | cod_com_alu), data=base)
+reg8.11 <- lmer(est_acc_div ~ inmigrante2 + (1 | cod_com_alu), data=base)
+reg9.11 <- lmer(est_acc_div ~ escolaridad + (1 | cod_com_alu), data=base)
+reg10.11 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div + civic + ap_dis + mean_apdis + etnia2 + inmigrante2 + escolaridad + (1 | cod_com_alu), data=base)
 ```
 
 ```{r}
-screenreg(list(reg11, reg12))
+screenreg(list(reg1.11, reg2.11, reg3.11, reg4.11, reg5.11, reg6.11, reg7.11, reg8.11, reg9.11, reg10.11))
+```
+
+
+# Interacciones
+
+```{r}
+# actitudes apod x escuela
+reg11 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*civic + civic + ap_dis + mean_apdis + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
+reg12 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*ap_dis + civic + ap_dis + mean_apdis + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
+# actitudes apod x territorio
+reg13 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*inmigrante2 + civic + ap_dis + mean_apdis + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
+reg14 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*etnia2 + civic + ap_dis + mean_apdis + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
+reg15 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*escolaridad + civic + ap_dis + mean_apdis + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
+```
+
+```{r}
+screenreg(list(reg11, reg12, reg13, reg14, reg15))
+screenreg(list(reg1.1, reg2.1, reg3.1, reg4.1, reg5.1, reg12, reg13, reg15))
+
 ```
 
 ```{r}
@@ -206,5 +235,9 @@ int1<-plot_model(reg12, type="int", title="", axis.title = c("Aceptación divers
   theme(legend.position = "top") +
   labs(colour = "Discusión en aula") 
 ggsave(int1, file="IPO/output/graphs/int1.png")
+```
+
+```{r}
+plot_model(reg13, type="int", mdrt.values = "meansd")
 ```
 

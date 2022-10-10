@@ -267,7 +267,7 @@ comuna_etnia <- tbl(censo_conectar(), "personas") %>%
   count() %>%
   # re-ordeno las etiquetas, lo hago en esta parte por eficiencia
   mutate(
-    etnia = ifelse(p16 == 1, "1. Si", NA)
+   etnia = ifelse(p16 == 1, "1. Si", NA)
   ) %>%
   ungroup() %>%
   collect()
@@ -286,14 +286,20 @@ tbl(censo_conectar(), "variables_codificacion") %>%
 
 comuna_inm <- tbl(censo_conectar(), "personas") %>%
   select(p10comuna, p12pais) %>%
-  mutate(inmigrante = ifelse(p12pais!=997 | p12pais!=998 | p12pais!=999, 1, 0)) %>% 
-  group_by(p10comuna, inmigrante) %>%
+  group_by(p10comuna, p12pais) %>%
   count() %>%
   ungroup() %>%
   collect()
   
+comuna_inm <- comuna_inm %>% mutate(inmigrante = ifelse((p12pais==997), 0,
+                                                        ifelse((p12pais==998), 0,
+                                                               ifelse((p12pais==999), 0, 1))))
 
-comuna_inm <- comuna_inm %>% select(p10comuna, inmigrante=n)
+comuna_inm <- comuna_inm %>% group_by(p10comuna) %>% mutate(inmigrante = sum(inmigrante))   
+
+comuna_inm <- comuna_inm %>% filter(!duplicated(p10comuna))                 
+
+comuna_inm <- comuna_inm %>% select(p10comuna, inmigrante)
 
 # Promedio de escolaridad
 tbl(censo_conectar(), "variables") %>%
@@ -321,10 +327,51 @@ comuna_esc <- tbl(censo_conectar(), "personas") %>%
 
 comuna_esc <- comuna_esc %>% filter(!duplicated(p10comuna)) %>% select(p10comuna, escolaridad)
 
+## ahora lo mismo pero con proporciones
+# proporcion de personas que se identifican con alguna etnia
+prop_etnia <- tbl(censo_conectar(), "personas") %>%
+  group_by(p10comuna, p16) %>%
+  count() %>% 
+  ungroup() %>%
+  collect()
+
+prop_etnia <- prop_etnia %>% mutate(p = n / sum(n))
+
+prop_etnia <- prop_etnia %>% filter(p16==1) %>% # dejamos solo quienes si se identifican
+  select(p10comuna, prop_etnia=p)
+
+# Cantidad de personas inmigrantes
+tbl(censo_conectar(), "variables_codificacion") %>%
+  collect() %>%
+  filter(variable == "p12pais")
+
+prop_inm <- tbl(censo_conectar(), "personas") %>%
+  select(p10comuna, p12pais) %>%
+  group_by(p10comuna, p12pais) %>%
+  count() %>%
+  ungroup() %>%
+  collect()
+
+prop_inm <- prop_inm %>% mutate(p = n / sum(n))
+
+prop_inm <- prop_inm %>% dplyr::filter(p12pais!=997) 
+prop_inm <- prop_inm %>% dplyr::filter(p12pais!=998) 
+prop_inm <- prop_inm %>% dplyr::filter(p12pais!=999)
+                                       
+prop_inm <- prop_inm %>% group_by(p10comuna) %>% mutate(prop_inm = sum(p))                             
+
+prop_inm <- prop_inm %>% select(p10comuna, prop_inm) %>% filter(!duplicated(p10comuna)) 
+
 # merge bases
 
 data_territorio <- merge(comuna_esc, comuna_etnia, by="p10comuna")
 data_comuna <- merge(data_territorio, comuna_inm, by="p10comuna")
+data_comuna <- merge(data_comuna, prop_etnia, by="p10comuna")
+data_comuna <- left_join(data_comuna, prop_inm, by="p10comuna")
+
+data_comuna$prop_inm <- ifelse((is.na(data_comuna$prop_inm)), 0, data_comuna$prop_inm)
+
+
 
 save(data_comuna, file="IPO/input/data/proc/data_comuna.RData")
 
