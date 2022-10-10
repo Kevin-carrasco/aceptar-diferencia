@@ -6,4 +6,4 @@ El presente proyecto de investigación corresponde a una tesis para optar al gra
 El repositorio está basado en una plantilla (template) para escritura y publicación de tesis/seminarios/memorias en FACSO UChile en formato pdf/html vía bookdown  (R)
 [https://juancarloscastillo.github.io/tesisfacsodown/](https://juancarloscastillo.github.io/tesisfacsodown/)
 
-Además, la carpeta IPO contiene un flujo de trabajo para la modificación y análisis de datos.
+Además, la carpeta IPO contiene un flujo de trabajo para la modificación y análisis de datos. Más detalles en: https://lisa-coes.com/ipo-protocol/index.html
