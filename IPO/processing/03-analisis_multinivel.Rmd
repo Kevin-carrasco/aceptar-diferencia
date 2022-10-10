@@ -1,0 +1,210 @@
+---
+title: "03-analisis_multinivel"
+author: "Equipo EDUMER"
+date: "2022-08-11"
+output: html_document
+---
+
+Este .rmd contiene el análisis multinivel realizado para evaluar las hipótesis establecidas en el proyecto de investigación.
+
+* Cargar paquetes
+
+```{r}
+pacman::p_load(dplyr, ggplot2, sjPlot, summarytools, corrplot, ltm, lme4, stargazer, texreg, scales)
+load("IPO/input/data/proc/data.RData")
+```
+
+# Crear indices de aceptacion de la diversidad en estudiantes (dependiente) y apoderados (independiente)
+
+## estudiantes
+```{r}
+data$est_piel_rec <- as.numeric(data$est_piel)
+data$est_clase_rec <- as.numeric(data$est_clase)
+data$est_religion_rec <- as.numeric(data$est_religion)
+data$est_orien_sexual_rec <- as.numeric(data$est_orien_sexual)
+data$est_region_rec <- as.numeric(data$est_region)
+data$est_pais_rec <- as.numeric(data$est_pais)
+data$est_indigena_rec <- as.numeric(data$est_indigena)
+
+corrplot.mixed(cor(dplyr::select(data, est_piel_rec,
+                                 est_clase_rec,
+                                 est_religion_rec,
+                                 est_orien_sexual_rec,
+                                 est_region_rec,
+                                 est_pais_rec,
+                                 est_indigena_rec),
+                   method = "spearman",
+                   use = "complete.obs"))
+```
+
+```{r}
+ltm::cronbach.alpha(data %>%
+  dplyr::select(est_piel_rec, est_clase_rec, est_religion_rec, est_orien_sexual_rec, est_region_rec, est_pais_rec, est_indigena_rec), na.rm=TRUE)
+```
+
+```{r}
+data$est_piel_rec <- car::recode(data$est_piel_rec, "1=0; 2=1")
+data$est_clase_rec <- car::recode(data$est_clase_rec, "1=0; 2=1")
+data$est_religion_rec <- car::recode(data$est_religion_rec, "1=0; 2=1")
+data$est_orien_sexual_rec <- car::recode(data$est_orien_sexual_rec, "1=0; 2=1")
+data$est_region_rec <- car::recode(data$est_region_rec, "1=0; 2=1")
+data$est_pais_rec <- car::recode(data$est_pais_rec, "1=0; 2=1")
+data$est_indigena_rec <- car::recode(data$est_indigena_rec, "1=0; 2=1")
+
+data <- data %>% rowwise() %>% mutate(est_acc_div = sum(est_piel_rec, est_clase_rec, est_religion_rec, est_orien_sexual_rec, est_region_rec, est_pais_rec, est_indigena_rec))
+
+summary(data$est_acc_div)
+```
+
+## apoderados
+
+```{r}
+data$apod_piel_rec <- as.numeric(data$apod_piel)
+data$apod_clase_rec <- as.numeric(data$apod_clase)
+data$apod_religion_rec <- as.numeric(data$apod_religion)
+data$apod_orien_sexual_rec <- as.numeric(data$apod_orien_sexual)
+data$apod_region_rec <- as.numeric(data$apod_region)
+data$apod_pais_rec <- as.numeric(data$apod_pais)
+data$apod_indigena_rec <- as.numeric(data$apod_indigena)
+
+corrplot.mixed(cor(dplyr::select(data, apod_piel_rec,
+                                 apod_clase_rec,
+                                 apod_religion_rec,
+                                 apod_orien_sexual_rec,
+                                 apod_region_rec,
+                                 apod_pais_rec,
+                                 apod_indigena_rec),
+                   method = "spearman",
+                   use = "complete.obs"))
+```
+
+```{r}
+ltm::cronbach.alpha(data %>%
+  dplyr::select(apod_piel_rec, apod_clase_rec, apod_religion_rec, apod_orien_sexual_rec, apod_region_rec, apod_pais_rec, apod_indigena_rec), na.rm=TRUE)
+```
+
+```{r}
+data$apod_piel_rec <- car::recode(data$apod_piel_rec, "1=0; 2=1")
+data$apod_clase_rec <- car::recode(data$apod_clase_rec, "1=0; 2=1")
+data$apod_religion_rec <- car::recode(data$apod_religion_rec, "1=0; 2=1")
+data$apod_orien_sexual_rec <- car::recode(data$apod_orien_sexual_rec, "1=0; 2=1")
+data$apod_region_rec <- car::recode(data$apod_region_rec, "1=0; 2=1")
+data$apod_pais_rec <- car::recode(data$apod_pais_rec, "1=0; 2=1")
+data$apod_indigena_rec <- car::recode(data$apod_indigena_rec, "1=0; 2=1")
+
+data <- data %>% rowwise() %>% mutate(apod_acc_div = sum(apod_piel_rec, apod_clase_rec, apod_religion_rec, apod_orien_sexual_rec, apod_region_rec, apod_pais_rec, apod_indigena_rec))
+
+summary(data$apod_acc_div)
+```
+
+# Recodificación variables independientes
+```{r}
+# educacion
+data$educacion_rec <- ifelse(is.na(data$apod_educ), "Ns/Nr", data$apod_educ) # crea categoria Na para no perder casos
+data <- data %>% rowwise() %>%  mutate(educacion_rec = case_when(educacion_rec==1~"Ed Basica",
+                                                 educacion_rec==2~"Ed Basica",
+                                                 educacion_rec==3~"Ed Basica",
+                                                 educacion_rec==4~"Ed Media",
+                                                 educacion_rec==5~"Ed Media",
+                                                 educacion_rec==6~"Ed Tecnica",
+                                                 educacion_rec==7~"Ed Tecnica",
+                                                 educacion_rec==8~"Universidad o posgrado",
+                                                 educacion_rec==9~"Universidad o posgrado",
+                                                 educacion_rec==10~"Universidad o posgrado",
+                                                 educacion_rec=="Ns/Nr"~"Ns/Nr"
+                                                 )) # recodificar en menos categorias
+data$educacion_rec <- factor(data$educacion_rec, levels = c("Ed Basica", "Ed Media", "Ed Tecnica", "Universidad o posgrado", "Ns/Nr")) # relevel porque queda con orden distinto
+
+# libros
+data$libros_rec <- as.numeric(data$libros)
+data <- data %>% rowwise() %>% mutate(libros_rec = case_when(libros_rec==1 ~ "Menos de 25",
+                                                             libros_rec==2 ~ "Menos de 25",
+                                                             libros_rec==3 ~ "Más de 25",
+                                                             libros_rec==4 ~ "Más de 25",
+                                                             libros_rec==5 ~ "Más de 25")) # dejar solo dos categorias
+data$libros_rec <- factor(data$libros_rec, levels = c("Menos de 25", "Más de 25"))
+
+# c civic
+data$civic <- ntile(data$c_civic,3) # categorizar el puntaje en bajo, medio y alto
+table(data$civic)
+data$civic <- factor(data$civic, labels = c("Bajo", "Medio", "Alto"))
+
+# ap dis
+data <- data %>% group_by(mrbd) %>% mutate(mean_apdis = mean(ap_dis, na.rm=TRUE)) %>% ungroup()
+```
+
+# primera estimacion (mrbd)
+
+```{r}
+data <- data %>% dplyr::select(est_acc_div, educacion_rec, libros_rec, apod_acc_div, civic, ap_dis, mean_apdis, educacion_rec, mrbd, cod_com_alu) %>% na.omit()
+reg0 <- lmer(est_acc_div ~ 1 + (1 | mrbd), data=data)
+reg1 <- lmer(est_acc_div ~ educacion_rec + (1 | mrbd), data=data)
+reg2 <- lmer(est_acc_div ~ libros_rec + (1 | mrbd), data=data)
+reg3 <- lmer(est_acc_div ~ apod_acc_div + (1 | mrbd), data=data)
+reg4 <- lmer(est_acc_div ~ civic + (1 | mrbd), data=data)
+reg5 <- lmer(est_acc_div ~ ap_dis + (1 | mrbd), data=data)
+reg6 <- lmer(est_acc_div ~ mean_apdis + (1 | mrbd), data=data)
+reg7 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div + civic + ap_dis + mean_apdis + (1 | mrbd), data=data)
+```
+
+```{r}
+screenreg(list(reg0, reg1, reg2, reg3, reg4, reg5, reg6, reg7))
+```
+
+# segunda estimacion (cod_com_alu)
+
+```{r}
+load("IPO/input/data/proc/data_comuna.RData")
+data_comunas <- data_comuna %>% dplyr::select(cod_com_alu=p10comuna, escolaridad, etnia, inmigrante)
+base <- merge(data, data_comunas, by="cod_com_alu")
+
+# etnia reescalar
+base$etnia2 <- rescale(base$etnia,to=c(1,100))
+
+# inmigrante reescalar
+base$inmigrante2 <- rescale(base$inmigrante,to=c(1,100))
+```
+
+```{r}
+reg0.1 <- lmer(est_acc_div ~ 1 + (1 | mrbd), data=base)
+reg1.1 <- lmer(est_acc_div ~ educacion_rec + (1 | mrbd), data=base)
+reg2.1 <- lmer(est_acc_div ~ libros_rec + (1 | mrbd), data=base)
+reg3.1 <- lmer(est_acc_div ~ apod_acc_div + (1 | mrbd), data=base)
+reg4.1 <- lmer(est_acc_div ~ civic + (1 | mrbd), data=base)
+reg5.1 <- lmer(est_acc_div ~ ap_dis + (1 | mrbd), data=base)
+reg6.1 <- lmer(est_acc_div ~ mean_apdis + (1 | mrbd), data=base)
+reg7.1 <- lmer(est_acc_div ~ etnia2 + (1 | mrbd), data=base)
+reg8.1 <- lmer(est_acc_div ~ inmigrante2 + (1 | mrbd), data=base)
+reg9.1 <- lmer(est_acc_div ~ escolaridad + (1 | mrbd), data=base)
+reg10.1 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div + civic + ap_dis + mean_apdis + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
+```
+
+```{r}
+screenreg(list(reg1.1, reg2.1, reg3.1, reg4.1, reg5.1, reg6.1, reg7.1, reg8.1, reg9.1, reg10.1))
+```
+
+```{r}
+plot1 <- plot_model(reg10.1, title = "", show.values = TRUE, value.offset = .35, axis.labels = c("Promedio escolaridad", "Cantidad inmigrantes", "Cantidad de pueblos originarios", "Promedio discusión en aula", "Discusión en aula", "Conocimiento cívico (alto)", "Conocimiento cívico (medio)", "Aceptación diversidad apoderados", "Más de 25 libros", "Ns/Nr", "Universidad o postgrado", "Educación Técnica", "Educación media"))
+
+ggsave(plot1, file="IPO/output/graphs/plot1.png")
+```
+
+# Interacciones
+
+```{r}
+reg11 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*civic + civic + ap_dis + mean_apdis + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
+reg12 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*ap_dis + civic + ap_dis + mean_apdis + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
+```
+
+```{r}
+screenreg(list(reg11, reg12))
+```
+
+```{r}
+int1<-plot_model(reg12, type="int", title="", axis.title = c("Aceptación diversidad padres", "Aceptación diversidad estudiantes"))+
+  theme_minimal()+
+  theme(legend.position = "top") +
+  labs(colour = "Discusión en aula") 
+ggsave(int1, file="IPO/output/graphs/int1.png")
+```
+

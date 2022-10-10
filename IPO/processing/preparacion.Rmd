@@ -13,7 +13,9 @@ load("IPO/input/data/original/base_est_apod.Rdata")
 ```{r}
 data <- base_est_apod %>% dplyr::select(idalumno,
                                         cod_com_alu,
+                                        nom_com_alu,
                                       codigoCurso,
+                                      mrbd,
                                       est_piel=est_p31_1,
                                       est_clase=est_p31_2,
                                       est_religion=est_p31_3,
@@ -107,9 +109,6 @@ label(data$apod_region) <- "Personas que vienen de otra región del país"
 label(data$apod_pais) <- "Personas que vienen de otro país"
 label(data$apod_indigena) <- "Personas de origen indígena"
 label(data$apod_educ) <- "Nivel educacional más alto"
-
-
-
 ```
 
 ```{r}
@@ -150,7 +149,7 @@ data$apod_region_rec <- car::recode(data$apod_region_rec, "1=0; 2=1")
 data$apod_pais_rec <- car::recode(data$apod_pais_rec, "1=0; 2=1")
 data$apod_indigena_rec <- car::recode(data$apod_indigena_rec, "1=0; 2=1")
 
-data <- data %>% rowwise() %>% mutate(apod_acc_div = sum(apod_piel_rec, apod_clase_rec, apod_religion_rec, apod_orien_sexual_rec, apod_region_rec, apod_pais_rec, apod_indigena_rec, na.rm = T))
+data <- data %>% rowwise() %>% mutate(apod_acc_div = sum(apod_piel_rec, apod_clase_rec, apod_religion_rec, apod_orien_sexual_rec, apod_region_rec, apod_pais_rec, apod_indigena_rec))
 
 data$apod_acc_div <- sjlabelled::set_label(data$apod_acc_div, 'Aceptación de la diversidad (apoderados)')
 
@@ -204,29 +203,130 @@ by="idencuesta", all.x = TRUE, all.y = TRUE)
 data_terr <- union %>% dplyr::select(cant_etnia=p_orig,
                                                cant_inm=inmigrante,
                                                prom_esc=jh_esc_m,
-                                               cod_com_alu=comuna_cod)
+                                               cod_com_alu=comuna_cod,
+                                     comuna)
 data_terr <- data_terr %>%  set_na(.,
                          na = c(-995), 
                          drop.levels = TRUE, 
                          as.tag = FALSE) # recode missings de doble marca (99) y vacío (0) a NA
+data_terr2 <- data_terr %>% group_by(cod_com_alu) %>% filter(!duplicated(prom_esc))
+data_terr2 <- data_terr2 %>% group_by(cod_com_alu) %>% mutate(cant_etnia_com = sum(cant_etnia),
+                                                           cant_inm_com = sum(cant_inm),
+                                                           prom_esc_com = mean(prom_esc))
+data_comuna <- data_terr2 %>% filter(!duplicated(cod_com_alu))
+data_comuna <- data_comuna %>% dplyr::select(cod_com_alu, comuna, cant_etnia_com, cant_inm_com, prom_esc_com)
 ```
 
 ```{r}
-save(data_terr, file="IPO/input/data/proc/data_terr.RData")
+save(data_comuna, file="IPO/input/data/proc/data_comuna.RData")
 ```
+
+# Variables territoriales
+
+Para la elaboración de las tres variables de caracteristicas comunales - cantidad de personas que se identifican con una etnia, cantidad de inmigrantes y promedio de escolaridad - se utilizan datos del CENSO 2017. Estos datos provienen del paquete censo2017 de Mauricio Vargas. Mas informacion en: https://ropensci.org/blog/2021/07/27/censo2017-es/
 
 ```{r}
-# data_terr$cod_com_alu <- as_factor(data_terr$cod_com_alu)
-# data$cod_com_alu <- as_factor(data$cod_com_alu)
-# union2 <- dplyr::left_join(data, data_terr, by="cod_com_alu")
+#remotes::install_github("ropensci/censo2017")
+library(censo2017)
+censo_descargar()
 
+# para usar collect() y expresiones regulares
+#remove.packages("cli")
+#install.packages("cli")
+#install.packages("dbplyr")
+#install.packages("devtools")
+#devtools::install_github("tidyverse/dbplyr")
+library(dplyr)
+library(cli)
+library(dbplyr)
+
+personas <- tbl(censo_conectar(), "zonas") %>%
+  mutate(
+    region = substr(as.character(geocodigo), 1, 2),
+    comuna = substr(as.character(geocodigo), 1, 5)
+  ) %>%
+  select(region, comuna, geocodigo, zonaloc_ref_id) %>%
+  inner_join(select(tbl(censo_conectar(), "viviendas"),
+                    zonaloc_ref_id, vivienda_ref_id), by = "zonaloc_ref_id") %>%
+  inner_join(select(tbl(censo_conectar(), "hogares"), vivienda_ref_id,
+                    hogar_ref_id), by = "vivienda_ref_id") %>%
+  inner_join(select(tbl(censo_conectar(), "personas"), hogar_ref_id,
+                    p08, p15, p18), by = "hogar_ref_id") %>%
+  collect()
+
+# identificar variable y categorias
+tbl(censo_conectar(), "variables_codificacion") %>%
+  collect() %>%
+  filter(variable == "p16")
+
+# Cantidad de personas que se identifican con alguna etnia
+comuna_etnia <- tbl(censo_conectar(), "personas") %>%
+  select(p10comuna, p16) %>%
+  filter(p16==1) %>% 
+  group_by(p10comuna, p16) %>%
+  count() %>%
+  # re-ordeno las etiquetas, lo hago en esta parte por eficiencia
+  mutate(
+    etnia = ifelse(p16 == 1, "1. Si", NA)
+  ) %>%
+  ungroup() %>%
+  collect()
+
+comuna_etnia <- comuna_etnia %>% select(p10comuna, etnia=n)
+
+# Cantidad de personas inmigrantes
+tbl(censo_conectar(), "variables") %>%
+  collect() %>%
+  filter(grepl("Pais", descripcion))
+
+tbl(censo_conectar(), "variables_codificacion") %>%
+  collect() %>%
+  filter(variable == "p12pais")
+
+
+comuna_inm <- tbl(censo_conectar(), "personas") %>%
+  select(p10comuna, p12pais) %>%
+  mutate(inmigrante = ifelse(p12pais!=997 | p12pais!=998 | p12pais!=999, 1, 0)) %>% 
+  group_by(p10comuna, inmigrante) %>%
+  count() %>%
+  ungroup() %>%
+  collect()
+  
+
+comuna_inm <- comuna_inm %>% select(p10comuna, inmigrante=n)
+
+# Promedio de escolaridad
+tbl(censo_conectar(), "variables") %>%
+  collect() %>%
+  filter(grepl("Curso", descripcion))
+
+tbl(censo_conectar(), "variables_codificacion") %>%
+  collect() %>%
+  filter(variable == "p15")
+
+
+
+comuna_esc <- tbl(censo_conectar(), "personas") %>%
+  select(p10comuna, p15, p09) %>%
+  filter(p09>=18) %>% 
+  select(p10comuna, p15, -p09) %>%
+  filter(p15<98) %>% 
+  group_by(p10comuna) %>%
+  # re-ordeno las etiquetas, lo hago en esta parte por eficiencia
+  mutate(
+    escolaridad = mean(p15, na.rm = TRUE)
+  ) %>%
+  ungroup() %>%
+  collect()
+
+comuna_esc <- comuna_esc %>% filter(!duplicated(p10comuna)) %>% select(p10comuna, escolaridad)
+
+# merge bases
+
+data_territorio <- merge(comuna_esc, comuna_etnia, by="p10comuna")
+data_comuna <- merge(data_territorio, comuna_inm, by="p10comuna")
+
+save(data_comuna, file="IPO/input/data/proc/data_comuna.RData")
 
 ```
-
-
-
-
-
-
-
 
