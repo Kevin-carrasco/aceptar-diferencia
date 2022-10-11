@@ -1,2 +1,120 @@
 # Análisis
 
+```{r include=FALSE}
+
+pacman::p_load(dplyr, ggplot2, sjPlot, summarytools, corrplot, ltm, lme4, stargazer, texreg, scales)
+load("IPO/input/data/proc/data.RData")
+load("IPO/input/data/proc/data_comuna.RData")
+data_comuna <- rename(data_comuna, cod_com_alu=p10comuna)
+data <- merge(data, data_comuna, by= "cod_com_alu")
+
+data$est_piel_rec <- as.numeric(data$est_piel)
+data$est_clase_rec <- as.numeric(data$est_clase)
+data$est_religion_rec <- as.numeric(data$est_religion)
+data$est_orien_sexual_rec <- as.numeric(data$est_orien_sexual)
+data$est_region_rec <- as.numeric(data$est_region)
+data$est_pais_rec <- as.numeric(data$est_pais)
+data$est_indigena_rec <- as.numeric(data$est_indigena)
+
+data$est_piel_rec <- car::recode(data$est_piel_rec, "1=0; 2=1")
+data$est_clase_rec <- car::recode(data$est_clase_rec, "1=0; 2=1")
+data$est_religion_rec <- car::recode(data$est_religion_rec, "1=0; 2=1")
+data$est_orien_sexual_rec <- car::recode(data$est_orien_sexual_rec, "1=0; 2=1")
+data$est_region_rec <- car::recode(data$est_region_rec, "1=0; 2=1")
+data$est_pais_rec <- car::recode(data$est_pais_rec, "1=0; 2=1")
+data$est_indigena_rec <- car::recode(data$est_indigena_rec, "1=0; 2=1")
+
+data <- data %>% rowwise() %>% mutate(est_acc_div = sum(est_piel_rec, est_clase_rec, est_religion_rec, est_orien_sexual_rec, est_region_rec, est_pais_rec, est_indigena_rec))
+
+# educacion
+data$educacion_rec <- ifelse(is.na(data$apod_educ), "Ns/Nr", data$apod_educ) # crea categoria Na para no perder casos
+data <- data %>% rowwise() %>%  mutate(educacion_rec = case_when(educacion_rec==1~"Ed Basica",
+                                                 educacion_rec==2~"Ed Basica",
+                                                 educacion_rec==3~"Ed Basica",
+                                                 educacion_rec==4~"Ed Media",
+                                                 educacion_rec==5~"Ed Media",
+                                                 educacion_rec==6~"Ed Tecnica",
+                                                 educacion_rec==7~"Ed Tecnica",
+                                                 educacion_rec==8~"Universidad o posgrado",
+                                                 educacion_rec==9~"Universidad o posgrado",
+                                                 educacion_rec==10~"Universidad o posgrado",
+                                                 educacion_rec=="Ns/Nr"~"Ns/Nr"
+                                                 )) # recodificar en menos categorias
+data$educacion_rec <- factor(data$educacion_rec, levels = c("Ed Basica", "Ed Media", "Ed Tecnica", "Universidad o posgrado", "Ns/Nr")) # relevel porque queda con orden distinto
+
+# libros
+data$libros_rec <- as.numeric(data$libros)
+data <- data %>% rowwise() %>% mutate(libros_rec = case_when(libros_rec==1 ~ "Menos de 25",
+                                                             libros_rec==2 ~ "Menos de 25",
+                                                             libros_rec==3 ~ "Más de 25",
+                                                             libros_rec==4 ~ "Más de 25",
+                                                             libros_rec==5 ~ "Más de 25")) # dejar solo dos categorias
+data$libros_rec <- factor(data$libros_rec, levels = c("Menos de 25", "Más de 25"))
+
+# c civic
+data$civic <- ntile(data$c_civic,3) # categorizar el puntaje en bajo, medio y alto
+data$civic <- factor(data$civic, labels = c("Bajo", "Medio", "Alto"))
+
+# mean ap dis
+data <- data %>% group_by(mrbd) %>% mutate(mean_apdis = mean(ap_dis, na.rm=TRUE)) %>% ungroup()
+
+# etnia reescalar
+data$etnia2 <- ntile(data$prop_etnia,3) # categorizar el puntaje en bajo, medio y alto
+data$etnia2 <- factor(data$etnia2, labels = c("Bajo", "Medio", "Alto"))
+
+
+# inmigrante reescalar
+data$inmigrante2 <- ntile(data$prop_inm,3) # categorizar el puntaje en bajo, medio y alto
+data$inmigrante2 <- factor(data$inmigrante2, labels = c("Bajo", "Medio", "Alto"))
+
+base <- data %>% dplyr::select(est_acc_div, educacion_rec, libros_rec, apod_acc_div, civic, ap_dis, mean_apdis, educacion_rec, mrbd, etnia2, inmigrante2, escolaridad) %>% na.omit()
+
+reg0.1 <- lmer(est_acc_div ~ 1 + (1 | mrbd), data=base)
+reg1.1 <- lmer(est_acc_div ~ educacion_rec + libros_rec + (1 | mrbd), data=base)
+reg2.1 <- lmer(est_acc_div ~ apod_acc_div + (1 | mrbd), data=base)
+reg3.1 <- lmer(est_acc_div ~ civic + ap_dis + mean_apdis + (1 | mrbd), data=base)
+reg4.1 <- lmer(est_acc_div ~ etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
+reg5.1 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div + civic + ap_dis + mean_apdis + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
+reg12 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*ap_dis + civic + ap_dis + mean_apdis + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
+# actitudes apod x territorio
+reg13 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*inmigrante2 + civic + ap_dis + mean_apdis + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
+reg15 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*escolaridad + civic + ap_dis + mean_apdis + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
+```
+
+```{r results='asis', message=FALSE, echo=FALSE}  
+htmlreg(list(reg1.1, reg2.1, reg3.1, reg4.1, reg5.1, reg12, reg13, reg15), 
+         custom.model.names = c("Modelo 1",
+                               "Modelo 2",
+                               "Modelo 3",
+                               "Modelo 4",
+                               "Modelo 5",
+                               "Modelo 6",
+                               "Modelo 7",
+                               "Modelo 8"), 
+        custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05",
+        custom.coef.names = c("Intercepto", 
+                              "Educación media <br> <i>(Ref. Básica)</i>",
+                              "Educación técnica", 
+                              "Universidad o posgrado",
+                              "Ns/Nr",
+                              "Más de 25 libros <br> <i>(Ref. menos de 25)</i>", 
+                              "Aceptación diversidad apoderados", 
+                              "Conocimiento cívico medio <br> <i>(Ref. bajo</i>", 
+                              "Conocimiento cívico alto", 
+                              "Discusión en sala de clases", 
+                              "Promedio discusión en sala", 
+                              "Prop. etnia medio <br> <i>(Ref. bajo</i>", 
+                              "Prop. etnia alto",
+                              "Prop. inmigrante medio <br> <i>(Ref. bajo</i>", 
+                              "Prop. inmigrante alto",
+                              "Promedio escolaridad", 
+                              "Aceptación diversidad apoderados * discusión en sala", 
+                              "Aceptación diversidad apoderados * prop. inmigrante medio", 
+                              "Aceptación diversidad apoderados * prop. inmigrante alte", 
+                              "Aceptación diversidad apoderados * escolaridad"),
+        caption = "Aceptar la diversidad en el vecindario",
+        caption.above = TRUE)
+```  
+
+
+

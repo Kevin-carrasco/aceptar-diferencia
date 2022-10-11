@@ -6,17 +6,18 @@ La base de datos a utilizar corresponde al Primer Estudio de Educación Ciudadan
 
 Se utilizan tres bases de datos disponibles para este estudio. Primero, se cuenta con una base de datos de 10.213 estudiantes que poseen variables de identificación (8 variables) y el puntaje de la prueba de conocimiento cívico (1 variable). Además, se encuentra disponible una segunda base de datos que contiene las preguntas del cuestionario de Formación Ciudadana, que posee las respuestas de 8.589 estudiantes (222 variables). Al juntar ambas bases de datos el N final es de 8.589 estudiantes. Finalmente, se encuentra disponible una tercera base de datos que contiene las preguntas del cuestionario de Formación Ciudadana, con las respuestas de 6.770 apoderados (141 variables). Al juntar todas las bases de datos, el N total de respuestas completas es de 6.511 estudiantes y apoderados.
 
-Sumado a lo anterior, para las variables del territorio se utilizará la base de datos construida por ELSOC (COES) 2018, a partir de datos del CENSO 2017, Ministerio de Vivienda y Urbanismo e Instituto Nacional de Estadísticas. Esta base de datos contiene información respecto de datos territoriales asociados al año 2017 y se encuentra disponible para su libre uso en el [repositorio](https://dataverse.harvard.edu/dataverse/coes_data_repository) de datos del COES.
-
+Sumado a lo anterior, para las variables del territorio se utilizará la base de datos del CENSO 2017, obtenida a partir del paquete estadístico de R *censo2017* [@vargas_censo2017_2022]. Esta base de datos contiene información respecto de datos territoriales asociados al año 2017 y se encuentra disponible para su libre uso.
 
 ## Variables
 
-Con el fin de medir las actitudes de los y las estudiantes hacia la diversidad en sus vecindarios se utiliza la batería de preguntas del módulo “Tolerancia y Distancia Social” del cuestionario de estudiantes. Estas variables están medidas a partir de las preguntas que se presentan en la Tabla a continuación. 
+Con el fin de medir las actitudes de los y las estudiantes hacia la diversidad en sus vecindarios se utiliza la batería de preguntas del módulo “Tolerancia y Distancia Social” del cuestionario de estudiantes. Estas variables están medidas a partir de las preguntas que se presentan en la Tabla \@ref(tab:tab1) a continuación. 
 
 ```{r include=FALSE}
 pacman::p_load(summarytools,haven,sjPlot,dplyr,htmlwidgets, webshot, sjlabelled, kableExtra, sjmisc)
 load("IPO/input/data/proc/data.RData")
-
+load("IPO/input/data/proc/data_comuna.RData")
+data_comuna <- rename(data_comuna, cod_com_alu=p10comuna)
+data <- merge(data, data_comuna, by= "cod_com_alu")
 data_est <- dplyr::select(data, est_piel,
                                  est_clase,
                                  est_religion,
@@ -26,7 +27,7 @@ data_est <- dplyr::select(data, est_piel,
                                  est_indigena)
 ```
 
-```{r, results='asis', message=FALSE, echo=FALSE}  
+```{r tab1, results='asis', message=FALSE, echo=FALSE}  
 print(dfSummary(data_est,
                 plain.ascii = F,
                 varnumbers = F, 
@@ -60,11 +61,9 @@ data <- data %>% rowwise() %>% mutate(est_acc_div = sum(est_piel_rec, est_clase_
 sjPlot::plot_frq(data$est_acc_div,
                  type = "bar",
                  axis.title = "Aceptación de la diversidad en el vecindario
-                 Fuente:Elaboración propia",
+                 Fuente: Elaboración propia",
                  geom.colors = "coral")
 ```
-
-
 
 En relación con las variables independientes, estas se dividen en tres grupos: 1) variables de la familia, 2) variables de la escuela y 3) variables del territorio.
 
@@ -90,46 +89,53 @@ Un resumen de estas variables se presenta en la Tabla a continuación.
 
 
 ```{r include=FALSE}
-# Actitudes apoderados
-data$apod_piel_rec <- as.numeric(data$apod_piel)
-data$apod_clase_rec <- as.numeric(data$apod_clase)
-data$apod_religion_rec <- as.numeric(data$apod_religion)
-data$apod_orien_sexual_rec <- as.numeric(data$apod_orien_sexual)
-data$apod_region_rec <- as.numeric(data$apod_region)
-data$apod_pais_rec <- as.numeric(data$apod_pais)
-data$apod_indigena_rec <- as.numeric(data$apod_indigena)
-
-data$apod_piel_rec <- car::recode(data$apod_piel_rec, "1=0; 2=1")
-data$apod_clase_rec <- car::recode(data$apod_clase_rec, "1=0; 2=1")
-data$apod_religion_rec <- car::recode(data$apod_religion_rec, "1=0; 2=1")
-data$apod_orien_sexual_rec <- car::recode(data$apod_orien_sexual_rec, "1=0; 2=1")
-data$apod_region_rec <- car::recode(data$apod_region_rec, "1=0; 2=1")
-data$apod_pais_rec <- car::recode(data$apod_pais_rec, "1=0; 2=1")
-data$apod_indigena_rec <- car::recode(data$apod_indigena_rec, "1=0; 2=1")
-
-data <- data %>% rowwise() %>% mutate(apod_acc_div = sum(apod_piel_rec, apod_clase_rec, apod_religion_rec, apod_orien_sexual_rec, apod_region_rec, apod_pais_rec, apod_indigena_rec, na.rm = T))
-
 data$apod_acc_div <- sjlabelled::set_label(data$apod_acc_div, 'Aceptación de la diversidad (apoderados)')
 
-# Apertura discusion
-data$ap_dis1 <- as.numeric(data$ap_dis1)
-data$ap_dis2 <- as.numeric(data$ap_dis2)
-data$ap_dis3 <- as.numeric(data$ap_dis3)
-data$ap_dis4 <- as.numeric(data$ap_dis4)
-data$ap_dis5 <- as.numeric(data$ap_dis5)
-data$ap_dis6 <- as.numeric(data$ap_dis6)
+# educacion
+data$educacion_rec <- ifelse(is.na(data$apod_educ), "Ns/Nr", data$apod_educ) # crea categoria Na para no perder casos
+data <- data %>% rowwise() %>%  mutate(educacion_rec = case_when(educacion_rec==1~"Ed Basica",
+                                                 educacion_rec==2~"Ed Basica",
+                                                 educacion_rec==3~"Ed Basica",
+                                                 educacion_rec==4~"Ed Media",
+                                                 educacion_rec==5~"Ed Media",
+                                                 educacion_rec==6~"Ed Tecnica",
+                                                 educacion_rec==7~"Ed Tecnica",
+                                                 educacion_rec==8~"Universidad o posgrado",
+                                                 educacion_rec==9~"Universidad o posgrado",
+                                                 educacion_rec==10~"Universidad o posgrado",
+                                                 educacion_rec=="Ns/Nr"~"Ns/Nr"
+                                                 )) # recodificar en menos categorias
+data$educacion_rec <- factor(data$educacion_rec, levels = c("Ed Basica", "Ed Media", "Ed Tecnica", "Universidad o posgrado", "Ns/Nr")) # relevel porque queda con orden distinto
 
-data <- data %>% rowwise() %>% mutate(ap_dis = mean(c(ap_dis1, ap_dis2, ap_dis3, ap_dis4, ap_dis5, ap_dis6), na.rm = T))
+# libros
+data$libros_rec <- as.numeric(data$libros)
+data <- data %>% rowwise() %>% mutate(libros_rec = case_when(libros_rec==1 ~ "Menos de 25",
+                                                             libros_rec==2 ~ "Menos de 25",
+                                                             libros_rec==3 ~ "Más de 25",
+                                                             libros_rec==4 ~ "Más de 25",
+                                                             libros_rec==5 ~ "Más de 25")) # dejar solo dos categorias
+data$libros_rec <- factor(data$libros_rec, levels = c("Menos de 25", "Más de 25"))
 
-data$c_civic <- sjlabelled::set_label(data$c_civic, 'Conocimiento cívico')
+# c civic
+data$civic <- ntile(data$c_civic,3) # categorizar el puntaje en bajo, medio y alto
+data$civic <- factor(data$civic, labels = c("Bajo", "Medio", "Alto"))
+
+# mean ap dis
+data <- data %>% group_by(mrbd) %>% mutate(mean_apdis = mean(ap_dis, na.rm=TRUE)) %>% ungroup()
+
+data$civic <- sjlabelled::set_label(data$civic, 'Conocimiento cívico')
 data$ap_dis <- sjlabelled::set_label(data$ap_dis, 'Índice apertura a la discusión en el aula')
+data$mean_apdis <- sjlabelled::set_label(data$mean_apdis, 'Promedio apertura a la discusión en el aula')
+data$educacion_rec <- sjlabelled::set_label(data$educacion_rec, 'Nivel educacional apoderados')
+data$libros_rec <- sjlabelled::set_label(data$ap_dis, 'Cantidad de libros en el hogar')
 
 data_indep <- dplyr::select(data,
-                            apod_educ,
-                              libros,
+                            educacion_rec,
+                              libros_rec,
                               apod_acc_div,
-                              c_civic,
-                              ap_dis)
+                              civic,
+                              ap_dis,
+                            mean_apdis)
 ```
 
 
@@ -145,30 +151,39 @@ print(dfSummary(data_indep,
 ```
 
 ```{r include=FALSE}
-load("IPO/input/data/proc/data_terr.RData")
+# etnia reescalar
+data$etnia2 <- ntile(data$prop_etnia,3) # categorizar el puntaje en bajo, medio y alto
+data$etnia2 <- factor(data$etnia2, labels = c("Bajo", "Medio", "Alto"))
 
-data_terr2 <- dplyr::select(data_terr,
-                            cant_etnia,
-                            cant_inm,
-                            prom_esc)
 
-data_terr2$cant_etnia <- sjlabelled::set_label(data_terr2$cant_etnia, 'Cantidad de personas de la zona censal que se identifica con algún pueblo originario')
-data_terr2$cant_inm <- sjlabelled::set_label(data_terr2$cant_inm, 'Cantidad de inmigrantes en la zona censal')
-data_terr2$prom_esc <- sjlabelled::set_label(data_terr2$prom_esc, 'Escolaridad promedio de la zona censal')
+# inmigrante reescalar
+data$inmigrante2 <- ntile(data$prop_inm,3) # categorizar el puntaje en bajo, medio y alto
+data$inmigrante2 <- factor(data$inmigrante2, labels = c("Bajo", "Medio", "Alto"))
+
+
+data_terr <- dplyr::select(data,
+                            etnia2,
+                            inmigrante2,
+                            escolaridad)
+
+
+data_terr$etnia2 <- sjlabelled::set_label(data_terr$etnia2, 'Proporción de personas que se identifica con alguna etnia')
+data_terr$inmigrante2 <- sjlabelled::set_label(data_terr$inmigrante2, 'Proporción de inmigrantes')
+data_terr$escolaridad <- sjlabelled::set_label(data_terr$escolaridad, 'Promedio de escolaridad')
 ```
 
 3) Variables del territorio
 
-* Índice de diversidad étnica: Número de personas de la zona censal que se identifica con pueblos originarios según el Censo 2017. Esta variable posee un rango de 0 a 2229.
+* Proporción de personas que se identifica con alguna etnia: Proporción de personas de la comuna que se identifica con pueblos originarios según el Censo 2017. Variable categórica agrupada en Bajo, Medio y Alto.
 
-* Índice de población migrante: Cantidad de inmigrantes en la zona censal, a partir de datos del Censo 2017. Esta variable posee un rango de 0 a 3437.
+* Proporción de población migrante: Proporción de inmigrantes en la comuna, a partir de datos del Censo 2017. Variable categórica agrupada en Bajo, Medio y Alto
 
-* Promedio de escolaridad: Escolaridad promedio de la zona censal, según datos del Censo 2017. Esta variable posee un rango de 6.2 a 14.8. 
+* Promedio de escolaridad: Escolaridad promedio de la comuna, según datos del Censo 2017. Esta variable posee un rango de 6.9 a 11.2. 
 
 Un resumen de estas variables se muestran en la siguiente tabla:
 
 ```{r echo=FALSE, results='asis'}
-print(dfSummary(data_terr2,
+print(dfSummary(data_terr,
                 plain.ascii = F,
                 varnumbers = F, 
                 graph.col = F, 
@@ -177,12 +192,9 @@ print(dfSummary(data_terr2,
       method = "render")
 ```
 
-Finalmente, como variables de control se utilizarán datos administrativos de las escuelas como su clasificación socioeconómica (1) Bajo; 2) Medio Bajo; 3) Medio; 4) Medio Alto; y 5) Alto) y el tipo de administración (1) Municipal; 2) Particular subvencionado; y 3) Particular privado)
-
 ## Métodos
 
-La metodología planteada para realizar esta investigación es de carácter cuantitativa. Las hipótesis de esta investigación fueron pre registradas en la plataforma Open Science Framework del Centro de Ciencia Abierta (OSF, Center for Open Science), puede acceder al documento en el siguiente enlace. El análisis
-estadístico de esta investigación fue realizado mediante el software libre R versión 4.0.0.
+La metodología planteada para realizar esta investigación es de carácter cuantitativa. Las hipótesis de esta investigación fueron pre registradas en la plataforma Open Science Framework del Centro de Ciencia Abierta (OSF, Center for Open Science), puede acceder al documento en este [enlace](https://doi.org/10.17605/OSF.IO/URPZQ). El análisis estadístico de esta investigación fue realizado mediante el software libre R versión 4.0.0.
 
 Debido a que la muestra posee una estructura jerárquica de estudiantes anidados en comunas, se estimarán regresiones multinivel para evaluar todas las hipótesis. Reconocer que se trata de estudiantes anidados en comunas permite incluir variables medidas en diferentes niveles de análisis [@aguinis_BestPractice_2013]. Asimismo, realizar una regresión multinivel permite aislar los efectos individuales (estudiantes) de los agregados (comunas) y, a partir de esto, analizar la varianza de los resultados en cada nivel, así como la proporción de la varianza explicada por las variables independientes de cada nivel. Debido a que las características estructurales de los grupos son una dimensión clave para explicar los diferentes resultados que poseen los estudiantes [@trevino_Influence_2018] y porque tanto las comunas como las escuelas pueden diferir entre sí en cuanto a sus valores y normas comunes [@bayramozdemir_How_2020], se hace necesario estimar regresiones multinivel que permitan determinar si los resultados en las actitudes de los estudiantes dependen de sus respuestas a nivel individual o por características agregadas a nivel de comuna.
 
@@ -195,7 +207,3 @@ De esta forma, luego de estimar la correlación intra-clase de los modelos, y si
 * Hipótesis de moderación (5)
 
 * Hipótesis de efectos directos a nivel agregado (6, 7 y 8)
-
-
-
-
