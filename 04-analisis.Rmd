@@ -1,120 +1,38 @@
 # Análisis
 
-```{r include=FALSE}
+## Regresión multinivel
 
-pacman::p_load(dplyr, ggplot2, sjPlot, summarytools, corrplot, ltm, lme4, stargazer, texreg, scales)
-load("IPO/input/data/proc/data.RData")
-load("IPO/input/data/proc/data_comuna.RData")
-data_comuna <- rename(data_comuna, cod_com_alu=p10comuna)
-data <- merge(data, data_comuna, by= "cod_com_alu")
-
-data$est_piel_rec <- as.numeric(data$est_piel)
-data$est_clase_rec <- as.numeric(data$est_clase)
-data$est_religion_rec <- as.numeric(data$est_religion)
-data$est_orien_sexual_rec <- as.numeric(data$est_orien_sexual)
-data$est_region_rec <- as.numeric(data$est_region)
-data$est_pais_rec <- as.numeric(data$est_pais)
-data$est_indigena_rec <- as.numeric(data$est_indigena)
-
-data$est_piel_rec <- car::recode(data$est_piel_rec, "1=0; 2=1")
-data$est_clase_rec <- car::recode(data$est_clase_rec, "1=0; 2=1")
-data$est_religion_rec <- car::recode(data$est_religion_rec, "1=0; 2=1")
-data$est_orien_sexual_rec <- car::recode(data$est_orien_sexual_rec, "1=0; 2=1")
-data$est_region_rec <- car::recode(data$est_region_rec, "1=0; 2=1")
-data$est_pais_rec <- car::recode(data$est_pais_rec, "1=0; 2=1")
-data$est_indigena_rec <- car::recode(data$est_indigena_rec, "1=0; 2=1")
-
-data <- data %>% rowwise() %>% mutate(est_acc_div = sum(est_piel_rec, est_clase_rec, est_religion_rec, est_orien_sexual_rec, est_region_rec, est_pais_rec, est_indigena_rec))
-
-# educacion
-data$educacion_rec <- ifelse(is.na(data$apod_educ), "Ns/Nr", data$apod_educ) # crea categoria Na para no perder casos
-data <- data %>% rowwise() %>%  mutate(educacion_rec = case_when(educacion_rec==1~"Ed Basica",
-                                                 educacion_rec==2~"Ed Basica",
-                                                 educacion_rec==3~"Ed Basica",
-                                                 educacion_rec==4~"Ed Media",
-                                                 educacion_rec==5~"Ed Media",
-                                                 educacion_rec==6~"Ed Tecnica",
-                                                 educacion_rec==7~"Ed Tecnica",
-                                                 educacion_rec==8~"Universidad o posgrado",
-                                                 educacion_rec==9~"Universidad o posgrado",
-                                                 educacion_rec==10~"Universidad o posgrado",
-                                                 educacion_rec=="Ns/Nr"~"Ns/Nr"
-                                                 )) # recodificar en menos categorias
-data$educacion_rec <- factor(data$educacion_rec, levels = c("Ed Basica", "Ed Media", "Ed Tecnica", "Universidad o posgrado", "Ns/Nr")) # relevel porque queda con orden distinto
-
-# libros
-data$libros_rec <- as.numeric(data$libros)
-data <- data %>% rowwise() %>% mutate(libros_rec = case_when(libros_rec==1 ~ "Menos de 25",
-                                                             libros_rec==2 ~ "Menos de 25",
-                                                             libros_rec==3 ~ "Más de 25",
-                                                             libros_rec==4 ~ "Más de 25",
-                                                             libros_rec==5 ~ "Más de 25")) # dejar solo dos categorias
-data$libros_rec <- factor(data$libros_rec, levels = c("Menos de 25", "Más de 25"))
-
-# c civic
-data$civic <- ntile(data$c_civic,3) # categorizar el puntaje en bajo, medio y alto
-data$civic <- factor(data$civic, labels = c("Bajo", "Medio", "Alto"))
-
-# mean ap dis
-data <- data %>% group_by(mrbd) %>% mutate(mean_apdis = mean(ap_dis, na.rm=TRUE)) %>% ungroup()
-
-# etnia reescalar
-data$etnia2 <- ntile(data$prop_etnia,3) # categorizar el puntaje en bajo, medio y alto
-data$etnia2 <- factor(data$etnia2, labels = c("Bajo", "Medio", "Alto"))
-
-
-# inmigrante reescalar
-data$inmigrante2 <- ntile(data$prop_inm,3) # categorizar el puntaje en bajo, medio y alto
-data$inmigrante2 <- factor(data$inmigrante2, labels = c("Bajo", "Medio", "Alto"))
-
-base <- data %>% dplyr::select(est_acc_div, educacion_rec, libros_rec, apod_acc_div, civic, ap_dis, mean_apdis, educacion_rec, mrbd, etnia2, inmigrante2, escolaridad) %>% na.omit()
-
-reg0.1 <- lmer(est_acc_div ~ 1 + (1 | mrbd), data=base)
-reg1.1 <- lmer(est_acc_div ~ educacion_rec + libros_rec + (1 | mrbd), data=base)
-reg2.1 <- lmer(est_acc_div ~ apod_acc_div + (1 | mrbd), data=base)
-reg3.1 <- lmer(est_acc_div ~ civic + ap_dis + mean_apdis + (1 | mrbd), data=base)
-reg4.1 <- lmer(est_acc_div ~ etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
-reg5.1 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div + civic + ap_dis + mean_apdis + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
-reg12 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*ap_dis + civic + ap_dis + mean_apdis + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
-# actitudes apod x territorio
-reg13 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*inmigrante2 + civic + ap_dis + mean_apdis + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
-reg15 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*escolaridad + civic + ap_dis + mean_apdis + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
+```{r reg, echo=FALSE, results='asis'}
+kable(data.frame(image='![](IPO/output/tables/reg.png)'),    # generar tabla
+             caption="Regresión multinivel",
+             col.names = "",
+             row.names = F,
+             format = "pipe") %>%  kable_styling(latex_options = c("HOLD_position"),full_width = T)
 ```
 
-```{r results='asis', message=FALSE, echo=FALSE}  
-htmlreg(list(reg1.1, reg2.1, reg3.1, reg4.1, reg5.1, reg12, reg13, reg15), 
-         custom.model.names = c("Modelo 1",
-                               "Modelo 2",
-                               "Modelo 3",
-                               "Modelo 4",
-                               "Modelo 5",
-                               "Modelo 6",
-                               "Modelo 7",
-                               "Modelo 8"), 
-        custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05",
-        custom.coef.names = c("Intercepto", 
-                              "Educación media <br> <i>(Ref. Básica)</i>",
-                              "Educación técnica", 
-                              "Universidad o posgrado",
-                              "Ns/Nr",
-                              "Más de 25 libros <br> <i>(Ref. menos de 25)</i>", 
-                              "Aceptación diversidad apoderados", 
-                              "Conocimiento cívico medio <br> <i>(Ref. bajo</i>", 
-                              "Conocimiento cívico alto", 
-                              "Discusión en sala de clases", 
-                              "Promedio discusión en sala", 
-                              "Prop. etnia medio <br> <i>(Ref. bajo</i>", 
-                              "Prop. etnia alto",
-                              "Prop. inmigrante medio <br> <i>(Ref. bajo</i>", 
-                              "Prop. inmigrante alto",
-                              "Promedio escolaridad", 
-                              "Aceptación diversidad apoderados * discusión en sala", 
-                              "Aceptación diversidad apoderados * prop. inmigrante medio", 
-                              "Aceptación diversidad apoderados * prop. inmigrante alte", 
-                              "Aceptación diversidad apoderados * escolaridad"),
-        caption = "Aceptar la diversidad en el vecindario",
-        caption.above = TRUE)
-```  
+Se estimó un modelo de regresión multinivel para predecir el índice de aceptación de la diversidad de estudiantes. El modelo incluyó las escuelas (MRBD) como efecto aleatorio. El poder explicativo del modelo es débil (R=0.03). Los resultados de esta estimación se muestran en la Tabla \@ref(tab:reg).
 
+Las variables asociadas a el nivel educacional de los apoderados no son estadísticamente significativas, salvo para el nivel de educación media en el modelo 4 ($\beta$=-0.15, 95% CI). En cuanto a la cantidad de libros, tener más de 25 libros en el hogar tiene un efecto significativo solo en los modelos 1 y 2 (Modelo 1 $\beta$=0.09, 95% CI; Modelo 2 $\beta$=0.1, 95% CI), mientras que en los modelos 3 y 4 deja de ser estadísticamente significativa al controlar por el resto de las variables.
 
+Las actitudes de los apoderados medidas a través del índice de aceptación de la diversidad son estadísticamente significativa al controlar por el resto de las variables y esta relación es consistente en los tres modelos que se incluye (Modelo 2 $\beta$=0.09, 99.9% CI; Modelo 3 y 4 $\beta$=0.08, 99.9% CI).
+
+Las variables asociadas al proceso de socialización en la escuela son estadísticamente significativas en su nivel individual. Tener un nivel de conocimiento cívico medio ($\beta$=0.26, 99.9% CI) y alto ($\beta$=0.39, 99.9% CI) se asocia con una mayor aceptación de la diversidad de los estudiantes en comparación con quienes tienen un nivel de conocimiento cívico bajo, al mantener el resto de las variables constantes. El índice de apertura a la discusión en la sala de clases también se asocia positivamente con la aceptación de la diversidad de los estudiantes ($\beta$=0.13, 99.9% CI), manteniendo las demás variables constantes, pero el promedio de apertura a la discusión en la sala (nivel 2) no posee una asociación estadísticamente significativa.
+
+Finalmente, ninguna de las variables territoriales que abordaban características contextuales de la comuna (proporción de personas que se identifican con alguna etnia, proporción de inmigrantes y promedio de escolaridad) tienen una asociación estadísticamente significativa con las actitudes de los y las estudiantes.
+
+Estos resultados son consistentes con algunas de las hipótesis planteadas. En primer lugar, en cuanto al proceso de socialización familiar, los resultados no permiten comprobar la hipótesis 1 sobre la relación entre los recursos socioeconómicos de la familia y un mayor grado de aceptación de la diversidad en su vecindario. Por el contrario, el único resultado que posee una asociación estadísticamente significativa indica que estudiantes que poseen apoderados con un nivel de educación media aceptarían menos la diversidad en su vecindario en comparación con aquellos estudiantes que poseen apoderados con educación básica. En relación con las actitudes de los apoderados los resultados permiten corroborar la hipótesis planteada (H2), es decir, aquellos estudiantes que provienen de familiar con padres que aceptan en mayor medida que distintos grupos sociales vivan en sus vecindarios, también poseen un mayor grado de aceptación de la diversidad en sus vecindarios.
+
+En segundo lugar, los resultados permiten comprobar las hipótesis relacionadas con el proceso de socialización escolar. Estudiantes que poseen un nivel de conocimiento cívico medio y alto poseen un mayor grado de aceptación de la diversidad en sus vecindarios en comparación con estudiantes que poseen un nivel de conocimiento cívico bajo; esto es consistente con la hipótesis 3. En relación con el índice de apertura a la discusión en las salas de clases, los resultados indican que estudiantes que perciben en mayor medida un ambiente abierto a la discusión y al debate dentro del aula poseen un mayor grado de aceptación de la diversidad, lo que permite comprobar la hipótesis 4.
+
+En tercer lugar, los resultados obtenidos en las estimaciones de los modelos multinivel no permiten comprobar las hipótesis planteadas. Las características de las comunas en que residen los estudiantes, como la proporción de personas que se identifican con alguna etnia, la proporción de inmigrantes y el promedio de escolaridad de la comuna no afectan en el proceso de socialización de actitudes de los y las estudiantes.
+
+## Interacciones
+
+```{r interac, echo=FALSE, results='asis'}
+kable(data.frame(image='![](IPO/output/tables/interac.png)'),    # generar tabla
+             caption="Interacciones",
+             col.names = "",
+             row.names = F,
+             format = "pipe") %>%  kable_styling(latex_options = c("HOLD_position"),full_width = T)
+```
 

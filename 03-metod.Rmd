@@ -10,59 +10,21 @@ Sumado a lo anterior, para las variables del territorio se utilizará la base de
 
 ## Variables
 
-Con el fin de medir las actitudes de los y las estudiantes hacia la diversidad en sus vecindarios se utiliza la batería de preguntas del módulo “Tolerancia y Distancia Social” del cuestionario de estudiantes. Estas variables están medidas a partir de las preguntas que se presentan en la Tabla \@ref(tab:tab1) a continuación. 
+Con el fin de medir las actitudes de los y las estudiantes hacia la diversidad en sus vecindarios se utiliza la batería de preguntas del módulo “Tolerancia y Distancia Social” del cuestionario de estudiantes. Estas variables están medidas a partir de las preguntas que se presentan en la Tabla \@ref(tab:desc01). 
 
-```{r include=FALSE}
-pacman::p_load(summarytools,haven,sjPlot,dplyr,htmlwidgets, webshot, sjlabelled, kableExtra, sjmisc)
-load("IPO/input/data/proc/data.RData")
-load("IPO/input/data/proc/data_comuna.RData")
-data_comuna <- rename(data_comuna, cod_com_alu=p10comuna)
-data <- merge(data, data_comuna, by= "cod_com_alu")
-data_est <- dplyr::select(data, est_piel,
-                                 est_clase,
-                                 est_religion,
-                                 est_orien_sexual,
-                                 est_region,
-                                 est_pais,
-                                 est_indigena)
-```
 
-```{r tab1, results='asis', message=FALSE, echo=FALSE}  
-print(dfSummary(data_est,
-                plain.ascii = F,
-                varnumbers = F, 
-                graph.col = F, 
-                style = "grid",
-                headings = F),
-      method = "render")
+```{r desc01, echo=FALSE, results='asis'}
+kable(data.frame(image='![](IPO/output/tables/desc01.png)'),    # generar tabla
+             caption="Descripción aceptación de la diversidad estudiantes",
+             col.names = "",
+             row.names = F,
+             format = "pipe") %>%  kable_styling(latex_options = c("HOLD_position"),full_width = T)
 ```
 
 Para operacionalizar esta batería de preguntas, en primer lugar, se recodificarán los ítems de modo que 0 indique que no le gustaría que cada uno de los grupos viva en su vecindario y 1 indique que sí le gustaría. Luego, se construirá un índice sumativo a partir de la suma de los ítems para representar el grado de aceptación de todos los grupos. La distribución de este índice se puede observar en el Gráfico \@ref(fig:ind-est). El valor de Alpha de Cronbach de este índice es de 0.887
 
 ```{r ind-est, echo=F, fig.cap="Indice aceptacion de la diversidad (estudiantes)"}
-data$est_piel_rec <- as.numeric(data$est_piel)
-data$est_clase_rec <- as.numeric(data$est_clase)
-data$est_religion_rec <- as.numeric(data$est_religion)
-data$est_orien_sexual_rec <- as.numeric(data$est_orien_sexual)
-data$est_region_rec <- as.numeric(data$est_region)
-data$est_pais_rec <- as.numeric(data$est_pais)
-data$est_indigena_rec <- as.numeric(data$est_indigena)
-
-data$est_piel_rec <- car::recode(data$est_piel_rec, "1=0; 2=1")
-data$est_clase_rec <- car::recode(data$est_clase_rec, "1=0; 2=1")
-data$est_religion_rec <- car::recode(data$est_religion_rec, "1=0; 2=1")
-data$est_orien_sexual_rec <- car::recode(data$est_orien_sexual_rec, "1=0; 2=1")
-data$est_region_rec <- car::recode(data$est_region_rec, "1=0; 2=1")
-data$est_pais_rec <- car::recode(data$est_pais_rec, "1=0; 2=1")
-data$est_indigena_rec <- car::recode(data$est_indigena_rec, "1=0; 2=1")
-
-data <- data %>% rowwise() %>% mutate(est_acc_div = sum(est_piel_rec, est_clase_rec, est_religion_rec, est_orien_sexual_rec, est_region_rec, est_pais_rec, est_indigena_rec, na.rm = T))
-
-sjPlot::plot_frq(data$est_acc_div,
-                 type = "bar",
-                 axis.title = "Aceptación de la diversidad en el vecindario
-                 Fuente: Elaboración propia",
-                 geom.colors = "coral")
+knitr::include_graphics("IPO/output/graphs/ind_est.png")
 ```
 
 En relación con las variables independientes, estas se dividen en tres grupos: 1) variables de la familia, 2) variables de la escuela y 3) variables del territorio.
@@ -85,92 +47,17 @@ Actitudes de la familia:
 
 * Apertura a la discusión en el aula: Esta variable refiere a la percepción de los y las estudiantes sobre los espacios e instancias disponibles para discutir y opinar sobre diversos temas. Se construirá un índice promedio a partir de las variables disponibles
 
-Un resumen de estas variables se presenta en la Tabla a continuación.
+Un resumen de estas variables se presenta en la Tabla \@ref(tab:desc02).
 
-
-```{r include=FALSE}
-data$apod_acc_div <- sjlabelled::set_label(data$apod_acc_div, 'Aceptación de la diversidad (apoderados)')
-
-# educacion
-data$educacion_rec <- ifelse(is.na(data$apod_educ), "Ns/Nr", data$apod_educ) # crea categoria Na para no perder casos
-data <- data %>% rowwise() %>%  mutate(educacion_rec = case_when(educacion_rec==1~"Ed Basica",
-                                                 educacion_rec==2~"Ed Basica",
-                                                 educacion_rec==3~"Ed Basica",
-                                                 educacion_rec==4~"Ed Media",
-                                                 educacion_rec==5~"Ed Media",
-                                                 educacion_rec==6~"Ed Tecnica",
-                                                 educacion_rec==7~"Ed Tecnica",
-                                                 educacion_rec==8~"Universidad o posgrado",
-                                                 educacion_rec==9~"Universidad o posgrado",
-                                                 educacion_rec==10~"Universidad o posgrado",
-                                                 educacion_rec=="Ns/Nr"~"Ns/Nr"
-                                                 )) # recodificar en menos categorias
-data$educacion_rec <- factor(data$educacion_rec, levels = c("Ed Basica", "Ed Media", "Ed Tecnica", "Universidad o posgrado", "Ns/Nr")) # relevel porque queda con orden distinto
-
-# libros
-data$libros_rec <- as.numeric(data$libros)
-data <- data %>% rowwise() %>% mutate(libros_rec = case_when(libros_rec==1 ~ "Menos de 25",
-                                                             libros_rec==2 ~ "Menos de 25",
-                                                             libros_rec==3 ~ "Más de 25",
-                                                             libros_rec==4 ~ "Más de 25",
-                                                             libros_rec==5 ~ "Más de 25")) # dejar solo dos categorias
-data$libros_rec <- factor(data$libros_rec, levels = c("Menos de 25", "Más de 25"))
-
-# c civic
-data$civic <- ntile(data$c_civic,3) # categorizar el puntaje en bajo, medio y alto
-data$civic <- factor(data$civic, labels = c("Bajo", "Medio", "Alto"))
-
-# mean ap dis
-data <- data %>% group_by(mrbd) %>% mutate(mean_apdis = mean(ap_dis, na.rm=TRUE)) %>% ungroup()
-
-data$civic <- sjlabelled::set_label(data$civic, 'Conocimiento cívico')
-data$ap_dis <- sjlabelled::set_label(data$ap_dis, 'Índice apertura a la discusión en el aula')
-data$mean_apdis <- sjlabelled::set_label(data$mean_apdis, 'Promedio apertura a la discusión en el aula')
-data$educacion_rec <- sjlabelled::set_label(data$educacion_rec, 'Nivel educacional apoderados')
-data$libros_rec <- sjlabelled::set_label(data$ap_dis, 'Cantidad de libros en el hogar')
-
-data_indep <- dplyr::select(data,
-                            educacion_rec,
-                              libros_rec,
-                              apod_acc_div,
-                              civic,
-                              ap_dis,
-                            mean_apdis)
+```{r desc02, echo=FALSE, results='asis'}
+kable(data.frame(image='![](IPO/output/tables/desc02.png)'),    # generar tabla
+             caption="Descripción variables independientes",
+             col.names = "",
+             row.names = F,
+             format = "pipe") %>%  kable_styling(latex_options = c("HOLD_position"),full_width = T)
 ```
 
 
-```{r echo=FALSE, results='asis'}
-print(dfSummary(data_indep,
-                plain.ascii = F,
-                varnumbers = F, 
-                graph.col = F, 
-                style = "grid",
-                headings = F),
-      method = "render")
-
-```
-
-```{r include=FALSE}
-# etnia reescalar
-data$etnia2 <- ntile(data$prop_etnia,3) # categorizar el puntaje en bajo, medio y alto
-data$etnia2 <- factor(data$etnia2, labels = c("Bajo", "Medio", "Alto"))
-
-
-# inmigrante reescalar
-data$inmigrante2 <- ntile(data$prop_inm,3) # categorizar el puntaje en bajo, medio y alto
-data$inmigrante2 <- factor(data$inmigrante2, labels = c("Bajo", "Medio", "Alto"))
-
-
-data_terr <- dplyr::select(data,
-                            etnia2,
-                            inmigrante2,
-                            escolaridad)
-
-
-data_terr$etnia2 <- sjlabelled::set_label(data_terr$etnia2, 'Proporción de personas que se identifica con alguna etnia')
-data_terr$inmigrante2 <- sjlabelled::set_label(data_terr$inmigrante2, 'Proporción de inmigrantes')
-data_terr$escolaridad <- sjlabelled::set_label(data_terr$escolaridad, 'Promedio de escolaridad')
-```
 
 3) Variables del territorio
 
@@ -180,16 +67,14 @@ data_terr$escolaridad <- sjlabelled::set_label(data_terr$escolaridad, 'Promedio 
 
 * Promedio de escolaridad: Escolaridad promedio de la comuna, según datos del Censo 2017. Esta variable posee un rango de 6.9 a 11.2. 
 
-Un resumen de estas variables se muestran en la siguiente tabla:
+Un resumen de estas variables se muestran en la Tabla \@ref(tab:desc03)
 
-```{r echo=FALSE, results='asis'}
-print(dfSummary(data_terr,
-                plain.ascii = F,
-                varnumbers = F, 
-                graph.col = F, 
-                style = "grid",
-                headings = F),
-      method = "render")
+```{r desc03, echo=FALSE, results='asis'}
+kable(data.frame(image='![](IPO/output/tables/desc03.png)'),    # generar tabla
+             caption="Descripción variables contextuales",
+             col.names = "",
+             row.names = F,
+             format = "pipe") %>%  kable_styling(latex_options = c("HOLD_position"),full_width = T)
 ```
 
 ## Métodos

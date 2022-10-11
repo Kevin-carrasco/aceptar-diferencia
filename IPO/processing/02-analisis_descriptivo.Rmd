@@ -8,68 +8,92 @@ output: html_document
 ```{r}
 pacman::p_load(dplyr, ggplot2, sjPlot, summarytools, corrplot, ltm)
 load("IPO/input/data/proc/data.RData")
+load("IPO/input/data/proc/data_comuna.RData")
 ```
 
 
-# Estudiantes
+# Dependiente
 ```{r}
-print(dfSummary(dplyr::select(data, est_piel,
+data_est <- dplyr::select(data, est_piel,
                                  est_clase,
                                  est_religion,
                                  est_orien_sexual,
                                  est_region,
                                  est_pais,
-                                 est_indigena),
+                                 est_indigena)
+
+df <- dfSummary(data_est,
+                plain.ascii = F,
                 varnumbers = F, 
                 graph.col = F, 
                 style = "grid",
-                headings = F),
-      method = "render")
+                headings = F)
+df$Variable <- NULL # delete variable column
+view(df,file = "desc01.html")
+webshot(url ="desc01.html" ,file ="IPO/output/tables/desc01.png")
 ```
 
+# Independiente
 ```{r}
-print(dfSummary(dplyr::select(data, libros,
-                                 ap_dis1,
-                                 ap_dis2,
-                                 ap_dis3,
-                                 ap_dis4,
-                                 ap_dis5,
-                                 ap_dis6,
-                                 c_civic),
+data_indep <- dplyr::select(data,
+                            educacion_rec,
+                              libros_rec,
+                              apod_acc_div,
+                              civic,
+                              ap_dis,
+                            mean_apdis)
+
+
+df2 <- dfSummary(data_indep,
                 varnumbers = F, 
                 graph.col = F, 
                 style = "grid",
-                headings = F),
-      method = "render")
+                headings = F)
+
+df2$Variable <- NULL # delete variable column
+view(df2,file = "desc02.html")
+webshot(url ="desc02.html" ,file ="IPO/output/tables/desc02.png")
 ```
 
-# Apoderados
+# Independientes comuna
 ```{r}
-print(dfSummary(dplyr::select(data, apod_piel,
-                                 apod_clase,
-                                 apod_religion,
-                                 apod_orien_sexual,
-                                 apod_region,
-                                 apod_pais,
-                                 apod_indigena,
-                              apod_educ),
+data_comuna <- rename(data_comuna, cod_com_alu=p10comuna)
+
+base <- merge(data, data_comuna, by="cod_com_alu")
+
+# etnia reescalar
+base$etnia2 <- ntile(base$prop_etnia,3) # categorizar el puntaje en bajo, medio y alto
+base$etnia2 <- factor(base$etnia2, labels = c("Bajo", "Medio", "Alto"))
+
+# inmigrante reescalar
+base$inmigrante2 <- ntile(base$prop_inm,3) # categorizar el puntaje en bajo, medio y alto
+base$inmigrante2 <- factor(base$inmigrante2, labels = c("Bajo", "Medio", "Alto"))
+
+base$etnia2 <- sjlabelled::set_label(base$etnia2, 'Proporción de personas que se identifica con alguna etnia')
+base$inmigrante2 <- sjlabelled::set_label(base$inmigrante2, 'Proporción de inmigrantes')
+base$escolaridad <- sjlabelled::set_label(base$escolaridad, 'Promedio de escolaridad')
+
+
+
+
+data_terr <- dplyr::select(base,
+                            etnia2,
+                           inmigrante2,
+                           escolaridad)
+
+
+
+df3 <- dfSummary(data_terr,
                 varnumbers = F, 
                 graph.col = F, 
                 style = "grid",
-                headings = F),
-      method = "render")
+                headings = F)
+
+df3$Variable <- NULL # delete variable column
+view(df3,file = "desc03.html")
+webshot(url ="desc03.html" ,file ="IPO/output/tables/desc03.png")
+file.remove(c("desc01.html","desc02.html", "desc03.html"))
 ```
-
-
-```{r}
-print(dfSummary(data,
-                varnumbers = F, 
-                graph.col = F, 
-                style = "grid",
-                headings = F),
-      method = "render")
-```
-
 
 
 # Visualización descriptivos
@@ -145,13 +169,15 @@ summary(data$est_acc_div)
 
 ```{r}
 ind_est <- sjPlot::plot_frq(data$est_acc_div,
-                 title = "Índice aceptación de la diversidad (estudiantes)",
                  type = "bar",
-                 axis.title = "Cantidad de grupos que no le molestan",
+                 axis.title = "Aceptación de la diversidad en el vecindario
+                 Fuente: Elaboración propia",
                  geom.colors = "coral")
 
 ggsave(ind_est, file = "IPO/output/graphs/ind_est.png",device = "png",width = 25,height = 13,dpi = "retina",units = "cm")
 ```
+
+
 
 ## apoderados
 

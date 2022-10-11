@@ -111,26 +111,6 @@ label(data$apod_indigena) <- "Personas de origen indígena"
 label(data$apod_educ) <- "Nivel educacional más alto"
 ```
 
-```{r}
-data_est <- dplyr::select(data, est_piel,
-                                 est_clase,
-                                 est_religion,
-                                 est_orien_sexual,
-                                 est_region,
-                                 est_pais,
-                                 est_indigena)
-
-df <- dfSummary(data_est,
-                plain.ascii = F,
-                varnumbers = F, 
-                graph.col = F, 
-                style = "grid",
-                headings = F)
-df$Variable <- NULL # delete variable column
-view(df,file = "desc01.html")
-webshot(url ="desc01.html" ,file ="output/desc01.png")
-```
-
 ```{r include=FALSE}
 # Actitudes apoderados
 data$apod_piel_rec <- as.numeric(data$apod_piel)
@@ -166,23 +146,43 @@ data <- data %>% rowwise() %>% mutate(ap_dis = mean(c(ap_dis1, ap_dis2, ap_dis3,
 data$c_civic <- sjlabelled::set_label(data$c_civic, 'Conocimiento cívico')
 data$ap_dis <- sjlabelled::set_label(data$ap_dis, 'Índice apertura a la discusión en el aula')
 
-data_indep <- dplyr::select(data,
-                            apod_educ,
-                              libros,
-                              apod_acc_div,
-                              c_civic,
-                              ap_dis)
+# educacion
+data$educacion_rec <- ifelse(is.na(data$apod_educ), "Ns/Nr", data$apod_educ) # crea categoria Na para no perder casos
+data <- data %>% rowwise() %>%  mutate(educacion_rec = case_when(educacion_rec==1~"Ed Basica",
+                                                 educacion_rec==2~"Ed Basica",
+                                                 educacion_rec==3~"Ed Basica",
+                                                 educacion_rec==4~"Ed Media",
+                                                 educacion_rec==5~"Ed Media",
+                                                 educacion_rec==6~"Ed Tecnica",
+                                                 educacion_rec==7~"Ed Tecnica",
+                                                 educacion_rec==8~"Universidad o posgrado",
+                                                 educacion_rec==9~"Universidad o posgrado",
+                                                 educacion_rec==10~"Universidad o posgrado",
+                                                 educacion_rec=="Ns/Nr"~"Ns/Nr"
+                                                 )) # recodificar en menos categorias
+data$educacion_rec <- factor(data$educacion_rec, levels = c("Ed Basica", "Ed Media", "Ed Tecnica", "Universidad o posgrado", "Ns/Nr")) # relevel porque queda con orden distinto
 
-df2 <- dfSummary(data_indep,
-                varnumbers = F, 
-                graph.col = F, 
-                style = "grid",
-                headings = F)
+# libros
+data$libros_rec <- as.numeric(data$libros)
+data <- data %>% rowwise() %>% mutate(libros_rec = case_when(libros_rec==1 ~ "Menos de 25",
+                                                             libros_rec==2 ~ "Menos de 25",
+                                                             libros_rec==3 ~ "Más de 25",
+                                                             libros_rec==4 ~ "Más de 25",
+                                                             libros_rec==5 ~ "Más de 25")) # dejar solo dos categorias
+data$libros_rec <- factor(data$libros_rec, levels = c("Menos de 25", "Más de 25"))
 
-df2$Variable <- NULL # delete variable column
-view(df2,file = "desc02.html")
-webshot(url ="desc02.html" ,file ="output/desc02.png")
-file.remove(c("desc01.html","desc02.html"))
+# c civic
+data$civic <- ntile(data$c_civic,3) # categorizar el puntaje en bajo, medio y alto
+data$civic <- factor(data$civic, labels = c("Bajo", "Medio", "Alto"))
+
+# mean ap dis
+data <- data %>% group_by(mrbd) %>% mutate(mean_apdis = mean(ap_dis, na.rm=TRUE)) %>% ungroup()
+
+data$civic <- sjlabelled::set_label(data$civic, 'Conocimiento cívico')
+data$ap_dis <- sjlabelled::set_label(data$ap_dis, 'Índice apertura a la discusión en el aula')
+data$mean_apdis <- sjlabelled::set_label(data$mean_apdis, 'Promedio apertura a la discusión en el aula')
+data$educacion_rec <- sjlabelled::set_label(data$educacion_rec, 'Nivel educacional apoderados')
+data$libros_rec <- sjlabelled::set_label(data$libros_rec, 'Cantidad de libros en el hogar')
 ```
 
 # Guardar bases
@@ -191,35 +191,7 @@ file.remove(c("desc01.html","desc02.html"))
 save(data, file="IPO/input/data/proc/data.RData")
 ```
 
-# Variables territorio
-```{r}
-data_territorio <- read_excel("IPO/input/data/original/BASE_2018_COD.xlsx")
-load("IPO/input/data/original/ELSOC_W03_v2.00_R.RData")
-load("IPO/input/data/proc/data.RData")
 
-union <- merge(elsoc_2018, data_territorio,
-by="idencuesta", all.x = TRUE, all.y = TRUE)
-
-data_terr <- union %>% dplyr::select(cant_etnia=p_orig,
-                                               cant_inm=inmigrante,
-                                               prom_esc=jh_esc_m,
-                                               cod_com_alu=comuna_cod,
-                                     comuna)
-data_terr <- data_terr %>%  set_na(.,
-                         na = c(-995), 
-                         drop.levels = TRUE, 
-                         as.tag = FALSE) # recode missings de doble marca (99) y vacío (0) a NA
-data_terr2 <- data_terr %>% group_by(cod_com_alu) %>% filter(!duplicated(prom_esc))
-data_terr2 <- data_terr2 %>% group_by(cod_com_alu) %>% mutate(cant_etnia_com = sum(cant_etnia),
-                                                           cant_inm_com = sum(cant_inm),
-                                                           prom_esc_com = mean(prom_esc))
-data_comuna <- data_terr2 %>% filter(!duplicated(cod_com_alu))
-data_comuna <- data_comuna %>% dplyr::select(cod_com_alu, comuna, cant_etnia_com, cant_inm_com, prom_esc_com)
-```
-
-```{r}
-save(data_comuna, file="IPO/input/data/proc/data_comuna.RData")
-```
 
 # Variables territoriales
 

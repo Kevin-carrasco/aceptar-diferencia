@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.20)  10 OCT 2022 23:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.20)  11 OCT 2022 15:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -551,6 +551,24 @@ File: l3backend-pdftex.def 2022-07-01 L3 backend support: PDF output (pdfTeX)
 ) (./tesis.aux
 LaTeX Info: Redefining \. on input line 23.
 LaTeX Info: Redefining \% on input line 23.
+
+LaTeX Warning: Label `tab:desc02' multiply defined.
+
+
+LaTeX Warning: Label `tab:desc02' multiply defined.
+
+
+LaTeX Warning: Label `tab:reg' multiply defined.
+
+
+LaTeX Warning: Label `tab:reg' multiply defined.
+
+
+LaTeX Warning: Label `tab:interac' multiply defined.
+
+
+LaTeX Warning: Label `tab:interac' multiply defined.
+
 )
 \openout1 = `tesis.aux'.
 
@@ -589,7 +607,7 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: threeparttable package is loaded.
 Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
-<images/facso.png, id=56, 702.625pt x 366.36874pt>
+<images/facso.png, id=64, 702.625pt x 366.36874pt>
 File: images/facso.png Graphic file (type png)
 <use images/facso.png>
 Package pdftex.def Info: images/facso.png  used on input line 181.
@@ -689,7 +707,7 @@ Cap\'{\i }tulo 2.
 [3
 
 ]
-<images/aceptacion_wvs.png, id=161, 505.89pt x 505.89pt>
+<images/aceptacion_wvs.png, id=188, 505.89pt x 505.89pt>
 File: images/aceptacion_wvs.png Graphic file (type png)
 <use images/aceptacion_wvs.png>
 Package pdftex.def Info: images/aceptacion_wvs.png  used on input line 225.
@@ -748,101 +766,186 @@ LaTeX Info: Redefining \% on input line 347.
 [16]
 Cap\'{\i }tulo 4.
 
-LaTeX Warning: Reference `tab:tab1' on page 17 undefined on input line 361.
+Overfull \hbox (313.16817pt too wide) in alignment at lines 363--366
+ [] 
+ []
+
+<IPO/output/tables/desc01.png, id=563, 746.79pt x 560.0925pt>
+File: IPO/output/tables/desc01.png Graphic file (type png)
+<use IPO/output/tables/desc01.png>
+Package pdftex.def Info: IPO/output/tables/desc01.png  used on input line 367.
+(pdftex.def)             Requested size: 746.78816pt x 560.09113pt.
+
+Overfull \hbox (313.16817pt too wide) in alignment at lines 366--369
+ [] 
+ []
 
 [17
 
 ]
-<tesis_files/figure-latex/ind-est-1.pdf, id=545, 469.755pt x 325.215pt>
-File: tesis_files/figure-latex/ind-est-1.pdf Graphic file (type pdf)
-<use tesis_files/figure-latex/ind-est-1.pdf>
-Package pdftex.def Info: tesis_files/figure-latex/ind-est-1.pdf  used on input line 367.
-(pdftex.def)             Requested size: 346.89731pt x 240.15909pt.
-LaTeX Info: Redefining \. on input line 398.
-LaTeX Info: Redefining \% on input line 398.
-[18 <./tesis_files/figure-latex/ind-est-1.pdf>]
-LaTeX Info: Redefining \. on input line 442.
-LaTeX Info: Redefining \% on input line 442.
-[19]
-LaTeX Info: Redefining \. on input line 457.
-LaTeX Info: Redefining \% on input line 457.
+Underfull \vbox (badness 3713) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 372.
+LaTeX Info: Redefining \% on input line 372.
+[18 <./IPO/output/tables/desc01.png>]
+<IPO/output/graphs/ind_est.png, id=580, 711.18198pt x 369.70622pt>
+File: IPO/output/graphs/ind_est.png Graphic file (type png)
+<use IPO/output/graphs/ind_est.png>
+Package pdftex.def Info: IPO/output/graphs/ind_est.png  used on input line 375.
+(pdftex.def)             Requested size: 346.89731pt x 180.33965pt.
+LaTeX Info: Redefining \. on input line 420.
+LaTeX Info: Redefining \% on input line 420.
+[19 <./IPO/output/graphs/ind_est.png>]
+Overfull \hbox (313.16817pt too wide) in alignment at lines 425--428
+ [] 
+ []
+
+<IPO/output/tables/desc02.png, id=587, 746.79pt x 644.4075pt>
+File: IPO/output/tables/desc02.png Graphic file (type png)
+<use IPO/output/tables/desc02.png>
+Package pdftex.def Info: IPO/output/tables/desc02.png  used on input line 429.
+(pdftex.def)             Requested size: 746.78816pt x 644.40593pt.
+
+Overfull \hbox (313.16817pt too wide) in alignment at lines 428--431
+ [] 
+ []
+
+LaTeX Info: Redefining \. on input line 431.
+LaTeX Info: Redefining \% on input line 431.
 [20]
+LaTeX Info: Redefining \. on input line 431.
+LaTeX Info: Redefining \% on input line 431.
+[21]
+LaTeX Info: Redefining \. on input line 431.
+LaTeX Info: Redefining \% on input line 431.
+[22 <./IPO/output/tables/desc02.png>]
+Overfull \hbox (313.16817pt too wide) in alignment at lines 452--455
+ [] 
+ []
+
+<IPO/output/tables/desc03.png, id=603, 746.79pt x 560.0925pt>
+File: IPO/output/tables/desc03.png Graphic file (type png)
+<use IPO/output/tables/desc03.png>
+Package pdftex.def Info: IPO/output/tables/desc03.png  used on input line 456.
+(pdftex.def)             Requested size: 746.78816pt x 560.09113pt.
+
+Overfull \hbox (313.16817pt too wide) in alignment at lines 455--458
+ [] 
+ []
+
+LaTeX Info: Redefining \. on input line 458.
+LaTeX Info: Redefining \% on input line 458.
+[23]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 464.
+LaTeX Info: Redefining \% on input line 464.
+[24 <./IPO/output/tables/desc03.png>]
+LaTeX Info: Redefining \. on input line 481.
+LaTeX Info: Redefining \% on input line 481.
+[25] [26
+
+]
 Cap\'{\i }tulo 5.
-[21
 
-]
-LaTeX Info: Redefining \. on input line 549.
-LaTeX Info: Redefining \% on input line 549.
-[22] [23]
-LaTeX Info: Redefining \. on input line 653.
-LaTeX Info: Redefining \% on input line 653.
-[24] [25]
-LaTeX Info: Redefining \. on input line 758.
-LaTeX Info: Redefining \% on input line 758.
-[26] [27]
-LaTeX Info: Redefining \. on input line 862.
-LaTeX Info: Redefining \% on input line 862.
-[28] [29]
-LaTeX Info: Redefining \. on input line 966.
-LaTeX Info: Redefining \% on input line 966.
-[30] [31]
-LaTeX Info: Redefining \. on input line 1070.
-LaTeX Info: Redefining \% on input line 1070.
-[32] [33]
-LaTeX Info: Redefining \. on input line 1174.
-LaTeX Info: Redefining \% on input line 1174.
-[34] [35]
-LaTeX Info: Redefining \. on input line 1277.
-LaTeX Info: Redefining \% on input line 1277.
-[36] [37] [38
+Overfull \hbox (313.16817pt too wide) in alignment at lines 486--489
+ [] 
+ []
 
-]
+<IPO/output/tables/reg.png, id=638, 746.79pt x 794.97pt>
+File: IPO/output/tables/reg.png Graphic file (type png)
+<use IPO/output/tables/reg.png>
+Package pdftex.def Info: IPO/output/tables/reg.png  used on input line 490.
+(pdftex.def)             Requested size: 746.78816pt x 794.96806pt.
+
+Overfull \hbox (313.16817pt too wide) in alignment at lines 489--492
+ [] 
+ []
+
+[27]
+LaTeX Info: Redefining \. on input line 492.
+LaTeX Info: Redefining \% on input line 492.
+[28]
+LaTeX Info: Redefining \. on input line 492.
+LaTeX Info: Redefining \% on input line 492.
+[29 <./IPO/output/tables/reg.png>]
+LaTeX Info: Redefining \. on input line 506.
+LaTeX Info: Redefining \% on input line 506.
+[30]
+Overfull \hbox (313.16817pt too wide) in alignment at lines 513--516
+ [] 
+ []
+
+<IPO/output/tables/interac.png, id=660, 746.79pt x 938.75719pt>
+File: IPO/output/tables/interac.png Graphic file (type png)
+<use IPO/output/tables/interac.png>
+Package pdftex.def Info: IPO/output/tables/interac.png  used on input line 517.
+(pdftex.def)             Requested size: 746.78816pt x 938.7549pt.
+
+Overfull \hbox (313.16817pt too wide) in alignment at lines 516--519
+ [] 
+ []
+
+LaTeX Info: Redefining \. on input line 519.
+LaTeX Info: Redefining \% on input line 519.
+[31]
+LaTeX Info: Redefining \. on input line 519.
+LaTeX Info: Redefining \% on input line 519.
+[32]
+LaTeX Info: Redefining \. on input line 519.
+LaTeX Info: Redefining \% on input line 519.
+[33 <./IPO/output/tables/interac.png>]
+LaTeX Info: Redefining \. on input line 522.
+LaTeX Info: Redefining \% on input line 522.
+[34]
 Cap\'{\i }tulo 6.
-[39] [40
+[35
 
-] (./tesis.bbl [41] [42
+] [36
 
-] [43]
+] (./tesis.bbl [37] [38
+
+] [39]
 LaTeX Info: Redefining \. on input line 165.
 LaTeX Info: Redefining \% on input line 165.
-[44]
+[40]
 LaTeX Info: Redefining \. on input line 246.
 LaTeX Info: Redefining \% on input line 246.
-[45]
+[41]
 LaTeX Info: Redefining \. on input line 323.
 LaTeX Info: Redefining \% on input line 323.
-[46]
+[42]
 LaTeX Info: Redefining \. on input line 401.
 LaTeX Info: Redefining \% on input line 401.
-[47]
+[43]
 LaTeX Info: Redefining \. on input line 478.
 LaTeX Info: Redefining \% on input line 478.
-[48])
-LaTeX Info: Redefining \. on input line 1351.
-LaTeX Info: Redefining \% on input line 1351.
-[49] (./tesis.aux
+[44])
+LaTeX Info: Redefining \. on input line 545.
+LaTeX Info: Redefining \% on input line 545.
+[45] (./tesis.aux
 LaTeX Info: Redefining \. on input line 23.
 LaTeX Info: Redefining \% on input line 23.
 )
 
-LaTeX Warning: There were undefined references.
+LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `tesis.out' has not changed.
-(rerunfilecheck)             Checksum: 0AEDE6168714267374FB1B2C53A33767;1720.
+(rerunfilecheck)             Checksum: 50BB68FD85AF20BB4EA7C1204F496BD9;2001.
  ) 
 Here is how much of TeX's memory you used:
- 16382 strings out of 479918
- 274207 string characters out of 5882789
- 572986 words of memory out of 5000000
- 34084 multiletter control sequences out of 15000+600000
+ 16436 strings out of 479918
+ 275420 string characters out of 5882789
+ 573404 words of memory out of 5000000
+ 34127 multiletter control sequences out of 15000+600000
  540172 words of font info for 82 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 72i,12n,77p,2591b,748s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}<c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmro12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb>
-Output written on tesis.pdf (57 pages, 374219 bytes).
+ 72i,12n,77p,2591b,749s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}<c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmro12.pfb>
+Output written on tesis.pdf (53 pages, 635407 bytes).
 PDF statistics:
- 802 PDF objects out of 1000 (max. 8388607)
- 708 compressed objects within 8 object streams
- 182 named destinations out of 1000 (max. 500000)
- 120 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 818 PDF objects out of 1000 (max. 8388607)
+ 721 compressed objects within 8 object streams
+ 187 named destinations out of 1000 (max. 500000)
+ 161 words of extra memory for PDF output out of 10000 (max. 10000000)
 
