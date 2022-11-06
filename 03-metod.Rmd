@@ -1,4 +1,4 @@
-# Metodología
+# Método
 
 ## Datos
 
@@ -43,9 +43,11 @@ Actitudes de la familia:
 
 2) Variables de la escuela
 
-* Conocimiento cívico: variable “puntaje” obtenida a partir de la prueba de conocimiento cívico aplicada a los y las estudiantes.
+* Conocimiento cívico: variable obtenida a partir de la prueba de conocimiento cívico aplicada a los y las estudiantes.
 
-* Apertura a la discusión en el aula: Esta variable refiere a la percepción de los y las estudiantes sobre los espacios e instancias disponibles para discutir y opinar sobre diversos temas. Se construirá un índice promedio a partir de las variables disponibles
+* Percepción de apertura a la discusión en la sala de clases: Esta variable refiere a la percepción de los y las estudiantes sobre los espacios e instancias disponibles en la sala de clases para discutir y opinar sobre diversos temas de interés general. Se realizó un Análisis Factorial Exploratorio que permitió estimar puntajes factoriales a partir de 5 de los 6 ítems disponibles en la base de datos (Para más detalles ver Anexo)
+
+* Promedio de percepción de apertura a la discusión en la sala de clases: Variable construída a partir del promedio de percepción de apertura a la discusión en cada escuela. Esto permite identificar los espacios e instancias disponibles en la sala de clases para discutir y opinar sobre diversos temas de interés general a nivel de escuela.
 
 Un resumen de estas variables se presenta en la Tabla \@ref(tab:desc02).
 
@@ -77,7 +79,7 @@ kable(data.frame(image='![](IPO/output/tables/desc03.png)'),    # generar tabla
              format = "pipe") %>%  kable_styling(latex_options = c("HOLD_position"),full_width = T)
 ```
 
-## Métodos
+## Estrategia de análisis
 
 La metodología planteada para realizar esta investigación es de carácter cuantitativa. Las hipótesis de esta investigación fueron pre registradas en la plataforma Open Science Framework del Centro de Ciencia Abierta (OSF, Center for Open Science), puede acceder al documento en este [enlace](https://doi.org/10.17605/OSF.IO/URPZQ). El análisis estadístico de esta investigación fue realizado mediante el software libre R versión 4.0.0.
 

@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r}
-pacman::p_load(haven, dplyr, sjmisc, car, summarytools, webshot, readxl)
+pacman::p_load(haven, dplyr, sjmisc, car, summarytools, webshot, readxl, psych, webshot, kableExtra)
 load("IPO/input/data/original/base_est_apod.Rdata")
 ```
 
@@ -134,17 +134,43 @@ data <- data %>% rowwise() %>% mutate(apod_acc_div = sum(apod_piel_rec, apod_cla
 data$apod_acc_div <- sjlabelled::set_label(data$apod_acc_div, 'Aceptación de la diversidad (apoderados)')
 
 # Apertura discusion
-data$ap_dis1 <- as.numeric(data$ap_dis1)
-data$ap_dis2 <- as.numeric(data$ap_dis2)
-data$ap_dis3 <- as.numeric(data$ap_dis3)
-data$ap_dis4 <- as.numeric(data$ap_dis4)
-data$ap_dis5 <- as.numeric(data$ap_dis5)
-data$ap_dis6 <- as.numeric(data$ap_dis6)
-
 data <- data %>% rowwise() %>% mutate(ap_dis = mean(c(ap_dis1, ap_dis2, ap_dis3, ap_dis4, ap_dis5, ap_dis6), na.rm = T))
 
+## estimar EFA
+# Análisis Factorial Exploratorio
+ap_dis <- data %>% dplyr::select(ap_dis1, ap_dis2, ap_dis3, ap_dis4, ap_dis5, ap_dis6)
+
+colnames(ap_dis) <- c(label(data$ap_dis1), label(data$ap_dis2), label(data$ap_dis3), label(data$ap_dis4), label(data$ap_dis5), label(data$ap_dis6))
+
+psych::fa.parallel(ap_dis, fa="fa")
+psych::scree(ap_dis)
+
+fac_ml <- psych::fa(r = ap_dis, nfactors = 2, fm= "ml", rotate = "varimax" )
+
+fac_ml$loadings
+# ver https://www.anthonyschmidt.co/post/2020-09-27-efa-tables-in-r/
+# Busca funcion para crear tablas FA
+source("IPO/processing/fa_table.R") 
+
+# Crea la tabla FA
+apdis_fa <-fa_table(fac_ml, .32)
+# Exportar la tabla en html
+knitr::kable(apdis_fa, "html") %>%
+  kable_styling(bootstrap_options = c("striped", "hover")) %>%
+  column_spec(column = 1,width = "20 cm") %>%
+  cat(., file = "IPO/output/tables/apdis_fa.html")
+# convertir tabla html en imagen png
+webshot(url ="IPO/output/tables/apdis_fa.html", file ="IPO/output/tables/apdis_fa.png", vheight = 10, vwidth = 600)
+
+### el mejor ajuste queda eliminando ap_dis2
+puntajes <- psych::fa(r = ap_dis, nfactors = 2, fm= "ml", rotate = "varimax" )$scores
+puntajes <- puntajes %>% as.data.frame() %>% dplyr::select(apdis_fa=ML2)
+data <- cbind(data, puntajes)
+
+# Conocimiento cívico
 data$c_civic <- sjlabelled::set_label(data$c_civic, 'Conocimiento cívico')
 data$ap_dis <- sjlabelled::set_label(data$ap_dis, 'Índice apertura a la discusión en el aula')
+data$apdis_fa <- sjlabelled::set_label(data$apdis_fa, 'Índice apertura a la discusión en el aula')
 
 # educacion
 data$educacion_rec <- ifelse(is.na(data$apod_educ), "Ns/Nr", data$apod_educ) # crea categoria Na para no perder casos
@@ -176,11 +202,13 @@ data$civic <- ntile(data$c_civic,3) # categorizar el puntaje en bajo, medio y al
 data$civic <- factor(data$civic, labels = c("Bajo", "Medio", "Alto"))
 
 # mean ap dis
+data <- data %>% group_by(mrbd) %>% mutate(mean_apdis_fa = mean(apdis_fa, na.rm=TRUE)) %>% ungroup()
 data <- data %>% group_by(mrbd) %>% mutate(mean_apdis = mean(ap_dis, na.rm=TRUE)) %>% ungroup()
 
 data$civic <- sjlabelled::set_label(data$civic, 'Conocimiento cívico')
-data$ap_dis <- sjlabelled::set_label(data$ap_dis, 'Índice apertura a la discusión en el aula')
+data$apdis_fa <- sjlabelled::set_label(data$apdis_fa, 'Índice apertura a la discusión en el aula')
 data$mean_apdis <- sjlabelled::set_label(data$mean_apdis, 'Promedio apertura a la discusión en el aula')
+data$mean_apdis_fa <- sjlabelled::set_label(data$mean_apdis_fa, 'Promedio apertura a la discusión en el aula')
 data$educacion_rec <- sjlabelled::set_label(data$educacion_rec, 'Nivel educacional apoderados')
 data$libros_rec <- sjlabelled::set_label(data$libros_rec, 'Cantidad de libros en el hogar')
 ```

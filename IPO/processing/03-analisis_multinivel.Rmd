@@ -70,7 +70,7 @@ base$etnia2 <- sjlabelled::set_label(base$etnia2, 'Proporción de personas que s
 base$inmigrante2 <- sjlabelled::set_label(base$inmigrante2, 'Proporción de inmigrantes')
 base$escolaridad <- sjlabelled::set_label(base$escolaridad, 'Promedio de escolaridad')
 
-base <- base %>% dplyr::select(est_acc_div, educacion_rec, libros_rec, apod_acc_div, civic, ap_dis, mean_apdis, mrbd, escolaridad, etnia2, inmigrante2) %>% na.omit()
+base <- base %>% dplyr::select(est_acc_div, educacion_rec, libros_rec, apod_acc_div, civic, apdis_fa, mean_apdis_fa, mrbd, escolaridad, etnia2, inmigrante2, cod_com_alu) %>% na.omit()
 ```
 
 # primera estimacion (mrbd)
@@ -79,8 +79,8 @@ base <- base %>% dplyr::select(est_acc_div, educacion_rec, libros_rec, apod_acc_
 reg0 <- lmer(est_acc_div ~ 1 + (1 | mrbd), data=base)
 reg1 <- lmer(est_acc_div ~ educacion_rec + libros_rec + (1 | mrbd), data=base)
 reg2 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div + (1 | mrbd), data=base)
-reg3 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div + civic + ap_dis + mean_apdis + (1 | mrbd), data=base)
-reg4 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div + civic + ap_dis + mean_apdis + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
+reg3 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div + civic + apdis_fa + mean_apdis_fa + (1 | mrbd), data=base)
+reg4 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div + civic + apdis_fa + mean_apdis_fa + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
 ```
 
 ```{r}
@@ -91,12 +91,12 @@ screenreg(list(reg0, reg1, reg2, reg3, reg4))
 
 ```{r}
 # actitudes apod x escuela
-reg6 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*civic + civic + ap_dis + mean_apdis + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
-reg7 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*ap_dis + civic + ap_dis + mean_apdis + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
+reg6 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*civic + civic + apdis_fa + mean_apdis_fa + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
+reg7 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*mean_apdis_fa + civic + apdis_fa + mean_apdis_fa + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
 # actitudes apod x territorio
-reg8 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*inmigrante2 + civic + ap_dis + mean_apdis + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
-reg9 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*etnia2 + civic + ap_dis + mean_apdis + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
-reg10 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*escolaridad + civic + ap_dis + mean_apdis + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
+reg8 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*inmigrante2 + civic + apdis_fa + mean_apdis_fa + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
+reg9 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*etnia2 + civic + apdis_fa + mean_apdis_fa + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
+reg10 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*escolaridad + civic + apdis_fa + mean_apdis_fa + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
 ```
 
 ```{r}
@@ -105,11 +105,12 @@ screenreg(list(reg6, reg7, reg8, reg9, reg10))
 
 
 ```{r results='asis', message=FALSE, echo=FALSE}  
-htmlreg(list(reg1, reg2, reg3, reg4), 
+htmlreg(list(reg1, reg2, reg3, reg4, reg7), 
          custom.model.names = c("Modelo 1",
                                "Modelo 2",
                                "Modelo 3",
-                               "Modelo 4"), 
+                               "Modelo 4",
+                               "Modelo 5"), 
         custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05",
         custom.coef.names = c("Intercepto", 
                               "Educación media <br> <i>(Ref. Básica)</i>",
@@ -126,7 +127,8 @@ htmlreg(list(reg1, reg2, reg3, reg4),
                               "Prop. etnia alto",
                               "Prop. inmigrante medio <br> <i>(Ref. bajo)</i>", 
                               "Prop. inmigrante alto",
-                              "Promedio escolaridad"),
+                              "Promedio escolaridad",
+                              "Aceptación diversidad apoderados * Promedio discusión en sala"),
         caption = "Aceptar la diversidad en el vecindario",
         caption.above = TRUE,
         file = "reg.html")
@@ -136,7 +138,7 @@ webshot(url ="reg.html" ,file ="IPO/output/tables/reg.png")
 
 
 ```{r results='asis', message=FALSE, echo=FALSE}  
-htmlreg(list(reg7, reg8, reg10), 
+htmlreg(list(reg4, reg6, reg7), 
          custom.model.names = c("Modelo 1",
                                "Modelo 2",
                                "Modelo 3"), 
@@ -148,19 +150,18 @@ htmlreg(list(reg7, reg8, reg10),
                               "Ns/Nr",
                               "Más de 25 libros <br> <i>(Ref. menos de 25)</i>", 
                               "Aceptación diversidad apoderados", 
-                              "Conocimiento cívico medio <br> <i>(Ref. bajo</i>", 
+                              "Conocimiento cívico medio <br> <i>(Ref. bajo</i>)", 
                               "Conocimiento cívico alto", 
                               "Discusión en sala de clases", 
                               "Promedio discusión en sala", 
-                              "Prop. etnia medio <br> <i>(Ref. bajo</i>", 
+                              "Prop. etnia medio <br> <i>(Ref. bajo</i>)", 
                               "Prop. etnia alto",
-                              "Prop. inmigrante medio <br> <i>(Ref. bajo</i>", 
+                              "Prop. inmigrante medio <br> <i>(Ref. bajo</i>)", 
                               "Prop. inmigrante alto",
-                              "Promedio escolaridad", 
-                              "Aceptación diversidad apoderados * discusión en sala", 
-                              "Aceptación diversidad apoderados * prop. inmigrante medio", 
-                              "Aceptación diversidad apoderados * prop. inmigrante alte", 
-                              "Aceptación diversidad apoderados * escolaridad"),
+                              "Promedio escolaridad",
+                              "Aceptación diversidad apoderados * Conocimiento cívico medio", 
+                              "Aceptación diversidad apoderados * Conocimiento cívico alto",
+                              "Aceptación diversidad apoderados * Promedio discusión en sala"),
         caption = "Aceptar la diversidad en el vecindario",
         caption.above = TRUE,
         file = "interac.html")
@@ -178,5 +179,25 @@ ggsave(plot1, file="IPO/output/graphs/plot1.png")
 ```
 
 
+```{r}
+int <- plot_model(reg7, type = "int", mdrt.values="minmax", title = "", colors = c("red", "blue")) +
+  theme_bw() +
+  labs(x = "Aceptación de la diversidad apoderados", y="Aceptación de la diversidad estudiantes", colour = "Promedio discusión")
+int
+ggsave(int, file="IPO/output/graphs/interac.png")
+```
 
+## Probar tres niveles
 
+```{r}
+reg0.1 <- lmer(est_acc_div ~ 1 + (1 | cod_com_alu) + (1 | cod_com_alu:mrbd), data=base)
+reg1.1 <- lmer(est_acc_div ~ educacion_rec + libros_rec + (1 | mrbd) + (1 | cod_com_alu:mrbd), data=base)
+reg2.1 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div + (1 | mrbd) + (1 | cod_com_alu:mrbd), data=base)
+reg3.1 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div + civic + apdis_fa + mean_apdis_fa + (1 | mrbd) + (1 | cod_com_alu:mrbd), data=base)
+reg4.1 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div + civic + apdis_fa + mean_apdis_fa + etnia2 + inmigrante2 + escolaridad + (1 | mrbd) + (1 | cod_com_alu:mrbd), data=base)
+reg7.1 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*mean_apdis_fa + civic + apdis_fa + mean_apdis_fa + etnia2 + inmigrante2 + escolaridad + (1 | mrbd) + (1 | cod_com_alu:mrbd), data=base)
+```
+
+```{r}
+screenreg(list(reg0.1, reg1.1, reg2.1, reg3.1, reg4.1, reg7.1))
+```

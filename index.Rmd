@@ -11,7 +11,8 @@ biblio-style: apalike
 link-citations: yes
 linkcolor: blue
 site: bookdown::bookdown_site
-output: bookdown::word_document2
+output: bookdown::gitbook
+  #bookdown::word_document2
 documentclass: book
 fontsize: 14pt
 lof: True
