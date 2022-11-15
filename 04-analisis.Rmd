@@ -10,7 +10,7 @@ kable(data.frame(image='![](IPO/output/tables/reg.png)'),    # generar tabla
              format = "pipe") %>%  kable_styling(latex_options = c("HOLD_position"),full_width = T)
 ```
 
-Las variables asociadas a el nivel educacional de los apoderados no son estadísticamente significativas, salvo para el nivel de educación media en el modelo 3 y 4 ($\beta$=-0.16, p < .05). En cuanto a la cantidad de libros, tener más de 25 libros en el hogar tiene un efecto significativo solo en los modelos 1 y 2 ($\beta$=.1, p < .05), mientras que en los modelos 3 y 4 deja de ser estadísticamente significativa al controlar por el resto de las variables.
+Las variables asociadas a el nivel educacional de los apoderados no son estadísticamente significativas, salvo para el nivel de educación media en el modelo 3 y 4 ($\beta$=-0.16, p < .05). En cuanto a la cantidad de libros, tener más de 25 libros en el hogar tiene un efecto significativo solo en los modelos 1 y 2 ($\beta$=.1, p < .05), mientras que en el resto de los modelos deja de ser estadísticamente significativa al controlar por las demás variables.
 
 Las actitudes de los apoderados medidas a través del índice de aceptación de la diversidad son estadísticamente significativa al controlar por el resto de las variables y esta relación es consistente en los cuatro modelos en que se incluye esta variable (Modelo 2, 4 y 5 $\beta$=.08, p < .001; Modelo 3 $\beta$=.07, p < .001).
 
@@ -18,9 +18,10 @@ Las variables asociadas al proceso de socialización en la escuela son estadíst
 
 Las variables territoriales que abordaban características contextuales de la comuna (proporción de personas que se identifican con alguna etnia, proporción de inmigrantes y promedio de escolaridad) no tienen una asociación estadísticamente significativa con las actitudes de los y las estudiantes, salvo para la categoría de proporción media de personas que se identifican con alguna etnia ($\beta$=.12, p < .05) en comparación con la categoría de baja proporción, al mantener el resto de las variables constantes.
 
-Finalmente, se estimaron efectos de interacción entre niveles. Estos efectos permiten evaluar si las características contextuales (promedio de percepción de apertura a la discusión en la sala de clases; para el efecto del conocimiento cívico ver Anexo) modifican (moderan) los efectos de las actitudes de los apoderados. En el modelo 5 se muestra que existe una interacción positiva ($\beta$=.26, p < .001) entre el promedio de percepción de apertura a la discusión en la sala de clases y las actitudes de los apoderados. Este efecto se puede visualizar en el Gráfico \@ref(fig:graph-interact).
+Finalmente, se estimaron efectos de interacción entre niveles. Estos efectos permiten evaluar si las características contextuales (promedio de percepción de apertura a la discusión en la sala de clases; para el efecto del conocimiento cívico ver Anexo) modifican (moderan) los efectos de las actitudes de los apoderados. En el modelo 5 se muestra que existe una interacción positiva ($\beta$=.26, p < .001) entre el promedio de percepción de apertura a la discusión en la sala de clases y las actitudes de los apoderados.
 
 ```{r graph-interact, echo=FALSE, fig.cap="Relación entre actitudes de estudiantes y apoderados moderada por promedio de percepción de apertura a la discusión en la sala de clases", fig.align = 'center', out.width = '100%'}
 knitr::include_graphics(path = "IPO/output/graphs/interac.png")
 ```
 
+El Gráfico \@ref(fig:graph-interact) el efecto de la relación entre las actitudes de los estudiantes y sus apoderados, moderada por el promedio de percepción de apertura a la discusión en la sala de clases a nivel de escuela. Esta relación indica que en aquellas escuelas donde exista una baja percepción de apertura a la discusión, la relación entre las actitudes de los estudiantes y apoderados es negativa, mientras que en aquellas escuelas donde existe una alta percepción de apertura a la discusión en la sala de clases las actitudes de los estudiantes se asocian positivamente con las actitudes de los apoderados.

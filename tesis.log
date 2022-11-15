@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.20)  6 NOV 2022 03:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.20)  15 NOV 2022 00:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -846,7 +846,7 @@ Overfull \hbox (313.16817pt too wide) in alignment at lines 490--493
 LaTeX Info: Redefining \. on input line 493.
 LaTeX Info: Redefining \% on input line 493.
 [26] [27 <./IPO/output/tables/reg.png>]
-<IPO/output/graphs/interac.png, id=638, 505.89pt x 505.89pt>
+<IPO/output/graphs/interac.png, id=637, 505.89pt x 505.89pt>
 File: IPO/output/graphs/interac.png Graphic file (type png)
 <use IPO/output/graphs/interac.png>
 Package pdftex.def Info: IPO/output/graphs/interac.png  used on input line 507.
@@ -857,13 +857,19 @@ LaTeX Info: Redefining \% on input line 515.
 
 ]
 Cap\'{\i }tulo 6.
-[31] [32
+[31]
+LaTeX Info: Redefining \. on input line 526.
+LaTeX Info: Redefining \% on input line 526.
+[32]
+Cap\'{\i }tulo 7.
+[33
 
 ]
-Cap\'{\i }tulo 7.
-[33] [34
+LaTeX Info: Redefining \. on input line 541.
+LaTeX Info: Redefining \% on input line 541.
+[34] (./tesis.bbl [35
 
-] (./tesis.bbl [35] [36
+] [36
 
 ] [37]
 LaTeX Info: Redefining \. on input line 165.
@@ -881,8 +887,8 @@ LaTeX Info: Redefining \% on input line 401.
 LaTeX Info: Redefining \. on input line 478.
 LaTeX Info: Redefining \% on input line 478.
 [42])
-LaTeX Info: Redefining \. on input line 549.
-LaTeX Info: Redefining \% on input line 549.
+LaTeX Info: Redefining \. on input line 561.
+LaTeX Info: Redefining \% on input line 561.
 [43] (./tesis.aux
 LaTeX Info: Redefining \. on input line 23.
 LaTeX Info: Redefining \% on input line 23.
@@ -902,7 +908,7 @@ Here is how much of TeX's memory you used:
  14 hyphenation exceptions out of 8191
  72i,12n,77p,2591b,749s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}<c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmro12.pfb>
-Output written on tesis.pdf (51 pages, 727718 bytes).
+Output written on tesis.pdf (51 pages, 731558 bytes).
 PDF statistics:
  800 PDF objects out of 1000 (max. 8388607)
  706 compressed objects within 8 object streams

@@ -97,12 +97,20 @@ reg7 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*mean_apdis_
 reg8 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*inmigrante2 + civic + apdis_fa + mean_apdis_fa + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
 reg9 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*etnia2 + civic + apdis_fa + mean_apdis_fa + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
 reg10 <- lmer(est_acc_div ~ educacion_rec + libros_rec + apod_acc_div*escolaridad + civic + apdis_fa + mean_apdis_fa + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
+# recursos x escuela
+reg11 <- lmer(est_acc_div ~ educacion_rec*civic + libros_rec + apod_acc_div + civic + apdis_fa + mean_apdis_fa + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
+reg12 <- lmer(est_acc_div ~ educacion_rec + libros_rec*civic + apod_acc_div + civic + apdis_fa + mean_apdis_fa + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
+reg13 <- lmer(est_acc_div ~ educacion_rec*mean_apdis_fa + libros_rec + apod_acc_div + civic + apdis_fa + mean_apdis_fa + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
+reg14 <- lmer(est_acc_div ~ educacion_rec + libros_rec*mean_apdis_fa + apod_acc_div + civic + apdis_fa + mean_apdis_fa + etnia2 + inmigrante2 + escolaridad + (1 | mrbd), data=base)
 ```
 
 ```{r}
 screenreg(list(reg6, reg7, reg8, reg9, reg10))
 ```
 
+```{r}
+screenreg(list(reg11, reg12, reg13, reg14))
+```
 
 ```{r results='asis', message=FALSE, echo=FALSE}  
 htmlreg(list(reg1, reg2, reg3, reg4, reg7), 
@@ -173,7 +181,7 @@ webshot(url ="interac.html" ,file ="IPO/output/tables/interac.png")
 
 
 ```{r}
-plot1 <- plot_model(reg10.1, title = "", show.values = TRUE, value.offset = .35, axis.labels = c("Promedio escolaridad", "Cantidad inmigrantes", "Cantidad de pueblos originarios", "Promedio discusión en aula", "Discusión en aula", "Conocimiento cívico (alto)", "Conocimiento cívico (medio)", "Aceptación diversidad apoderados", "Más de 25 libros", "Ns/Nr", "Universidad o postgrado", "Educación Técnica", "Educación media"))
+plot1 <- plot_model(reg4, title = "", show.values = TRUE, value.offset = .35, axis.labels = c("Promedio escolaridad", "Prop. inmigrante alto", "Prop. inmigrante medio", "Prop. etnia alto", "Prop. etnia medio", "Promedio discusión en sala", "Discusión en sala de clases", "Conocimiento cívico (alto)", "Conocimiento cívico (medio)", "Aceptación diversidad apoderados", "Más de 25 libros", "Ns/Nr", "Universidad o postgrado", "Educación Técnica", "Educación media"))
 
 ggsave(plot1, file="IPO/output/graphs/plot1.png")
 ```
