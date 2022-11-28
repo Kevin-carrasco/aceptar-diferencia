@@ -2,23 +2,16 @@
 
 ## Datos
 
-La base de datos a utilizar corresponde al Primer Estudio de Educación Ciudadana en Chile, realizado por la Agencia de Calidad de la Educación del Ministerio de Educación. En este estudio se evaluaron estudiantes de octavo básico provenientes de 242 escuelas. La fecha de aplicación fue el 9 de noviembre de 2017.
-
-Se utilizan tres bases de datos disponibles para este estudio. Primero, se cuenta con una base de datos de 10.213 estudiantes que poseen variables de identificación (8 variables) y el puntaje de la prueba de conocimiento cívico (1 variable). Además, se encuentra disponible una segunda base de datos que contiene las preguntas del cuestionario de Formación Ciudadana, que posee las respuestas de 8.589 estudiantes (222 variables). Al juntar ambas bases de datos el N final es de 8.589 estudiantes. Finalmente, se encuentra disponible una tercera base de datos que contiene las preguntas del cuestionario de Formación Ciudadana, con las respuestas de 6.770 apoderados (141 variables). Al juntar todas las bases de datos, el N total de respuestas completas es de 6.511 estudiantes y apoderados.
+La base de datos a utilizar corresponde al Primer Estudio de Educación Ciudadana en Chile, realizado por la Agencia de Calidad de la Educación del Ministerio de Educación. En este estudio se evaluaron 8.589 estudiantes de octavo básico provenientes de 242 escuelas. La fecha de aplicación fue el 9 de noviembre de 2017. También se utilizarán las preguntas del cuestionario de Formación Ciudadana con las respuestas de 6.770 apoderados. Al juntar ambas bases de datos, el N total de respuestas completas es de 6.511 estudiantes y apoderados. El N final utilizado en los análisis es de 4.801 casos.
 
 Sumado a lo anterior, para las variables del territorio se utilizará la base de datos del CENSO 2017, obtenida a partir del paquete estadístico de R *censo2017* [@vargas_censo2017_2022]. Esta base de datos contiene información respecto de datos territoriales asociados al año 2017 y se encuentra disponible para su libre uso.
 
 ## Variables
 
-Con el fin de medir las actitudes de los y las estudiantes hacia la diversidad en sus vecindarios se utiliza la batería de preguntas del módulo “Tolerancia y Distancia Social” del cuestionario de estudiantes. Estas variables están medidas a partir de las preguntas que se presentan en la Tabla \@ref(tab:desc01). 
+Con el fin de medir las actitudes de los y las estudiantes hacia la diversidad en sus vecindarios se utiliza la batería de preguntas del módulo “Tolerancia y Distancia Social” del cuestionario de estudiantes. Estas variables están medidas a partir de las preguntas que se presentan en la Figura \@ref(fig:dep-est). 
 
-
-```{r desc01, echo=FALSE, results='asis'}
-kable(data.frame(image='![](IPO/output/tables/desc01.png)'),    # generar tabla
-             caption="Descripción aceptación de la diversidad estudiantes",
-             col.names = "",
-             row.names = F,
-             format = "pipe") %>%  kable_styling(latex_options = c("HOLD_position"),full_width = T)
+```{r dep-est, echo=F, fig.cap="Aceptacion de la diversidad (estudiantes)"}
+knitr::include_graphics("IPO/output/graphs/div_est.png")
 ```
 
 Para operacionalizar esta batería de preguntas, en primer lugar, se recodificarán los ítems de modo que 0 indique que no le gustaría que cada uno de los grupos viva en su vecindario y 1 indique que sí le gustaría. Luego, se construirá un índice sumativo a partir de la suma de los ítems para representar el grado de aceptación de todos los grupos. La distribución de este índice se puede observar en el Gráfico \@ref(fig:ind-est). El valor de Alpha de Cronbach de este índice es de 0.887
@@ -43,23 +36,11 @@ Actitudes de la familia:
 
 2) Variables de la escuela
 
-* Conocimiento cívico: variable obtenida a partir de la prueba de conocimiento cívico aplicada a los y las estudiantes.
+* Conocimiento cívico: variable obtenida a partir de la prueba de conocimiento cívico aplicada a los y las estudiantes. La clasificación utilizada se basa en las categorías de ICCS 2016 [@agenciacalidaddelaeducacion_informe_2018], donde Bajo nivel D corresponde a bajo 311 puntos, Nivel D es entre 311 y 394 puntos, Nivel C es entre 395 y 478 puntos, Nivel B es entre 479 y 562 puntos y Nivel A es sobre 562 puntos.
 
-* Percepción de apertura a la discusión en la sala de clases: Esta variable refiere a la percepción de los y las estudiantes sobre los espacios e instancias disponibles en la sala de clases para discutir y opinar sobre diversos temas de interés general. Se realizó un Análisis Factorial Exploratorio que permitió estimar puntajes factoriales a partir de 5 de los 6 ítems disponibles en la base de datos (Para más detalles ver Anexo)
+* Percepción de apertura a la discusión en la sala de clases: Esta variable refiere a la percepción de los y las estudiantes sobre los espacios e instancias disponibles en la sala de clases para discutir y opinar sobre diversos temas de interés general. Se realizó un Análisis Factorial Exploratorio que permitió estimar puntajes factoriales a partir de 5 de los 6 ítems disponibles en la base de datos (Para más detalles ver la Tabla \@ref(tab:anexo1) del Anexo 1) 
 
 * Promedio de percepción de apertura a la discusión en la sala de clases: Variable construída a partir del promedio de percepción de apertura a la discusión en cada escuela. Esto permite identificar los espacios e instancias disponibles en la sala de clases para discutir y opinar sobre diversos temas de interés general a nivel de escuela.
-
-Un resumen de estas variables se presenta en la Tabla \@ref(tab:desc02).
-
-```{r desc02, echo=FALSE, results='asis'}
-kable(data.frame(image='![](IPO/output/tables/desc02.png)'),    # generar tabla
-             caption="Descripción variables independientes",
-             col.names = "",
-             row.names = F,
-             format = "pipe") %>%  kable_styling(latex_options = c("HOLD_position"),full_width = T)
-```
-
-
 
 3) Variables del territorio
 
@@ -69,11 +50,11 @@ kable(data.frame(image='![](IPO/output/tables/desc02.png)'),    # generar tabla
 
 * Promedio de escolaridad: Escolaridad promedio de la comuna, según datos del Censo 2017. Esta variable posee un rango de 6.9 a 11.2. 
 
-Un resumen de estas variables se muestran en la Tabla \@ref(tab:desc03)
+Un resumen de estas variables se presenta en la Tabla \@ref(tab:desc02).
 
-```{r desc03, echo=FALSE, results='asis'}
-kable(data.frame(image='![](IPO/output/tables/desc03.png)'),    # generar tabla
-             caption="Descripción variables contextuales",
+```{r desc02, echo=FALSE, results='asis'}
+kable(data.frame(image='![](IPO/output/tables/desc02.png)'),    # generar tabla
+             caption="Descripción variables independientes",
              col.names = "",
              row.names = F,
              format = "pipe") %>%  kable_styling(latex_options = c("HOLD_position"),full_width = T)

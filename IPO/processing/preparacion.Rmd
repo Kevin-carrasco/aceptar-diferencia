@@ -160,7 +160,7 @@ knitr::kable(apdis_fa, "html") %>%
   column_spec(column = 1,width = "20 cm") %>%
   cat(., file = "IPO/output/tables/apdis_fa.html")
 # convertir tabla html en imagen png
-webshot(url ="IPO/output/tables/apdis_fa.html", file ="IPO/output/tables/apdis_fa.png", vheight = 10, vwidth = 600)
+webshot2::webshot(url ="IPO/output/tables/apdis_fa.html", file ="IPO/output/tables/apdis_fa.png", vheight = 10, vwidth = 600)
 
 ### el mejor ajuste queda eliminando ap_dis2
 puntajes <- psych::fa(r = ap_dis, nfactors = 2, fm= "ml", rotate = "varimax" )$scores
@@ -198,14 +198,19 @@ data <- data %>% rowwise() %>% mutate(libros_rec = case_when(libros_rec==1 ~ "Me
 data$libros_rec <- factor(data$libros_rec, levels = c("Menos de 25", "Más de 25"))
 
 # c civic
-data$civic <- ntile(data$c_civic,3) # categorizar el puntaje en bajo, medio y alto
-data$civic <- factor(data$civic, labels = c("Bajo", "Medio", "Alto"))
+data <- data %>% rowwise() %>% mutate(civic = case_when(c_civic < 311 ~ "Bajo nivel D",
+                                                             c_civic>=311& c_civic<=394 ~ "Nivel D",
+                                                             c_civic>=395& c_civic<=478 ~ "Nivel C",
+                                                             c_civic>=479& c_civic<=562 ~ "Nivel B",
+                                                             c_civic>562 ~ "Nivel A"))
+
+data$civic <- factor(data$civic, levels = c("Bajo nivel D", "Nivel D", "Nivel C", "Nivel B", "Nivel A"))
 
 # mean ap dis
 data <- data %>% group_by(mrbd) %>% mutate(mean_apdis_fa = mean(apdis_fa, na.rm=TRUE)) %>% ungroup()
 data <- data %>% group_by(mrbd) %>% mutate(mean_apdis = mean(ap_dis, na.rm=TRUE)) %>% ungroup()
 
-data$civic <- sjlabelled::set_label(data$civic, 'Conocimiento cívico')
+data$civic <- sjlabelled::set_label(data$civic, 'Conocimiento cívico (clasificación ICCS)')
 data$apdis_fa <- sjlabelled::set_label(data$apdis_fa, 'Índice apertura a la discusión en el aula')
 data$mean_apdis <- sjlabelled::set_label(data$mean_apdis, 'Promedio apertura a la discusión en el aula')
 data$mean_apdis_fa <- sjlabelled::set_label(data$mean_apdis_fa, 'Promedio apertura a la discusión en el aula')
@@ -218,7 +223,6 @@ data$libros_rec <- sjlabelled::set_label(data$libros_rec, 'Cantidad de libros en
 ```{r}
 save(data, file="IPO/input/data/proc/data.RData")
 ```
-
 
 
 # Variables territoriales

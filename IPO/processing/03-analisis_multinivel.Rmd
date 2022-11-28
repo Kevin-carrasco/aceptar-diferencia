@@ -1,6 +1,6 @@
 ---
 title: "03-analisis_multinivel"
-author: "Equipo EDUMER"
+author: "Kevin Carrasco"
 date: "2022-08-11"
 output: html_document
 ---
@@ -10,7 +10,7 @@ Este .rmd contiene el análisis multinivel realizado para evaluar las hipótesis
 * Cargar paquetes
 
 ```{r}
-pacman::p_load(dplyr, ggplot2, sjPlot, summarytools, corrplot, ltm, lme4, stargazer, texreg, scales)
+pacman::p_load(dplyr, ggplot2, sjPlot, summarytools, corrplot, ltm, lme4, stargazer, texreg, scales, webshot)
 load("IPO/input/data/proc/data.RData")
 load("IPO/input/data/proc/data_comuna.RData")
 ```
@@ -58,13 +58,8 @@ data_comuna <- rename(data_comuna, cod_com_alu=p10comuna)
 
 base <- merge(data, data_comuna, by="cod_com_alu")
 
-# etnia reescalar
-base$etnia2 <- ntile(base$prop_etnia,3) # categorizar el puntaje en bajo, medio y alto
-base$etnia2 <- factor(base$etnia2, labels = c("Bajo", "Medio", "Alto"))
-
-# inmigrante reescalar
-base$inmigrante2 <- ntile(base$prop_inm,3) # categorizar el puntaje en bajo, medio y alto
-base$inmigrante2 <- factor(base$inmigrante2, labels = c("Bajo", "Medio", "Alto"))
+base$etnia2 <- round(base$prop_etnia*10000, 3)
+base$inmigrante2 <- round(base$prop_inm*10000, 3)
 
 base$etnia2 <- sjlabelled::set_label(base$etnia2, 'Proporción de personas que se identifica con alguna etnia')
 base$inmigrante2 <- sjlabelled::set_label(base$inmigrante2, 'Proporción de inmigrantes')
@@ -124,24 +119,24 @@ htmlreg(list(reg1, reg2, reg3, reg4, reg7),
                               "Educación media <br> <i>(Ref. Básica)</i>",
                               "Educación técnica", 
                               "Universidad o posgrado",
-                              "Ns/Nr",
+                              "Educación Ns/Nr",
                               "Más de 25 libros <br> <i>(Ref. menos de 25)</i>", 
                               "Aceptación diversidad apoderados", 
-                              "Conocimiento cívico medio <br> <i>(Ref. bajo)</i>", 
-                              "Conocimiento cívico alto", 
+                              "Conocimiento cívico D <br> <i>(Ref. Bajo nivel D)</i>", 
+                              "Conocimiento cívico C",
+                              "Conocimiento cívico B",
+                              "Conocimiento cívico A",
                               "Discusión en sala de clases", 
                               "Promedio discusión en sala", 
-                              "Prop. etnia medio <br> <i>(Ref. bajo)</i>", 
-                              "Prop. etnia alto",
-                              "Prop. inmigrante medio <br> <i>(Ref. bajo)</i>", 
-                              "Prop. inmigrante alto",
+                              "Prop. etnia",
+                              "Prop. inmigrante",
                               "Promedio escolaridad",
                               "Aceptación diversidad apoderados * Promedio discusión en sala"),
         caption = "Aceptar la diversidad en el vecindario",
         caption.above = TRUE,
         file = "reg.html")
 
-webshot(url ="reg.html" ,file ="IPO/output/tables/reg.png")
+webshot2::webshot(url ="reg.html" ,file ="IPO/output/tables/reg.png")
 ```  
 
 
@@ -167,14 +162,17 @@ htmlreg(list(reg4, reg6, reg7),
                               "Prop. inmigrante medio <br> <i>(Ref. bajo</i>)", 
                               "Prop. inmigrante alto",
                               "Promedio escolaridad",
-                              "Aceptación diversidad apoderados * Conocimiento cívico medio", 
-                              "Aceptación diversidad apoderados * Conocimiento cívico alto",
+                              "Aceptación diversidad apoderados * Conocimiento cívico D", 
+                              "Aceptación diversidad apoderados * Conocimiento cívico C",
+                              "Aceptación diversidad apoderados * Conocimiento cívico B",
+                              "Aceptación diversidad apoderados * Conocimiento cívico A",
                               "Aceptación diversidad apoderados * Promedio discusión en sala"),
         caption = "Aceptar la diversidad en el vecindario",
         caption.above = TRUE,
+        encoding = "UTF-8",
         file = "interac.html")
 
-webshot(url ="interac.html" ,file ="IPO/output/tables/interac.png")
+webshot2::webshot(url ="interac.html" ,file ="IPO/output/tables/interac.png")
 ```  
 
 

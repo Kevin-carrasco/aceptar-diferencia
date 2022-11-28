@@ -95,7 +95,7 @@
 \title{Aceptar la diversidad en el vecindario}
 \author{Kevin Carrasco Quintanilla}
 % The month and year that you submit your FINAL draft TO THE LIBRARY (May or December)
-\date{2022-11-15}
+\date{2022-11-28}
 \division{}
 \advisor{Profesor guía: Juan Carlos Castillo}
 \institution{Universidad de Chile}
@@ -349,24 +349,23 @@ De esta forma, las características específicas de cada vecindario podrían afe
 \hypertarget{datos}{%
 \section{Datos}\label{datos}}
 
-La base de datos a utilizar corresponde al Primer Estudio de Educación Ciudadana en Chile, realizado por la Agencia de Calidad de la Educación del Ministerio de Educación. En este estudio se evaluaron estudiantes de octavo básico provenientes de 242 escuelas. La fecha de aplicación fue el 9 de noviembre de 2017.
-
-Se utilizan tres bases de datos disponibles para este estudio. Primero, se cuenta con una base de datos de 10.213 estudiantes que poseen variables de identificación (8 variables) y el puntaje de la prueba de conocimiento cívico (1 variable). Además, se encuentra disponible una segunda base de datos que contiene las preguntas del cuestionario de Formación Ciudadana, que posee las respuestas de 8.589 estudiantes (222 variables). Al juntar ambas bases de datos el N final es de 8.589 estudiantes. Finalmente, se encuentra disponible una tercera base de datos que contiene las preguntas del cuestionario de Formación Ciudadana, con las respuestas de 6.770 apoderados (141 variables). Al juntar todas las bases de datos, el N total de respuestas completas es de 6.511 estudiantes y apoderados.
+La base de datos a utilizar corresponde al Primer Estudio de Educación Ciudadana en Chile, realizado por la Agencia de Calidad de la Educación del Ministerio de Educación. En este estudio se evaluaron 8.589 estudiantes de octavo básico provenientes de 242 escuelas. La fecha de aplicación fue el 9 de noviembre de 2017. También se utilizarán las preguntas del cuestionario de Formación Ciudadana con las respuestas de 6.770 apoderados. Al juntar ambas bases de datos, el N total de respuestas completas es de 6.511 estudiantes y apoderados. El N final utilizado en los análisis es de 4.801 casos.
 
 Sumado a lo anterior, para las variables del territorio se utilizará la base de datos del CENSO 2017, obtenida a partir del paquete estadístico de R \emph{censo2017} \citep{vargas_censo2017_2022}. Esta base de datos contiene información respecto de datos territoriales asociados al año 2017 y se encuentra disponible para su libre uso.
 
 \hypertarget{variables}{%
 \section{Variables}\label{variables}}
 
-Con el fin de medir las actitudes de los y las estudiantes hacia la diversidad en sus vecindarios se utiliza la batería de preguntas del módulo ``Tolerancia y Distancia Social'' del cuestionario de estudiantes. Estas variables están medidas a partir de las preguntas que se presentan en la Tabla \ref{tab:desc01}.
+Con el fin de medir las actitudes de los y las estudiantes hacia la diversidad en sus vecindarios se utiliza la batería de preguntas del módulo ``Tolerancia y Distancia Social'' del cuestionario de estudiantes. Estas variables están medidas a partir de las preguntas que se presentan en la Figura \ref{fig:dep-est}.
 
-\begin{longtable}[]{@{}l@{}}
-\caption{\label{tab:desc01}Descripción aceptación de la diversidad estudiantes}\tabularnewline
-\toprule()
-\endhead
-\includegraphics{IPO/output/tables/desc01.png} \\
-\bottomrule()
-\end{longtable}
+\begin{figure}[!ht]
+
+{\centering \includegraphics[width=0.8\linewidth,]{IPO/output/graphs/div_est} 
+
+}
+
+\caption{Aceptacion de la diversidad (estudiantes)}\label{fig:dep-est}
+\end{figure}
 
 Para operacionalizar esta batería de preguntas, en primer lugar, se recodificarán los ítems de modo que 0 indique que no le gustaría que cada uno de los grupos viva en su vecindario y 1 indique que sí le gustaría. Luego, se construirá un índice sumativo a partir de la suma de los ítems para representar el grado de aceptación de todos los grupos. La distribución de este índice se puede observar en el Gráfico \ref{fig:ind-est}. El valor de Alpha de Cronbach de este índice es de 0.887
 
@@ -415,22 +414,12 @@ Actitudes de la familia:
 
 \begin{itemize}
 \item
-  Conocimiento cívico: variable obtenida a partir de la prueba de conocimiento cívico aplicada a los y las estudiantes.
+  Conocimiento cívico: variable obtenida a partir de la prueba de conocimiento cívico aplicada a los y las estudiantes. La clasificación utilizada se basa en las categorías de ICCS 2016 \citep{agenciacalidaddelaeducacion_informe_2018}, donde Bajo nivel D corresponde a bajo 311 puntos, Nivel D es entre 311 y 394 puntos, Nivel C es entre 395 y 478 puntos, Nivel B es entre 479 y 562 puntos y Nivel A es sobre 562 puntos.
 \item
-  Percepción de apertura a la discusión en la sala de clases: Esta variable refiere a la percepción de los y las estudiantes sobre los espacios e instancias disponibles en la sala de clases para discutir y opinar sobre diversos temas de interés general. Se realizó un Análisis Factorial Exploratorio que permitió estimar puntajes factoriales a partir de 5 de los 6 ítems disponibles en la base de datos (Para más detalles ver Anexo)
+  Percepción de apertura a la discusión en la sala de clases: Esta variable refiere a la percepción de los y las estudiantes sobre los espacios e instancias disponibles en la sala de clases para discutir y opinar sobre diversos temas de interés general. Se realizó un Análisis Factorial Exploratorio que permitió estimar puntajes factoriales a partir de 5 de los 6 ítems disponibles en la base de datos (Para más detalles ver la Tabla \ref{tab:anexo1} del Anexo 1)
 \item
   Promedio de percepción de apertura a la discusión en la sala de clases: Variable construída a partir del promedio de percepción de apertura a la discusión en cada escuela. Esto permite identificar los espacios e instancias disponibles en la sala de clases para discutir y opinar sobre diversos temas de interés general a nivel de escuela.
 \end{itemize}
-
-Un resumen de estas variables se presenta en la Tabla \ref{tab:desc02}.
-
-\begin{longtable}[]{@{}l@{}}
-\caption{\label{tab:desc02}Descripción variables independientes}\tabularnewline
-\toprule()
-\endhead
-\includegraphics{IPO/output/tables/desc02.png} \\
-\bottomrule()
-\end{longtable}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi})}
@@ -449,13 +438,13 @@ Un resumen de estas variables se presenta en la Tabla \ref{tab:desc02}.
   Promedio de escolaridad: Escolaridad promedio de la comuna, según datos del Censo 2017. Esta variable posee un rango de 6.9 a 11.2.
 \end{itemize}
 
-Un resumen de estas variables se muestran en la Tabla \ref{tab:desc03}
+Un resumen de estas variables se presenta en la Tabla \ref{tab:desc02}.
 
 \begin{longtable}[]{@{}l@{}}
-\caption{\label{tab:desc03}Descripción variables contextuales}\tabularnewline
+\caption{\label{tab:desc02}Descripción variables independientes}\tabularnewline
 \toprule()
 \endhead
-\includegraphics{IPO/output/tables/desc03.png} \\
+\includegraphics{IPO/output/tables/desc02.png} \\
 \bottomrule()
 \end{longtable}
 
@@ -482,7 +471,7 @@ De esta forma, luego de estimar la correlación intra-clase de los modelos, y si
 \hypertarget{resultados}{%
 \chapter{Resultados}\label{resultados}}
 
-Se estimó un modelo de regresión multinivel para predecir el índice de aceptación de la diversidad de estudiantes. El modelo incluyó las escuelas (MRBD) como efecto aleatorio. El poder explicativo del modelo es débil (R2=0.03). Los resultados de esta estimación se muestran en la Tabla \ref{tab:multinivel}.
+Se estimó un modelo de regresión multinivel para predecir el índice de aceptación de la diversidad de estudiantes. El modelo incluyó las escuelas (MRBD) como efecto aleatorio. La correlación intra-clase del modelo sin predictores es de 0.012 y el poder explicativo del modelo 4 es débil (R2=0.03). Los resultados de esta estimación se muestran en la Tabla \ref{tab:multinivel}.
 
 \begin{longtable}[]{@{}l@{}}
 \caption{\label{tab:multinivel}Regresión multinivel}\tabularnewline
@@ -494,13 +483,13 @@ Se estimó un modelo de regresión multinivel para predecir el índice de acepta
 
 Las variables asociadas a el nivel educacional de los apoderados no son estadísticamente significativas, salvo para el nivel de educación media en el modelo 3 y 4 (\(\beta\)=-0.16, p \textless{} .05). En cuanto a la cantidad de libros, tener más de 25 libros en el hogar tiene un efecto significativo solo en los modelos 1 y 2 (\(\beta\)=.1, p \textless{} .05), mientras que en el resto de los modelos deja de ser estadísticamente significativa al controlar por las demás variables.
 
-Las actitudes de los apoderados medidas a través del índice de aceptación de la diversidad son estadísticamente significativa al controlar por el resto de las variables y esta relación es consistente en los cuatro modelos en que se incluye esta variable (Modelo 2, 4 y 5 \(\beta\)=.08, p \textless{} .001; Modelo 3 \(\beta\)=.07, p \textless{} .001).
+Las actitudes de los apoderados medidas a través del índice de aceptación de la diversidad son estadísticamente significativa al controlar por el resto de las variables y esta relación es consistente en los cuatro modelos en que se incluye esta variable (Modelo 2 y 5 \(\beta\)=.08, p \textless{} .001; Modelo 3 y 4 \(\beta\)=.07, p \textless{} .001).
 
-Las variables asociadas al proceso de socialización en la escuela son estadísticamente significativas en su nivel individual. Tener un nivel de conocimiento cívico medio (\(\beta\)=.27, p \textless{} .001) y alto (\(\beta\)=.4, p \textless{} .001) se asocia con una mayor aceptación de la diversidad de los estudiantes en comparación con quienes tienen un nivel de conocimiento cívico bajo, al mantener el resto de las variables constantes. El índice de percepción de apertura a la discusión en la sala de clases también se asocia positivamente con la aceptación de la diversidad de los estudiantes (\(\beta\)=.07, p \textless{} .01), manteniendo las demás variables constantes. El promedio de percepción de apertura a la discusión en la sala de clases a nivel de escuela posee una asociación estadísticamente significativa solo en el Modelo 5 al controlar por la moderación entre esta variable y las actitudes de los apoderados (\(\beta\)=-1.76, p \textless{} .001).
+Las variables asociadas al proceso de socialización en la escuela son estadísticamente significativas en su nivel individual. Tener un nivel de conocimiento cívico C (\(\beta\)=.36, p \textless{} .001), B (\(\beta\)=.54, p \textless{} .001) y A (\(\beta\)=.62, p \textless{} .001) se asocia con una mayor aceptación de la diversidad de los estudiantes en comparación con quienes tienen un nivel de conocimiento cívico bajo el nivel D, al mantener el resto de las variables constantes. El índice de percepción de apertura a la discusión en la sala de clases también se asocia positivamente con la aceptación de la diversidad de los estudiantes (\(\beta\)=.07, p \textless{} .01), manteniendo las demás variables constantes. El promedio de percepción de apertura a la discusión en la sala de clases a nivel de escuela posee una asociación estadísticamente significativa solo en el Modelo 5 al controlar por la moderación entre esta variable y las actitudes de los apoderados (\(\beta\)=-1.76, p \textless{} .001).
 
-Las variables territoriales que abordaban características contextuales de la comuna (proporción de personas que se identifican con alguna etnia, proporción de inmigrantes y promedio de escolaridad) no tienen una asociación estadísticamente significativa con las actitudes de los y las estudiantes, salvo para la categoría de proporción media de personas que se identifican con alguna etnia (\(\beta\)=.12, p \textless{} .05) en comparación con la categoría de baja proporción, al mantener el resto de las variables constantes.
+Las variables territoriales que abordaban características contextuales de la comuna (proporción de personas que se identifican con alguna etnia, proporción de inmigrantes y promedio de escolaridad) no tienen una asociación estadísticamente significativa con las actitudes de los y las estudiantes.
 
-Finalmente, se estimaron efectos de interacción entre niveles. Estos efectos permiten evaluar si las características contextuales (promedio de percepción de apertura a la discusión en la sala de clases; para el efecto del conocimiento cívico ver Anexo) modifican (moderan) los efectos de las actitudes de los apoderados. En el modelo 5 se muestra que existe una interacción positiva (\(\beta\)=.26, p \textless{} .001) entre el promedio de percepción de apertura a la discusión en la sala de clases y las actitudes de los apoderados.
+Finalmente, se estimaron efectos de interacción entre niveles. Estos efectos permiten evaluar si las características contextuales (promedio de percepción de apertura a la discusión en la sala de clases; para el efecto del conocimiento cívico ver la Tabla \ref{tab:interact} del Anexo 2) modifican (moderan) los efectos de las actitudes de los apoderados. En el modelo 5 se muestra que existe una interacción positiva (\(\beta\)=.26, p \textless{} .001) entre el promedio de percepción de apertura a la discusión en la sala de clases y las actitudes de los apoderados.
 
 \begin{figure}[!ht]
 
@@ -511,7 +500,7 @@ Finalmente, se estimaron efectos de interacción entre niveles. Estos efectos pe
 \caption{Relación entre actitudes de estudiantes y apoderados moderada por promedio de percepción de apertura a la discusión en la sala de clases}\label{fig:graph-interact}
 \end{figure}
 
-El Gráfico \ref{fig:graph-interact} el efecto de la relación entre las actitudes de los estudiantes y sus apoderados, moderada por el promedio de percepción de apertura a la discusión en la sala de clases a nivel de escuela. Esta relación indica que en aquellas escuelas donde exista una baja percepción de apertura a la discusión, la relación entre las actitudes de los estudiantes y apoderados es negativa, mientras que en aquellas escuelas donde existe una alta percepción de apertura a la discusión en la sala de clases las actitudes de los estudiantes se asocian positivamente con las actitudes de los apoderados.
+El Gráfico \ref{fig:graph-interact} muestra el efecto de la relación entre las actitudes de los estudiantes y sus apoderados, moderada por el promedio de percepción de apertura a la discusión en la sala de clases a nivel de escuela. Esta relación indica que en aquellas escuelas donde exista una baja percepción de apertura a la discusión, la relación entre las actitudes de los estudiantes y apoderados es negativa, mientras que en aquellas escuelas donde existe una alta percepción de apertura a la discusión en la sala de clases las actitudes de los estudiantes se asocian positivamente con las actitudes de los apoderados.
 
 \hypertarget{discusiuxf3n}{%
 \chapter{Discusión}\label{discusiuxf3n}}
@@ -533,9 +522,34 @@ En cuanto al proceso de socialización escolar, el nivel de conocimiento cívico
 
 Una de las principales limitaciones de este estudio es la poca varianza que tienen las variables de tolerancia a cada uno de los grupos estudiados (antes de la construcción del índice) y que imposibilitan realizar un análisis más preciso de la dimensionalidad de la variable dependiente. Asimismo, no poseer datos de identificación de los vecindarios o unidades censales en que viven los estudiantes limita los resultados, ya que es posible que el nulo efecto de las variables territoriales se deba a que corresponden a agrupaciones comunales que no permiten medir el efecto real del contexto en que viven los estudiantes.
 
-Finalmente, así como la discusión y el debate escolar influyen en las actitudes de los estudiantes, sería interesante problematizar e investigar si la participación en espacios extra-escolares, de los vecindarios y territorios, puede influir en la tolerancia y aceptación de la diversidad. Traspasar la Escuela como único formador de actitudes y ciudadanos y conocer qué otros factores puedan influir en la socialización de actitudes es una agenda de investigación futura.
+Finalmente, así como la discusión y el debate escolar influyen en las actitudes de los estudiantes, sería interesante problematizar e investigar si la participación en espacios extra-escolares, de los vecindarios y territorios, puede influir en la tolerancia y aceptación de la diversidad. Traspasar la Escuela como único formador de ciudadanos y conocer qué otros factores puedan influir en la socialización de actitudes es una agenda de investigación futura.
 
 En resumen, los resultados proveen evidencia adicional de acuerdo con factores y condiciones que tienen el potencial de ayudar a las escuelas y profesores a promover la tolerancia. Por lo tanto, las escuelas continúan teniendo un rol fundamental en el proceso de socialización de las nuevas generaciones y, en definitiva, el foco debe estar en que estos mecanismos sean transversales a todo el sistema educacional.
+
+\hypertarget{anexos}{%
+\chapter{Anexos}\label{anexos}}
+
+\hypertarget{anexo-1}{%
+\subsection{Anexo 1}\label{anexo-1}}
+
+\begin{longtable}[]{@{}l@{}}
+\caption{\label{tab:anexo1}Análisis factorial exploratorio}\tabularnewline
+\toprule()
+\endhead
+\includegraphics{IPO/output/tables/apdis_fa.png} \\
+\bottomrule()
+\end{longtable}
+
+\hypertarget{anexo-2}{%
+\subsection{Anexo 2}\label{anexo-2}}
+
+\begin{longtable}[]{@{}l@{}}
+\caption{\label{tab:interact}Interacciones entre niveles}\tabularnewline
+\toprule()
+\endhead
+\includegraphics{IPO/output/tables/interac.png} \\
+\bottomrule()
+\end{longtable}
 
 \hypertarget{bibliografuxeda}{%
 \chapter*{Bibliografía}\label{bibliografuxeda}}

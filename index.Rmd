@@ -7,12 +7,15 @@ institution: "Universidad de Chile"
 degree: "Magister en ciencias sociales mención en sociología de la modernización"
 advisor: "Profesor guía: Juan Carlos Castillo"
 bibliography: aceptacion-diferencia.bib
+csl: apa.csl
 biblio-style: apalike
 link-citations: yes
 linkcolor: blue
 site: bookdown::bookdown_site
 output: bookdown::gitbook
-  #bookdown::word_document2
+#bookdown::word_document2
+  # bookdown::gitbook
+  #
 documentclass: book
 fontsize: 14pt
 lof: True

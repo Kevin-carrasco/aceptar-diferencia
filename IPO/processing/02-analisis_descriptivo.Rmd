@@ -25,7 +25,7 @@ data_est <- dplyr::select(data, est_piel,
 df <- dfSummary(data_est,
                 plain.ascii = F,
                 varnumbers = F, 
-                graph.col = F, 
+                graph.col = T, 
                 style = "grid",
                 headings = F)
 df$Variable <- NULL # delete variable column
@@ -35,66 +35,47 @@ webshot(url ="desc01.html" ,file ="IPO/output/tables/desc01.png")
 
 # Independiente
 ```{r}
+data_comuna <- rename(data_comuna, cod_com_alu=p10comuna)
+
+data <- left_join(data, data_comuna, by="cod_com_alu")
+
+data$etnia2 <- round(data$prop_etnia*1000, 3)
+data$inmigrante2 <- round(data$prop_inm*1000, 3)
+
+data$civic <- sjlabelled::set_label(data$civic, 'Conocimiento cívico (clasificación ICCS)')
+data$apdis_fa <- sjlabelled::set_label(data$apdis_fa, 'Índice apertura a la discusión en el aula')
+data$apod_acc_div <- sjlabelled::set_label(data$apod_acc_div, 'Índice aceptación de la diversidad (apoderados)')
+data$mean_apdis_fa <- sjlabelled::set_label(data$mean_apdis_fa, 'Promedio apertura a la discusión en el aula')
+data$educacion_rec <- sjlabelled::set_label(data$educacion_rec, 'Nivel educacional apoderados')
+data$libros_rec <- sjlabelled::set_label(data$libros_rec, 'Cantidad de libros en el hogar')
+data$etnia2 <- sjlabelled::set_label(data$etnia2, 'Proporción de personas que se identifica con alguna etnia')
+data$inmigrante2 <- sjlabelled::set_label(data$inmigrante2, 'Proporción de inmigrantes')
+data$escolaridad <- sjlabelled::set_label(data$escolaridad, 'Promedio de escolaridad')
+
+
 data_indep <- dplyr::select(data,
                             educacion_rec,
                               libros_rec,
                               apod_acc_div,
                               civic,
-                              ap_dis,
-                            mean_apdis)
+                              apdis_fa,
+                            mean_apdis_fa,
+                            etnia2,
+                           inmigrante2,
+                           escolaridad)
 
 
 df2 <- dfSummary(data_indep,
                 varnumbers = F, 
-                graph.col = F, 
+                graph.col = T, 
                 style = "grid",
                 headings = F)
 
 df2$Variable <- NULL # delete variable column
 view(df2,file = "desc02.html")
 webshot(url ="desc02.html" ,file ="IPO/output/tables/desc02.png")
+file.remove(c("desc01.html","desc02.html"))
 ```
-
-# Independientes comuna
-```{r}
-data_comuna <- rename(data_comuna, cod_com_alu=p10comuna)
-
-base <- merge(data, data_comuna, by="cod_com_alu")
-
-# etnia reescalar
-base$etnia2 <- ntile(base$prop_etnia,3) # categorizar el puntaje en bajo, medio y alto
-base$etnia2 <- factor(base$etnia2, labels = c("Bajo", "Medio", "Alto"))
-
-# inmigrante reescalar
-base$inmigrante2 <- ntile(base$prop_inm,3) # categorizar el puntaje en bajo, medio y alto
-base$inmigrante2 <- factor(base$inmigrante2, labels = c("Bajo", "Medio", "Alto"))
-
-base$etnia2 <- sjlabelled::set_label(base$etnia2, 'Proporción de personas que se identifica con alguna etnia')
-base$inmigrante2 <- sjlabelled::set_label(base$inmigrante2, 'Proporción de inmigrantes')
-base$escolaridad <- sjlabelled::set_label(base$escolaridad, 'Promedio de escolaridad')
-
-
-
-
-data_terr <- dplyr::select(base,
-                            etnia2,
-                           inmigrante2,
-                           escolaridad)
-
-
-
-df3 <- dfSummary(data_terr,
-                varnumbers = F, 
-                graph.col = F, 
-                style = "grid",
-                headings = F)
-
-df3$Variable <- NULL # delete variable column
-view(df3,file = "desc03.html")
-webshot(url ="desc03.html" ,file ="IPO/output/tables/desc03.png")
-file.remove(c("desc01.html","desc02.html", "desc03.html"))
-```
-
 
 # Visualización descriptivos
 
