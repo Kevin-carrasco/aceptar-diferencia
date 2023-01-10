@@ -1,6 +1,6 @@
 # Discusión
 
-En la Figura \@ref(fig:hipotesis2) se muestra el modelo teórico que resume los resultados de las hipótesis planteadas. Con "+" se representan las hipótesis que obtuvieron una asociación positiva y con "|" se representan las hipótesis que no tuvieron resultados estadísticamente significativos. No hay hipótesis que obtuvieran asociaciones negativas estadísticamente significativas.
+En la Figura \@ref(fig:hipotesis2) se muestra el modelo teórico que resume los resultados de las hipótesis planteadas.
 
 ```{r hipotesis2, echo=FALSE, fig.cap="Modelo teórico con resultados", fig.align = 'center', out.width = '100%'}
 knitr::include_graphics(path = "images/modelo_resultados.png")
