@@ -16,7 +16,7 @@ output:
   bookdown::gitbook:
     split_bib: no
     split_by: chapter
-#bookdown::word_document2
+  bookdown::word_document2
   # bookdown::gitbook
   #
 documentclass: book
