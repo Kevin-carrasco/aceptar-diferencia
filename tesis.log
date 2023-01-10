@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.12.7)  10 JAN 2023 02:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.12.7)  10 JAN 2023 18:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -610,7 +610,7 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: threeparttable package is loaded.
 Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
-<images/facso.png, id=68, 702.625pt x 366.36874pt>
+<images/facso.png, id=76, 702.625pt x 366.36874pt>
 File: images/facso.png Graphic file (type png)
 <use images/facso.png>
 Package pdftex.def Info: images/facso.png  used on input line 181.
@@ -755,7 +755,7 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 (fancyhdr)                \addtolength{\topmargin}{-12.61652pt}.
 
 [15]
-<images/modelo_original.png, id=597, 603.25375pt x 351.3125pt>
+<images/modelo_original.png, id=610, 603.25375pt x 351.3125pt>
 File: images/modelo_original.png Graphic file (type png)
 <use images/modelo_original.png>
 Package pdftex.def Info: images/modelo_original.png  used on input line 336.
@@ -776,12 +776,12 @@ Package fancyhdr Warning: \headheight is too small (14.5pt):
 
 ]
 Cap\'{\i }tulo 3.
-<IPO/output/graphs/div_est.png, id=620, 711.18198pt x 369.70622pt>
+<IPO/output/graphs/div_est.png, id=633, 711.18198pt x 369.70622pt>
 File: IPO/output/graphs/div_est.png Graphic file (type png)
 <use IPO/output/graphs/div_est.png>
 Package pdftex.def Info: IPO/output/graphs/div_est.png  used on input line 360.
 (pdftex.def)             Requested size: 346.89731pt x 180.33965pt.
-<IPO/output/graphs/ind_est.png, id=622, 711.18198pt x 369.70622pt>
+<IPO/output/graphs/ind_est.png, id=635, 711.18198pt x 369.70622pt>
 File: IPO/output/graphs/ind_est.png Graphic file (type png)
 <use IPO/output/graphs/ind_est.png>
 Package pdftex.def Info: IPO/output/graphs/ind_est.png  used on input line 371.
@@ -794,7 +794,7 @@ Overfull \hbox (313.16817pt too wide) in alignment at lines 440--443
  [] 
  []
 
-<IPO/output/tables/desc02.png, id=641, 746.79pt x 882.29625pt>
+<IPO/output/tables/desc02.png, id=654, 746.79pt x 882.29625pt>
 File: IPO/output/tables/desc02.png Graphic file (type png)
 <use IPO/output/tables/desc02.png>
 Package pdftex.def Info: IPO/output/tables/desc02.png  used on input line 444.
@@ -822,90 +822,103 @@ LaTeX Info: Redefining \% on input line 469.
 
 ]
 Cap\'{\i }tulo 4.
-
-Overfull \hbox (545.03387pt too wide) in alignment at lines 475--478
+<IPO/output/graphs/plot_bivariado.png, id=700, 505.89pt x 505.89pt>
+File: IPO/output/graphs/plot_bivariado.png Graphic file (type png)
+<use IPO/output/graphs/plot_bivariado.png>
+Package pdftex.def Info: IPO/output/graphs/plot_bivariado.png  used on input line 476.
+(pdftex.def)             Requested size: 433.62pt x 433.62885pt.
+[27]
+Overfull \hbox (545.03387pt too wide) in alignment at lines 492--495
  [] 
  []
 
-<IPO/output/tables/reg.png, id=688, 978.65625pt x 992.70876pt>
+<IPO/output/tables/reg.png, id=709, 978.65625pt x 992.70876pt>
 File: IPO/output/tables/reg.png Graphic file (type png)
 <use IPO/output/tables/reg.png>
-Package pdftex.def Info: IPO/output/tables/reg.png  used on input line 479.
+Package pdftex.def Info: IPO/output/tables/reg.png  used on input line 496.
 (pdftex.def)             Requested size: 978.65387pt x 992.70634pt.
 
-Overfull \hbox (545.03387pt too wide) in alignment at lines 478--481
+Overfull \hbox (545.03387pt too wide) in alignment at lines 495--498
  [] 
  []
 
-[27]
-LaTeX Info: Redefining \. on input line 481.
-LaTeX Info: Redefining \% on input line 481.
-[28] [29 <./IPO/output/tables/reg.png>]
-<IPO/output/graphs/interac.png, id=704, 505.89pt x 361.1091pt>
+LaTeX Info: Redefining \. on input line 498.
+LaTeX Info: Redefining \% on input line 498.
+[28 <./IPO/output/graphs/plot_bivariado.png>]
+LaTeX Info: Redefining \. on input line 498.
+LaTeX Info: Redefining \% on input line 498.
+[29]
+LaTeX Info: Redefining \. on input line 498.
+LaTeX Info: Redefining \% on input line 498.
+[30 <./IPO/output/tables/reg.png>]
+<IPO/output/graphs/interac.png, id=726, 505.89pt x 505.89pt>
 File: IPO/output/graphs/interac.png Graphic file (type png)
 <use IPO/output/graphs/interac.png>
-Package pdftex.def Info: IPO/output/graphs/interac.png  used on input line 495.
-(pdftex.def)             Requested size: 433.62pt x 309.5284pt.
-LaTeX Info: Redefining \. on input line 503.
-LaTeX Info: Redefining \% on input line 503.
-[30] [31 <./IPO/output/graphs/interac.png>] [32
-
-]
+Package pdftex.def Info: IPO/output/graphs/interac.png  used on input line 512.
+(pdftex.def)             Requested size: 433.62pt x 433.62885pt.
+LaTeX Info: Redefining \. on input line 520.
+LaTeX Info: Redefining \% on input line 520.
+[31]
+LaTeX Info: Redefining \. on input line 522.
+LaTeX Info: Redefining \% on input line 522.
+[32 <./IPO/output/graphs/interac.png>]
 Cap\'{\i }tulo 5.
-<images/modelo_resultados.png, id=721, 603.25375pt x 351.3125pt>
+<images/modelo_resultados.png, id=740, 603.25375pt x 351.3125pt>
 File: images/modelo_resultados.png Graphic file (type png)
 <use images/modelo_resultados.png>
-Package pdftex.def Info: images/modelo_resultados.png  used on input line 511.
+Package pdftex.def Info: images/modelo_resultados.png  used on input line 528.
 (pdftex.def)             Requested size: 433.62pt x 252.5213pt.
-[33 <./images/modelo_resultados.png>]
-LaTeX Info: Redefining \. on input line 525.
-LaTeX Info: Redefining \% on input line 525.
+[33
+
+ <./images/modelo_resultados.png>]
+LaTeX Info: Redefining \. on input line 542.
+LaTeX Info: Redefining \% on input line 542.
 [34]
 Cap\'{\i }tulo 6.
 [35
 
 ]
-LaTeX Info: Redefining \. on input line 542.
-LaTeX Info: Redefining \% on input line 542.
+LaTeX Info: Redefining \. on input line 559.
+LaTeX Info: Redefining \% on input line 559.
 [36]
 Cap\'{\i }tulo 7.
 
-Overfull \hbox (151.56482pt too wide) in alignment at lines 547--550
+Overfull \hbox (151.56482pt too wide) in alignment at lines 564--567
  [] 
  []
 
-<IPO/output/tables/apdis_fa.png, id=742, 585.18625pt x 361.35pt>
+<IPO/output/tables/apdis_fa.png, id=761, 585.18625pt x 361.35pt>
 File: IPO/output/tables/apdis_fa.png Graphic file (type png)
 <use IPO/output/tables/apdis_fa.png>
-Package pdftex.def Info: IPO/output/tables/apdis_fa.png  used on input line 551.
+Package pdftex.def Info: IPO/output/tables/apdis_fa.png  used on input line 568.
 (pdftex.def)             Requested size: 585.18481pt x 361.34912pt.
 
-Overfull \hbox (151.56482pt too wide) in alignment at lines 550--553
+Overfull \hbox (151.56482pt too wide) in alignment at lines 567--570
  [] 
  []
 
 [37
 
 ]
-Overfull \hbox (545.03387pt too wide) in alignment at lines 558--561
+Overfull \hbox (545.03387pt too wide) in alignment at lines 575--578
  [] 
  []
 
-<IPO/output/tables/interac.png, id=749, 978.65625pt x 1185.42876pt>
+<IPO/output/tables/interac.png, id=768, 978.65625pt x 2157.05875pt>
 File: IPO/output/tables/interac.png Graphic file (type png)
 <use IPO/output/tables/interac.png>
-Package pdftex.def Info: IPO/output/tables/interac.png  used on input line 562.
-(pdftex.def)             Requested size: 978.65387pt x 1185.42586pt.
+Package pdftex.def Info: IPO/output/tables/interac.png  used on input line 579.
+(pdftex.def)             Requested size: 978.65387pt x 2157.0535pt.
 
-Overfull \hbox (545.03387pt too wide) in alignment at lines 561--564
+Overfull \hbox (545.03387pt too wide) in alignment at lines 578--581
  [] 
  []
 
-LaTeX Info: Redefining \. on input line 564.
-LaTeX Info: Redefining \% on input line 564.
+LaTeX Info: Redefining \. on input line 581.
+LaTeX Info: Redefining \% on input line 581.
 [38 <./IPO/output/tables/apdis_fa.png>] [39]
-LaTeX Info: Redefining \. on input line 564.
-LaTeX Info: Redefining \% on input line 564.
+LaTeX Info: Redefining \. on input line 581.
+LaTeX Info: Redefining \% on input line 581.
 [40 <./IPO/output/tables/interac.png>] [41] [42
 
 ] (./tesis.bbl [43] [44
@@ -929,8 +942,8 @@ LaTeX Info: Redefining \% on input line 480.
 LaTeX Info: Redefining \. on input line 562.
 LaTeX Info: Redefining \% on input line 562.
 [51])
-LaTeX Info: Redefining \. on input line 587.
-LaTeX Info: Redefining \% on input line 587.
+LaTeX Info: Redefining \. on input line 604.
+LaTeX Info: Redefining \% on input line 604.
 [52] (./tesis.aux
 LaTeX Info: Redefining \. on input line 23.
 LaTeX Info: Redefining \% on input line 23.
@@ -939,21 +952,21 @@ LaTeX Info: Redefining \% on input line 23.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `tesis.out' has not changed.
-(rerunfilecheck)             Checksum: 5A0795579AECB4F50C61123F6401CBBE;2680.
+(rerunfilecheck)             Checksum: 6F7F9566645A75A08B6880DC3D34D9AD;2961.
  ) 
 Here is how much of TeX's memory you used:
- 16564 strings out of 476863
- 279215 string characters out of 5820203
- 619037 words of memory out of 5000000
- 37279 multiletter control sequences out of 15000+600000
+ 16586 strings out of 476863
+ 279813 string characters out of 5820203
+ 619283 words of memory out of 5000000
+ 37294 multiletter control sequences out of 15000+600000
  540172 words of font info for 82 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  72i,12n,77p,2706b,771s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}<c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmro12.pfb>
-Output written on tesis.pdf (60 pages, 877284 bytes).
+Output written on tesis.pdf (60 pages, 1083099 bytes).
 PDF statistics:
- 912 PDF objects out of 1000 (max. 8388607)
- 804 compressed objects within 9 object streams
- 211 named destinations out of 1000 (max. 500000)
- 179 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 935 PDF objects out of 1000 (max. 8388607)
+ 826 compressed objects within 9 object streams
+ 217 named destinations out of 1000 (max. 500000)
+ 200 words of extra memory for PDF output out of 10000 (max. 10000000)
 

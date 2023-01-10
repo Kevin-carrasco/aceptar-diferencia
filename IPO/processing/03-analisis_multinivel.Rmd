@@ -100,7 +100,7 @@ reg14 <- lmer(est_acc_div ~ educacion_rec + libros_rec*mean_apdis_fa + apod_acc_
 ```
 
 ```{r}
-screenreg(list(reg6, reg7, reg8, reg9, reg10))
+screenreg(list(reg4, reg6, reg7, reg11, reg12, reg13, reg14))
 ```
 
 ```{r}
@@ -141,32 +141,62 @@ webshot2::webshot(url ="reg.html" ,file ="IPO/output/tables/reg.png")
 
 
 ```{r results='asis', message=FALSE, echo=FALSE}  
-htmlreg(list(reg4, reg6, reg7), 
+htmlreg(list(reg4, reg6, reg7, reg11, reg12, reg13, reg14), 
          custom.model.names = c("Modelo 1",
                                "Modelo 2",
-                               "Modelo 3"), 
+                               "Modelo 3",
+                               "Modelo 4",
+                               "Modelo 5",
+                               "Modelo 6",
+                               "Modelo 7"), 
         custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05",
         custom.coef.names = c("Intercepto", 
                               "Educación media <br> <i>(Ref. Básica)</i>",
                               "Educación técnica", 
                               "Universidad o posgrado",
-                              "Ns/Nr",
+                              "Educacion Ns/Nr",
                               "Más de 25 libros <br> <i>(Ref. menos de 25)</i>", 
                               "Aceptación diversidad apoderados", 
-                              "Conocimiento cívico medio <br> <i>(Ref. bajo</i>)", 
-                              "Conocimiento cívico alto", 
+                              "Conocimiento cívico D <br> <i>(Ref. Menos que D</i>)", 
+                              "Conocimiento cívico C", 
+                              "Conocimiento cívico B", 
+                              "Conocimiento cívico A", 
                               "Discusión en sala de clases", 
                               "Promedio discusión en sala", 
-                              "Prop. etnia medio <br> <i>(Ref. bajo</i>)", 
-                              "Prop. etnia alto",
-                              "Prop. inmigrante medio <br> <i>(Ref. bajo</i>)", 
-                              "Prop. inmigrante alto",
+                              "Prop. etnia", 
+                              "Prop. inmigrantes",
                               "Promedio escolaridad",
                               "Aceptación diversidad apoderados * Conocimiento cívico D", 
                               "Aceptación diversidad apoderados * Conocimiento cívico C",
                               "Aceptación diversidad apoderados * Conocimiento cívico B",
                               "Aceptación diversidad apoderados * Conocimiento cívico A",
-                              "Aceptación diversidad apoderados * Promedio discusión en sala"),
+                              "Aceptación diversidad apoderados * Promedio discusión en sala",
+                              "Educación Media * Conocimiento Cívico D",
+                              "Educación Técnica * Conocimiento Cívico D",
+                              "Educación universitaria * Conocimiento Cívico D",
+                              "Educación Ns/Nr * Conocimiento Cívico D",
+                              "Educación Media * Conocimiento Cívico C",
+                              "Educación Técnica * Conocimiento Cívico C",
+                              "Educación universitaria * Conocimiento Cívico C",
+                              "Educación Ns/Nr * Conocimiento Cívico C",
+                              "Educación Media * Conocimiento Cívico B",
+                              "Educación Técnica * Conocimiento Cívico B",
+                              "Educación universitaria * Conocimiento Cívico B",
+                              "Educación Ns/Nr * Conocimiento Cívico B",
+                              "Educación Media * Conocimiento Cívico A",
+                              "Educación Técnica * Conocimiento Cívico A",
+                              "Educación universitaria * Conocimiento Cívico A",
+                              "Educación Ns/Nr * Conocimiento Cívico A",
+                              "Más de 25 libros * Conocimiento Cívico D",
+                              "Más de 25 libros * Conocimiento Cívico C",
+                              "Más de 25 libros * Conocimiento Cívico B",
+                              "Más de 25 libros * Conocimiento Cívico A",
+                              "Educación Media * Promedio discusión en sala",
+                              "Educación Técnica * Promedio discusión en sala",
+                              "Educación universitaria * Promedio discusión en sala",
+                              "Educación Ns/Nr * Promedio discusión en sala",
+                              "Más de 25 libros * Promedio discusión en sala"
+                              ),
         caption = "Aceptar la diversidad en el vecindario",
         caption.above = TRUE,
         encoding = "UTF-8",
@@ -186,9 +216,14 @@ ggsave(plot1, file="IPO/output/graphs/plot1.png")
 
 
 ```{r}
-int <- plot_model(reg7, type = "int", mdrt.values="minmax", title = "", colors = c("red", "blue")) +
+int<- plot_model(reg7, type = "int", mdrt.values="minmax", title = "", colors = c("red", "blue")) +
   theme_bw() +
-  labs(x = "Aceptación de la diversidad apoderados", y="Aceptación de la diversidad estudiantes", colour = "Promedio discusión")
+  labs(x = "Aceptación de la diversidad apoderados", y="Aceptación de la diversidad estudiantes", colour = "Promedio discusión") +
+  scale_colour_discrete(labels = c("Bajo", "Alto")) +
+  scale_y_continuous(limits=c(0,8), breaks = c(0,1,2,3,4,5,6,7)) +
+  scale_x_continuous(limits=c(0,7), breaks = c(0,1,2,3,4,5,6,7))
+
+
 int
 ggsave(int, file="IPO/output/graphs/interac.png")
 ```

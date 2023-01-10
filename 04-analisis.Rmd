@@ -1,5 +1,16 @@
 # Resultados
 
+## Descriptivos
+
+```{r graph-bivariado, echo=FALSE, fig.cap="Relación entre actitudes de estudiantes y Conocimiento cívico según nivel educacional de los apoderados", fig.align = 'center', out.width = '100%'}
+knitr::include_graphics(path = "IPO/output/graphs/plot_bivariado.png")
+```
+
+El Gráfico \@ref(fig:graph-bivariado) muestra la distribución de las actitudes de los estudiantes según su nivel de conocimiento cívico y el nivel educacional de sus apoderados. Esta distribución da cuenta de que si bien un nivel más alto de Conocimiento Cívico (A y B) se asocia con una mayor proporción de estudiantes que aceptan a todos los grupos, es importante resaltar que la mayor cantidad de estudiantes con un conocimiento cívico alto tiene apoderados con estudios de Educación Superior. El mayor contraste se da en que mientras 445 estudiantes (20%) con apoderados con un nivel educacional menor que Educación superior rechazan a uno o más grupo, solo 256 estudiantes (12%) con apoderados con estudios de educación superior lo hacen. Por el contrario, mientras que 680 estudiantes (30%) con apoderados con un nivel educacional menor que Educación superior aceptan a todos los grupos, son 1015 estudiantes (49%) con apoderados con estudios de educación superior que aceptan a todos los grupos.
+
+
+## Estimación multinivel
+
 Se estimaron 5 modelos de regresión multinivel para predecir el índice de aceptación de la diversidad de estudiantes. Cada modelo incluyó las escuelas (MRBD) como efecto aleatorio. La lógica de inclusión de los modelos sigue la secuencia de las hipótesis, es decir, el modelo 1 hace referencia a las variables socioeconómicas de la familia (H1), el modelo 2 incluye las actitudes de los apoderados (H2), el modelo 3 incluye las variables del proceso de socialización escolar (H3 y H4), el modelo 4 incluye las variables contextuales de las comunas en que viven los estudiantes (H6, H7 y H8) y el modelo 5 incluye la interacción entre las actitudes de los apoderados y el promedio de percepción de apertura a la discusión en el aula (H5).
 
 La correlación intra-clase del modelo sin predictores es de 0.012 y el poder explicativo del modelo 4, que incluye todas las variables, es débil (R2=0.03). Los resultados de esta estimación se muestran en la Tabla \@ref(tab:multinivel).
@@ -20,13 +31,14 @@ Las variables asociadas al proceso de socialización en la escuela son estadíst
 
 Las variables territoriales que abordaban características contextuales de la comuna (proporción de personas que se identifican con alguna etnia, proporción de inmigrantes y promedio de escolaridad) no tienen una asociación estadísticamente significativa con las actitudes de los y las estudiantes.
 
-Finalmente, se estimaron efectos de interacción entre niveles. Estos efectos permiten evaluar si las características contextuales (promedio de percepción de apertura a la discusión en la sala de clases; para el efecto del conocimiento cívico ver la Tabla \@ref(tab:interact) del Anexo 2) modifican (moderan) los efectos de las actitudes de los apoderados. En el modelo 5 se muestra que existe una interacción positiva ($\beta$=.26, p < .001) entre el promedio de percepción de apertura a la discusión en la sala de clases y las actitudes de los apoderados.
+Finalmente, se estimaron efectos de interacción entre niveles. Estos efectos permiten evaluar si las características contextuales, específicamente el promedio de apertura a la discusión en la sala de clase, modifican (moderan) los efectos de las actitudes de los apoderados[^2]. En el modelo 5 se muestra que existe una interacción positiva ($\beta$=.26, p < .001) entre el promedio de percepción de apertura a la discusión en la sala de clases y las actitudes de los apoderados.
+
+[^2]: Para los demás efectos de interacción de las variables contextuales de la escuela sobre el proceso de socialización familiar ver Tabla \@ref(tab:interact) del Anexo 2.
 
 ```{r graph-interact, echo=FALSE, fig.cap="Relación entre actitudes de estudiantes y apoderados moderada por promedio de percepción de apertura a la discusión en la sala de clases", fig.align = 'center', out.width = '100%'}
 knitr::include_graphics(path = "IPO/output/graphs/interac.png")
 ```
 
 El Gráfico \@ref(fig:graph-interact) muestra el efecto de la relación entre las actitudes de los estudiantes y sus apoderados, moderada por el promedio de percepción de apertura a la discusión en la sala de clases a nivel de escuela. Esta relación indica que en aquellas escuelas donde exista una baja percepción de apertura a la discusión, la relación entre las actitudes de los estudiantes y apoderados es negativa, mientras que en aquellas escuelas donde existe una alta percepción de apertura a la discusión en la sala de clases las actitudes de los estudiantes se asocian positivamente con las actitudes de los apoderados. Lo anterior implica que en aquellas escuelas donde existe un ambiente favorable a la discusión y el debate, es posible mejorar las actitudes de los estudiantes cuyos apoderados poseen baja aceptación de la diversidad.
-
 
 
