@@ -1,6 +1,8 @@
 # Resultados
 
-Se estimó un modelo de regresión multinivel para predecir el índice de aceptación de la diversidad de estudiantes. El modelo incluyó las escuelas (MRBD) como efecto aleatorio. La correlación intra-clase del modelo sin predictores es de 0.012 y el poder explicativo del modelo 4 es débil (R2=0.03). Los resultados de esta estimación se muestran en la Tabla \@ref(tab:multinivel).
+Se estimaron 5 modelos de regresión multinivel para predecir el índice de aceptación de la diversidad de estudiantes. Cada modelo incluyó las escuelas (MRBD) como efecto aleatorio. La lógica de inclusión de los modelos sigue la secuencia de las hipótesis, es decir, el modelo 1 hace referencia a las variables socioeconómicas de la familia (H1), el modelo 2 incluye las actitudes de los apoderados (H2), el modelo 3 incluye las variables del proceso de socialización escolar (H3 y H4), el modelo 4 incluye las variables contextuales de las comunas en que viven los estudiantes (H6, H7 y H8) y el modelo 5 incluye la interacción entre las actitudes de los apoderados y el promedio de percepción de apertura a la discusión en el aula (H5).
+
+La correlación intra-clase del modelo sin predictores es de 0.012 y el poder explicativo del modelo 4, que incluye todas las variables, es débil (R2=0.03). Los resultados de esta estimación se muestran en la Tabla \@ref(tab:multinivel).
 
 ```{r multinivel, echo=FALSE, results='asis'}
 kable(data.frame(image='![](IPO/output/tables/reg.png)'),    # generar tabla
@@ -24,4 +26,7 @@ Finalmente, se estimaron efectos de interacción entre niveles. Estos efectos pe
 knitr::include_graphics(path = "IPO/output/graphs/interac.png")
 ```
 
-El Gráfico \@ref(fig:graph-interact) muestra el efecto de la relación entre las actitudes de los estudiantes y sus apoderados, moderada por el promedio de percepción de apertura a la discusión en la sala de clases a nivel de escuela. Esta relación indica que en aquellas escuelas donde exista una baja percepción de apertura a la discusión, la relación entre las actitudes de los estudiantes y apoderados es negativa, mientras que en aquellas escuelas donde existe una alta percepción de apertura a la discusión en la sala de clases las actitudes de los estudiantes se asocian positivamente con las actitudes de los apoderados.
+El Gráfico \@ref(fig:graph-interact) muestra el efecto de la relación entre las actitudes de los estudiantes y sus apoderados, moderada por el promedio de percepción de apertura a la discusión en la sala de clases a nivel de escuela. Esta relación indica que en aquellas escuelas donde exista una baja percepción de apertura a la discusión, la relación entre las actitudes de los estudiantes y apoderados es negativa, mientras que en aquellas escuelas donde existe una alta percepción de apertura a la discusión en la sala de clases las actitudes de los estudiantes se asocian positivamente con las actitudes de los apoderados. Lo anterior implica que en aquellas escuelas donde existe un ambiente favorable a la discusión y el debate, es posible mejorar las actitudes de los estudiantes cuyos apoderados poseen baja aceptación de la diversidad.
+
+
+

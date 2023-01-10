@@ -12,7 +12,10 @@ biblio-style: apalike
 link-citations: yes
 linkcolor: blue
 site: bookdown::bookdown_site
-output: bookdown::gitbook
+output: 
+  bookdown::gitbook:
+    split_bib: no
+    split_by: chapter
 #bookdown::word_document2
   # bookdown::gitbook
   #
@@ -58,7 +61,7 @@ fullw = if(is_html_output()) {T} else if(is_latex_output()) {F}
 fsize = if(is_html_output()) {14} else if(is_latex_output()) {8}
 ```
 
-# Resumen
+# Resumen {-}
 
 Las investigaciones sobre diversidad social se han situado frecuentemente bajo el paradigma de la integración social, es decir, en la forma en que distintos grupos sociales poseen determinada posición dentro de la estructura social (ej. Young 2000; Wade 2000; Viveros Vigoya 2016). Al situarse bajo este paradigma, se han dejado de lado dos elementos fundamentales. Por un lado, se ha estudiado en menor medida el proceso de inclusión social en las escuelas (Blanco 2006) y la percepción que la población tiene sobre los demás grupos, en el sentido de si aceptan o rechazan a determinados grupos sociales que son distintos o que poseen otras posiciones en la estructura social. Por otro lado, tampoco se ha abordado completamente el proceso mediante el cual se aprenden o reproducen en la sociedad las actitudes de las personas en relación con estos grupos sociales.
 

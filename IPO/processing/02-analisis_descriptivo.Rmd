@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r}
-pacman::p_load(dplyr, ggplot2, sjPlot, summarytools, corrplot, ltm)
+pacman::p_load(dplyr, ggplot2, sjPlot, summarytools, corrplot, ltm, ggpubr, ggmosaic)
 load("IPO/input/data/proc/data.RData")
 load("IPO/input/data/proc/data_comuna.RData")
 ```
@@ -209,3 +209,94 @@ ind_apod <- sjPlot::plot_frq(data$apod_acc_div,
                  geom.colors = "coral")
 ggsave(ind_apod, file = "IPO/output/graphs/ind_apod.png",device = "png",width = 25,height = 13,dpi = "retina",units = "cm")
 ```
+
+# Descriptivos bivariados
+
+```{r}
+# dicotomizar var dep
+data = data %>% rowwise() %>%  
+  mutate(est_act_dic = case_when(est_acc_div==7~"Acepta todos",
+                                 est_acc_div<=6~"Rechaza uno o más"
+                                              ))
+#dicotomizar educacion
+data = data %>% rowwise() %>%  
+  mutate(educacion_dic = case_when(educacion_rec=="Ed Basica"~"Menos que Educación superior",
+                                                 educacion_rec=="Ed Media"~"Menos que Educación superior",
+                                                 educacion_rec=="Ed Tecnica"~"Educación superior",
+                                                 educacion_rec=="Universidad o posgrado"~"Educación superior",
+                                                 educacion_rec=="Ns/Nr"~"Ns/Nr"))
+  
+
+data %>% filter(educacion_dic!="Ns/Nr") %>% 
+  ggplot() +
+  geom_mosaic(aes(product(est_act_dic, educacion_dic), fill= est_act_dic)) + labs(y = "Actitudes estudiantes", x = "Educación Apoderados")
+```
+
+
+```{r}
+# dicotomizar actitudes apoderados
+data = data %>% rowwise() %>%  
+  mutate(apod_act_dic = case_when(apod_acc_div==7~"Acepta todos",
+                                 apod_acc_div<=6~"Rechaza uno o más"
+                                              ))
+
+data %>% 
+  ggplot() +
+  geom_mosaic(aes(product(est_act_dic, apod_act_dic), fill= est_act_dic)) + labs(y = "Actitudes estudiantes", x = "Actitudes Apoderados")
+```
+
+
+```{r}
+data = data %>% rowwise() %>%  
+  mutate(civic_dic = case_when(civic=="Bajo nivel D"~"Nivel C y D",
+                               civic=="Nivel D"~"Nivel C y D",
+                               civic=="Nivel C"~"Nivel C y D",
+                               civic=="Nivel B"~"Nivel A y B",
+                               civic=="Nivel A"~"Nivel A y B"
+                                              ))
+data %>% filter(civic_dic!=is.na(civic_dic)) %>% 
+  ggplot() +
+  geom_mosaic(aes(product(est_act_dic, civic_dic), fill= est_act_dic)) + labs(y = "Actitudes estudiantes", x = "Conocimiento cívico")
+```
+
+
+```{r}
+# dicotomizar actitudes apoderados
+data = data %>% rowwise() %>%  
+  mutate(apdis_dic = case_when(apdis_fa>=0.1450~"Alto",
+                               apdis_fa<0.1450~"Bajo"
+                                              ))
+
+data %>% filter(apdis_dic!=is.na(apdis_dic)) %>% 
+  ggplot() +
+  geom_mosaic(aes(product(est_act_dic, apdis_dic), fill= est_act_dic)) + labs(y = "Actitudes estudiantes", x = "Apertura a la discusión")
+
+
+ggarrange(educacion_plot, actitudes_plot, civic_plot, apdis_plot)
+```
+
+
+```{r}
+comuna = data %>% filter(!is.na(nom_com_alu)) %>% 
+  group_by(nom_com_alu) %>%
+  summarise(mean = mean(est_acc_div, na.rm = T))
+
+
+
+comuna %>% filter(mean<=7) %>% 
+  ggplot(aes(nom_com_alu, mean)) +
+  theme_bw(base_size = 15) +
+ # geom_point(size = 4) +
+  geom_text(aes(label=nom_com_alu), check_overlap = TRUE) +
+  xlab("comuna") +
+  ylab("Actitudes de estudiantes") +
+  scale_y_continuous(limits = c(0, 7))
+```
+
+
+```{r}
+data %>% filter(nom_com_alu=="ï¿½IQUEN")
+
+data %>% filter(nom_com_alu=="ï¿½Uï¿½OA")
+```
+
