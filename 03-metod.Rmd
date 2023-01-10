@@ -1,5 +1,6 @@
 # Método
 
+
 ## Datos
 
 La base de datos a utilizar corresponde al Primer Estudio de Educación Ciudadana en Chile, realizado por la Agencia de Calidad de la Educación del Ministerio de Educación. En este estudio se evaluaron 8.589 estudiantes de octavo básico provenientes de 242 escuelas. La fecha de aplicación fue el 9 de noviembre de 2017. También se utilizarán las preguntas del cuestionario de Formación Ciudadana con las respuestas de 6.770 apoderados. Al juntar ambas bases de datos, el N total de respuestas completas es de 6.511 estudiantes y apoderados. El N final utilizado en los análisis es de 4.801 casos.

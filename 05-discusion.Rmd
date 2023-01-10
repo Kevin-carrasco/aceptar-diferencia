@@ -1,5 +1,6 @@
 # Discusión
 
+
 En la Figura \@ref(fig:hipotesis2) se muestra el modelo teórico que resume los resultados de las hipótesis planteadas.
 
 ```{r hipotesis2, echo=FALSE, fig.cap="Modelo teórico con resultados", fig.align = 'center', out.width = '100%'}

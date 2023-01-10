@@ -1,5 +1,6 @@
 # Resultados
 
+
 ## Descriptivos
 
 ```{r graph-bivariado, echo=FALSE, fig.cap="Relación entre actitudes de estudiantes y Conocimiento cívico según nivel educacional de los apoderados", fig.align = 'center', out.width = '100%'}
