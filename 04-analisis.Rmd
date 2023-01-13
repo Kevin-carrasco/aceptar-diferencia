@@ -18,10 +18,11 @@ La correlación intra-clase del modelo sin predictores es de 0.012 y el poder ex
 
 ```{r multinivel, echo=FALSE, results='asis'}
 kable(data.frame(image='![](IPO/output/tables/reg.png)'),    # generar tabla
+      format=table_format,
              caption="Regresión multinivel",
              col.names = "",
-             row.names = F,
-             format = "pipe") %>%  kable_styling(latex_options = c("HOLD_position"),full_width = T)
+             row.names = F) %>%  
+  kable_styling(latex_options = c("repeat_header", "HOLD_position"),full_width = F)
 ```
 
 Las variables asociadas a el nivel educacional de los apoderados no son estadísticamente significativas, salvo para el nivel de educación media en el modelo 3 y 4 ($\beta$=-0.16, p < .05). En cuanto a la cantidad de libros, tener más de 25 libros en el hogar tiene un efecto significativo solo en los modelos 1 y 2 ($\beta$=.1, p < .05), mientras que en el resto de los modelos deja de ser estadísticamente significativa al controlar por las demás variables.

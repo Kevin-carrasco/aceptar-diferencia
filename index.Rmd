@@ -1,10 +1,9 @@
 ---
-title: 'Aceptar la diversidad en el vecindario'
-subtitle: "Procesos de socialización política de actitudes hacia la diversidad social en jóvenes estudiantes chilenos"
+title: 'Aceptar la diversidad en el vecindario. Procesos de socialización política de actitudes hacia la diversidad social en estudiantes chilenos'
 author: "Kevin Carrasco Quintanilla"
-date: "`r Sys.Date()`"
+date: "Santiago de Chile, año 2023"
 institution: "Universidad de Chile"
-degree: "Magister en ciencias sociales mención en sociología de la modernización"
+degree: "Memoria para obtar al Título profesional de Sociólogo y Magister en ciencias sociales mención sociología de la modernización"
 advisor: "Profesor guía: Juan Carlos Castillo"
 bibliography: aceptacion-diferencia.bib
 csl: apa.csl
@@ -29,7 +28,7 @@ always_allow_html: true
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(warning = FALSE,message = FALSE, cache = FALSE,out.width = '75%',fig.pos= "H",fig.align = 'center')
+knitr::opts_chunk$set(warning = FALSE,message = FALSE, cache = FALSE,out.width = '100%',fig.pos= "H",fig.align = 'center')
 # knitr::opts_knit$set(base.url = "../") #relative path for .html output file
 # knitr::opts_knit$set(root.dir = "../") #relative path for chunks within .rmd files
 options(scipen=999)
@@ -51,7 +50,7 @@ is_word_output <- function(fmt = knitr:::pandoc_to()) {
 table_format = if(is_html_output()) {
   "html"
 } else if(is_latex_output()) {
-  "latex"
+  "pipe"
 }
 
 eval01 = if(is_html_output() | is_latex_output()) {T} else {F}

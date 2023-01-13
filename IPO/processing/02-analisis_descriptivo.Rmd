@@ -72,6 +72,12 @@ df2 <- dfSummary(data_indep,
                 headings = F)
 
 df2$Variable <- NULL # delete variable column
+sink("IPO/output/tables/desc02.txt")
+df2
+sink()
+
+
+
 view(df2,file = "desc02.html")
 webshot(url ="desc02.html" ,file ="IPO/output/tables/desc02.png")
 file.remove(c("desc01.html","desc02.html"))

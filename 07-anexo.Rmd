@@ -4,18 +4,19 @@
 
 ```{r anexo1, echo=FALSE, results='asis'}
 kable(data.frame(image='![](IPO/output/tables/apdis_fa.png)'),    # generar tabla
-             caption="Análisis factorial exploratorio",
-             col.names = "",
-             row.names = F,
-             format = "pipe") %>%  kable_styling(latex_options = c("HOLD_position"),full_width = T)
+      format=table_format,
+      caption="Análisis factorial exploratorio",
+      col.names = "",
+      row.names = F) %>%  kable_styling(latex_options = c("scale_down","HOLD_position"),full_width = F)
 ```
 
 ### Anexo 2
 
 ```{r interact, echo=FALSE, results='asis'}
 kable(data.frame(image='![](IPO/output/tables/interac.png)'),    # generar tabla
+      format=table_format,
              caption="Interacciones entre niveles",
              col.names = "",
-             row.names = F,
-             format = "pipe") %>%  kable_styling(latex_options = c("HOLD_position"),full_width = T)
+             row.names = F) %>%  
+  kable_styling(latex_options = c("repeat_header", "HOLD_position", "scale_down"),full_width = F)
 ```

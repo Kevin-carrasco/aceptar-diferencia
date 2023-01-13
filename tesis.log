@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.12.7)  10 JAN 2023 18:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.1.12)  13 JAN 2023 00:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **tesis.tex
 (./tesis.tex
 LaTeX2e <2022-11-01> patch level 1
-L3 programming layer <2022-11-02> (./templates/facsothesis.cls
+L3 programming layer <2022-12-17> (./templates/facsothesis.cls
 Document Class: templates/facsothesis 2004/01/27 The Reed College Thesis Class
 (c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/book.cls
 Document Class: book 2022/07/02 v1.4n Standard LaTeX document class
@@ -84,7 +84,7 @@ Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
 \FrameRule=\dimen143
 \FrameSep=\dimen144
 )) (c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/babel/babel.sty
-Package: babel 2022/11/30 3.83 The Babel package
+Package: babel 2022/12/26 3.84 The Babel package
 \babel@savecnt=\count197
 \U@D=\dimen145
 \l@unhyphenated=\language9
@@ -904,11 +904,11 @@ Overfull \hbox (545.03387pt too wide) in alignment at lines 575--578
  [] 
  []
 
-<IPO/output/tables/interac.png, id=768, 978.65625pt x 2157.05875pt>
+<IPO/output/tables/interac.png, id=768, 978.65625pt x 1795.70876pt>
 File: IPO/output/tables/interac.png Graphic file (type png)
 <use IPO/output/tables/interac.png>
 Package pdftex.def Info: IPO/output/tables/interac.png  used on input line 579.
-(pdftex.def)             Requested size: 978.65387pt x 2157.0535pt.
+(pdftex.def)             Requested size: 978.65387pt x 1795.70439pt.
 
 Overfull \hbox (545.03387pt too wide) in alignment at lines 578--581
  [] 
@@ -955,15 +955,15 @@ Package rerunfilecheck Info: File `tesis.out' has not changed.
 (rerunfilecheck)             Checksum: 6F7F9566645A75A08B6880DC3D34D9AD;2961.
  ) 
 Here is how much of TeX's memory you used:
- 16586 strings out of 476863
- 279813 string characters out of 5820203
- 619283 words of memory out of 5000000
- 37294 multiletter control sequences out of 15000+600000
- 540172 words of font info for 82 fonts, out of 8000000 for 9000
+ 16578 strings out of 477988
+ 279726 string characters out of 5835705
+ 1864787 words of memory out of 5000000
+ 36161 multiletter control sequences out of 15000+600000
+ 583200 words of font info for 86 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 72i,12n,77p,2706b,771s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,12n,77p,2706b,765s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}<c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/Users/kevin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmro12.pfb>
-Output written on tesis.pdf (60 pages, 1083099 bytes).
+Output written on tesis.pdf (60 pages, 1061737 bytes).
 PDF statistics:
  935 PDF objects out of 1000 (max. 8388607)
  826 compressed objects within 9 object streams

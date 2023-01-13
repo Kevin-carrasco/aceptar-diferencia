@@ -141,14 +141,12 @@ webshot2::webshot(url ="reg.html" ,file ="IPO/output/tables/reg.png")
 
 
 ```{r results='asis', message=FALSE, echo=FALSE}  
-htmlreg(list(reg4, reg6, reg7, reg11, reg12, reg13, reg14), 
+htmlreg(list(reg4, reg6, reg7, reg11), 
          custom.model.names = c("Modelo 1",
                                "Modelo 2",
                                "Modelo 3",
-                               "Modelo 4",
-                               "Modelo 5",
-                               "Modelo 6",
-                               "Modelo 7"), 
+                               "Modelo 4"
+                               ), 
         custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05",
         custom.coef.names = c("Intercepto", 
                               "Educación media <br> <i>(Ref. Básica)</i>",
@@ -186,16 +184,7 @@ htmlreg(list(reg4, reg6, reg7, reg11, reg12, reg13, reg14),
                               "Educación Media * Conocimiento Cívico A",
                               "Educación Técnica * Conocimiento Cívico A",
                               "Educación universitaria * Conocimiento Cívico A",
-                              "Educación Ns/Nr * Conocimiento Cívico A",
-                              "Más de 25 libros * Conocimiento Cívico D",
-                              "Más de 25 libros * Conocimiento Cívico C",
-                              "Más de 25 libros * Conocimiento Cívico B",
-                              "Más de 25 libros * Conocimiento Cívico A",
-                              "Educación Media * Promedio discusión en sala",
-                              "Educación Técnica * Promedio discusión en sala",
-                              "Educación universitaria * Promedio discusión en sala",
-                              "Educación Ns/Nr * Promedio discusión en sala",
-                              "Más de 25 libros * Promedio discusión en sala"
+                              "Educación Ns/Nr * Conocimiento Cívico A"
                               ),
         caption = "Aceptar la diversidad en el vecindario",
         caption.above = TRUE,

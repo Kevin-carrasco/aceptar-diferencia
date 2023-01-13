@@ -12,7 +12,7 @@ Sumado a lo anterior, para las variables del territorio se utilizará la base de
 Con el fin de medir las actitudes de los y las estudiantes hacia la diversidad en sus vecindarios se utiliza la batería de preguntas del módulo “Tolerancia y Distancia Social” del cuestionario de estudiantes. Estas variables están medidas a partir de las preguntas que se presentan en la Figura \@ref(fig:dep-est). 
 
 ```{r dep-est, echo=F, fig.cap="Aceptacion de la diversidad (estudiantes)"}
-knitr::include_graphics("IPO/output/graphs/div_est.png")
+knitr::include_graphics("IPO/output/graphs/div_est.png", dpi=10)
 ```
 
 Para operacionalizar esta batería de preguntas, en primer lugar, se recodificarán los ítems de modo que 0 indique que no le gustaría que cada uno de los grupos viva en su vecindario y 1 indique que sí le gustaría. Luego, se construirá un índice sumativo a partir de la suma de los ítems para representar el grado de aceptación de todos los grupos. La distribución de este índice se puede observar en el Gráfico \@ref(fig:ind-est). El valor de Alpha de Cronbach de este índice es de 0.887
@@ -54,11 +54,12 @@ Actitudes de la familia:
 Un resumen de estas variables se presenta en la Tabla \@ref(tab:desc02).
 
 ```{r desc02, echo=FALSE, results='asis'}
-kable(data.frame(image='![](IPO/output/tables/desc02.png)'),    # generar tabla
+kable(data.frame(image='![](IPO/output/tables/desc02.png)'),   # generar tabla
+      format=table_format,
              caption="Descripción variables independientes",
              col.names = "",
-             row.names = F,
-             format = "pipe") %>%  kable_styling(latex_options = c("HOLD_position"),full_width = T)
+             row.names = F) %>%  
+  kable_styling(latex_options = c("scale_down"), full_width = F)
 ```
 
 ## Estrategia de análisis
