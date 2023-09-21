@@ -7,3 +7,6 @@ El repositorio está basado en una plantilla (template) para escritura y publica
 [https://juancarloscastillo.github.io/tesisfacsodown/](https://juancarloscastillo.github.io/tesisfacsodown/)
 
 Además, la carpeta IPO contiene un flujo de trabajo para la modificación y análisis de datos. Más detalles en: https://lisa-coes.com/ipo-protocol/index.html
+
+
+Visualización en: https://kevin-carrasco.github.io/aceptar-diversidad/
